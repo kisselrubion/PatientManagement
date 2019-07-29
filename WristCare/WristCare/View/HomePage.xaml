@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	NavigationPage.HasNavigationBar="False"
+	xmlns:view="clr-namespace:WristCare.View;assembly=WristCare"
+	xmlns:androidSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+	androidSpecific:TabbedPage.ToolbarPlacement="Bottom"
+	x:Class="WristCare.View.HomePage">
+
+	<NavigationPage Title="Home">
+		<x:Arguments>
+			<view:Dashboard/>
+		</x:Arguments>
+	</NavigationPage>
+
+	<NavigationPage Title="Course">
+		<x:Arguments>
+			<view:CoursePage/>
+		</x:Arguments>
+	</NavigationPage>
+
+</TabbedPage>
