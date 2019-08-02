@@ -14,12 +14,8 @@
     <PackageReference Include="MvvmLight" Version="5.4.1.1" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="NFCForms" Version="2.3.2" />
-    <PackageReference Include="Quick.Xamarin.BLE" Version="1.0.4" />
+    <PackageReference Include="Plugin.BluetoothLE" Version="6.2.6" />
     <PackageReference Include="Xamarin.Forms" Version="4.1.0.618606" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Model\" />
   </ItemGroup>
 
   <ItemGroup>

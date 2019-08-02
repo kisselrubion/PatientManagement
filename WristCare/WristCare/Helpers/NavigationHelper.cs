@@ -17,6 +17,7 @@ namespace WristCare.Helpers
 			navigationService = new NavigationService();
 			SimpleIoc.Default.Reset();
 			SimpleIoc.Default.Register<INavigationService>(() => navigationService);
+
 		}
 
 		public void SetPages()

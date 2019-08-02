@@ -1,12 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WristCare.View.Dashboard">
-    <ContentPage.Content>
-        <StackLayout>
-            <Button Text="SCAN"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 BindingContext="{Binding ScanViewModel,Source={StaticResource Locator}}"
+			 x:Class="WristCare.View.Dashboard">
+	<ContentPage.Content>
+		<StackLayout>
+			<Button 
+				Text="Scan"
+				Command="{Binding StartBleScanCommand}"
+				VerticalOptions="CenterAndExpand" 
+				HorizontalOptions="CenterAndExpand" />
+			<ListView
+				ItemsSource="{Binding Devices}"
+				HorizontalOptions="CenterAndExpand"
+				VerticalOptions="CenterAndExpand">
+				<!--<ListView.ItemTemplate>
+					<DataTemplate>
+						<StackLayout Orientation="Vertical">
+							<Label Text="{Binding Path=Name}"></Label>
+							<Label Text="{Binding Path=Address}"></Label>
+						</StackLayout>
+					</DataTemplate>
+				</ListView.ItemTemplate>-->
+			</ListView>
+		</StackLayout>
+	</ContentPage.Content>
 </ContentPage>
