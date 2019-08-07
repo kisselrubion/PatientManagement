@@ -12,9 +12,9 @@ namespace WristCare.Model
 		public string Name { get; set; }
 
 		public Color StatusIndicator { get; set; }
-		//public override string ToString()
-		//{
-		//	return Name +" "+ Address;
-		//}
+		public override string ToString()
+		{
+			return Name;
+		}
 	}
 }

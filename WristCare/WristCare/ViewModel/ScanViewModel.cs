@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -37,11 +38,18 @@ namespace WristCare.ViewModel
 				
 			}
 		}
-
 		public IDevice BleDevice
 		{
 			get => _bleDevice;
-			set => Set(ref _bleDevice, value);
+			set
+			{
+				if (Set(ref _bleDevice, value))
+				{
+					
+				}
+
+				
+			}
 		}
 		public BluetoothDevice SelectedDevice
 		{
@@ -53,19 +61,21 @@ namespace WristCare.ViewModel
 				}
 			}
 		}
+
+		public string TestRfid { get; set; }
 		public ScanViewModel()
 		{
 			BleDevices = new ObservableCollection<BluetoothDevice>();
 			Devices = new ObservableCollection<string>();
 			Indicator = Color.FromHex("4FDEA4");
+			TestRfid = "375cc33f2aa";
 		}
 		public ICommand StartBleScanCommand => new RelayCommand( () =>  BleStartConnection());
 
 
 		/// Starts the scan and connection for available bluetooth devices
-		public void BleStartConnection()
+		public async void BleStartConnection()
 		{
-			BleDevices.Clear();
 			var devicesNames = new List<string>();
 			var adapter = CrossBleAdapter.Current;
 
@@ -82,8 +92,7 @@ namespace WristCare.ViewModel
 							StatusIndicator = Indicator,
 						};
 
-						if (content.Device.IsPairingAvailable() && !devicesNames.Contains(newDevice.Name) &&
-							content.Device.Name != null)
+						if (content.Device.IsPairingAvailable() && !devicesNames.Contains(newDevice.Name) && content.Device.Name != null)
 						{
 							devicesNames.Add(newDevice.Name);
 							BleDevices.Add(newDevice);
@@ -95,11 +104,36 @@ namespace WristCare.ViewModel
 							{
 								BleDevice = content.Device;
 								content.Device.Connect();
+								content.Device.ReadRssi();
 								BleConnectionStatus = content.Device.IsConnected();
 							}
 						}
 
+						if (BleDevice != null)
+						{
+							var coms = BleDevice.WhenAnyCharacteristicDiscovered().Subscribe(  async characteristic =>
+							{
+								//{
+								//	var output = result.Data;
+								//	//await Application.Current.MainPage.DisplayAlert("Read", output.ToString(), "ok");
+								//});
+
+								//characteristic.EnableNotifications();
+								//characteristic.WhenNotificationReceived().Subscribe(result =>
+								//{
+								//	var output = result.Data;
+								//});
+								//await Application.Current.MainPage.DisplayAlert("Read", result.Data.ToString(), "ok");
+								//if (response.Description == TestRfid)
+								//{
+								//	SelectedDevice.StatusIndicator = Color.Crimson;
+								//}
+							});
+						}
+
 					});
+
+				
 			}
 		}
 

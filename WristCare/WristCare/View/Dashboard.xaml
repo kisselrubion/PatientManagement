@@ -5,20 +5,29 @@
 			 x:Class="WristCare.View.Dashboard">
 	<ContentPage.Content>
 		<StackLayout>
+			<StackLayout Orientation="Horizontal">
+				<Label Text="Connected to"
+				       TextColor="{Binding Indicator}"></Label>
+				<Label Text="{Binding SelectedDevice.Name}"
+				       TextColor="{Binding SelectedDevice.StatusIndicator}"></Label>
+			</StackLayout>
+
 			<Button 
 				Text="Scan"
 				Command="{Binding StartBleScanCommand}"
 				VerticalOptions="CenterAndExpand" 
 				HorizontalOptions="CenterAndExpand" />
+
 			<ListView
-				ItemsSource="{Binding Devices}"
+				ItemsSource="{Binding BleDevices}"
 				HorizontalOptions="CenterAndExpand"
+				HasUnevenRows="True"
+				SelectedItem="{Binding SelectedDevice}"
 				VerticalOptions="CenterAndExpand">
 				<!--<ListView.ItemTemplate>
 					<DataTemplate>
 						<StackLayout Orientation="Vertical">
 							<Label Text="{Binding Path=Name}"></Label>
-							<Label Text="{Binding Path=Address}"></Label>
 						</StackLayout>
 					</DataTemplate>
 				</ListView.ItemTemplate>-->
