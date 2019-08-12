@@ -6,10 +6,9 @@
 	<ContentPage.Content>
 		<StackLayout>
 			<StackLayout Orientation="Horizontal">
-				<Label Text="Connected to"
+				<Label Text="{Binding RfidData}"
 				       TextColor="{Binding Indicator}"></Label>
-				<Label Text="{Binding SelectedDevice.Name}"
-				       TextColor="{Binding SelectedDevice.StatusIndicator}"></Label>
+				<Label Text="{Binding SelectedDevice.Name}"></Label>
 			</StackLayout>
 
 			<Button 
@@ -19,7 +18,7 @@
 				HorizontalOptions="CenterAndExpand" />
 
 			<ListView
-				ItemsSource="{Binding BleDevices}"
+				ItemsSource="{Binding Devices}"
 				HorizontalOptions="CenterAndExpand"
 				HasUnevenRows="True"
 				SelectedItem="{Binding SelectedDevice}"

@@ -24,6 +24,7 @@ namespace WristCare.Droid
 			ToolbarResource = Resource.Layout.Toolbar;
 
 			base.OnCreate(savedInstanceState);
+
 			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
 			//Required according to the Docs
