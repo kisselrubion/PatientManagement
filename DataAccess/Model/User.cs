@@ -19,8 +19,7 @@ namespace DataAccess.Model
 		public string Age { get; set; }
 		public string Address { get; set; }
 
-
-
+		public Account Account { get; set; }
 
 	}
 

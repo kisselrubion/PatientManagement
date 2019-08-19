@@ -85,7 +85,7 @@ namespace WristCare.ViewModel
 			Indicator = Color.FromHex("4FDEA4");
 			TestRfid = "375cc33f2aa";
 		}
-		public ICommand StartBleScanCommand => new RelayCommand( () =>  BleStartConnection());
+		public ICommand StartBleScanCommand => new RelayCommand(  async () => await  BleStartConnection());
 
 
 		/// Starts the scan and connection for available bluetooth devices
