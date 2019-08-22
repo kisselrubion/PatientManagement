@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace DataAccess.Model
+namespace NewDataAccess.Model
 {
 	public class Account
 	{

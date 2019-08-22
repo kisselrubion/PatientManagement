@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using NewDataAccess.Model;
 
-namespace DataAccess.Model
+namespace NewDataAccess
 {
-
 	public class AccountType
 	{
 		public int AccountTypeId { get; set; }

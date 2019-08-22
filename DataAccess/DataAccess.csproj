@@ -140,11 +140,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Model\Account.cs" />
-    <Compile Include="Model\AccountType.cs" />
     <Compile Include="Model\PatientManagementContextFactory.cs" />
     <Compile Include="Model\PatientManagementDbContext.cs" />
-    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

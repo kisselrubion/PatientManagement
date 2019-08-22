@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace DataAccess.Model
+namespace NewDataAccess.Model
 {
 	public class User
 	{
@@ -22,5 +20,4 @@ namespace DataAccess.Model
 		public Account Account { get; set; }
 
 	}
-
 }
