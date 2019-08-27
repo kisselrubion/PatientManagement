@@ -101,11 +101,5 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WristCare\WristCare.csproj">
-      <Project>{EC61EDDD-64F3-43B5-A3B4-D26B5C1E03D6}</Project>
-      <Name>WristCare</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
