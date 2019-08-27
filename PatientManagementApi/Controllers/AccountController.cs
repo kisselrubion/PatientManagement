@@ -4,24 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage;
 using PatientManagementBackend.Model;
 
 namespace PatientManagementApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/account")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private PMDbContext PmDbContext { get; }
-        public AccountController(PMDbContext pmDbContext)
+        private readonly PMDbContext _context;
+        public AccountController(PMDbContext context)
         {
-            PmDbContext = pmDbContext;
+            _context = context;
 
         }
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        [HttpGet("{id}")]
+        public ActionResult Get(int id)
         {
-            return new string[] { "value1", "value2" };
+            if (_context.Accounts.Count() <= 0) throw new NullReferenceException("Accounts not found");
+            var account = _context.Accounts.FirstOrDefault(c => c.AccountId == id);
+            return Ok(account);
         }
     }
 }
