@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IIS;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PatientManagementApi.Middlewares;
+using PatientManagementApi.Services.AccountServices;
+using PatientManagementApi.Services.UserServices;
 using PatientManagementBackend.Model;
 
 namespace PatientManagementApi
@@ -29,8 +33,32 @@ namespace PatientManagementApi
 		{
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+			//For IIS deployment
+			services.Configure<IISServerOptions>(options =>
+			{
+				options.AutomaticAuthentication = false;
+			});
+			//For IIS deployment
+
+			services.Configure<IISOptions>(options =>
+			{
+				options.ForwardClientCertificate = false;
+			});
+
+
+			//Handles loop referencing
+			services.AddMvc()
+				.AddJsonOptions(
+					options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+				);
+
+			// set the dbcontext lifetime to transient
 			services.AddDbContext<PMDbContext>(
-				ServiceLifetime.Transient); // set the dbcontext lifetime to transient
+				ServiceLifetime.Transient); 
+			services.AddTransient<UserService>();
+			services.AddTransient<AccountService>();
+
+			services.AddAuthentication(IISServerDefaults.AuthenticationScheme);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
