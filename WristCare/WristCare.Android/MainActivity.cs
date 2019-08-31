@@ -10,6 +10,7 @@ using Android.Widget;
 using Android.OS;
 using Poz1.NFCForms.Abstract;
 using Poz1.NFCForms.Droid;
+using Xamarin.Forms;
 
 namespace WristCare.Droid
 {

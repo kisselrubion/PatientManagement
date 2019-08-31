@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using WristCare.Service.SingUp;
 using WristCare.ViewModel;
 using Xamarin.Forms;
 
@@ -20,6 +21,10 @@ namespace WristCare.Helpers
 		{
 			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 			SimpleIoc.Default.Register<ScanViewModel>();
+
+
+			SimpleIoc.Default.Register<ISignUpService, SignupService>();
+
 		}
 
 		public ScanViewModel ScanViewModel => ServiceLocator.Current.GetInstance<ScanViewModel>();
