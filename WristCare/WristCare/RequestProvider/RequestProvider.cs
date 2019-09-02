@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using WristCare.Model;
 
 namespace WristCare.RequestProvider
 {
@@ -101,6 +102,17 @@ namespace WristCare.RequestProvider
 			}
 		}
 
+		//Only returns the success status code true or false
+		public async Task<bool> PostAsync<TResult>(string uri, TResult data) 
+		{
+			using (var httpClient = CreateHttpClientAsync(AccessToken))
+			{
+				var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+				var response = await httpClient.PostAsync(uri, content);
+				return response.IsSuccessStatusCode;
+			}
+		}
+
 		// returns whether the response is successful or not
 		private bool HandleResponse(HttpResponseMessage response)
 		{
@@ -125,15 +137,19 @@ namespace WristCare.RequestProvider
 		{
 			var httpClient = new HttpClient
 			{
-				//LocalBaseAddress = new Uri($"http://192.168.1.110/queue/")
-				BaseAddress = new Uri(BaseAddress + "/queue/")
+				//android base ip 10.0.2.2
+				//Dorm ip
+				//BaseAddress = new Uri("http://192.168.1.5/pms/api/")
+
+				//office ip
+				BaseAddress = new Uri("http://192.168.1.59/pms/api/")
 			};
 
 			httpClient.DefaultRequestHeaders.Accept.Add(
 				new MediaTypeWithQualityHeaderValue("application/json"));
 
-			// Add the connection id of the particular device
-			httpClient.DefaultRequestHeaders.Add("Connection-Id", ConnectionId);
+			//// Add the connection id of the particular device
+			//httpClient.DefaultRequestHeaders.Add("Connection-Id", ConnectionId);
 
 			// Add an access token header
 			httpClient.DefaultRequestHeaders.Authorization =

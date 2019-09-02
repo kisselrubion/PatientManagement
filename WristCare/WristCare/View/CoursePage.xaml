@@ -2,12 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 Title="Course"
+			 BindingContext="{Binding CourseViewModel,Source={StaticResource Locator}}"
 			 x:Class="WristCare.View.CoursePage">
 	<ContentPage.Content>
 		<StackLayout>
-			<Label Text="This is course page"
-				VerticalOptions="CenterAndExpand" 
-				HorizontalOptions="CenterAndExpand"/>
+			<Button
+				Text="Add patients"
+				Command="{Binding AddPatientsCommand}"></Button>
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

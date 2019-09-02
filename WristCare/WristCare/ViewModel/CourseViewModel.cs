@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using Poz1.NFCForms.Abstract;
+using WristCare.Helpers;
+using WristCare.ViewModel.Base;
 using Xamarin.Forms;
 
 namespace WristCare.ViewModel
 {
-	public class CourseViewModel
+	public class CourseViewModel : BaseViewModel
 	{
 		private readonly INfcForms device;
 
@@ -19,6 +23,13 @@ namespace WristCare.ViewModel
 		void HandleNewTag(object sender, NfcFormsTag e)
 		{
 
+		}
+
+		public ICommand AddPatientsCommand => new RelayCommand(AddPatients);
+
+		private void AddPatients()
+		{
+			navigationService.NavigateTo(Locator.PatientsPage);
 		}
 	}
 }

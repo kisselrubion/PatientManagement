@@ -26,6 +26,7 @@ namespace WristCare.Helpers
 			navigationService.Configure(Locator.HomePage, typeof(HomePage));
 			navigationService.Configure(Locator.Dashboard, typeof(Dashboard));
 			navigationService.Configure(Locator.PatientInformationPage, typeof(PatientInformationPage));
+			navigationService.Configure(Locator.PatientsPage, typeof(PatientsPage));
 		}
 
 		public Page InitializeMainPage()

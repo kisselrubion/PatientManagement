@@ -23,6 +23,18 @@ namespace PatientManagementApi.Controllers
 			_context = context;
 
 		}
+		
+		//Returns all patient type of account
+		[HttpGet("patients")]
+		public ActionResult Get()
+		{
+			if (!_context.Accounts.Any()) throw new NullReferenceException("Accounts not found");
+
+			//AccountTypeId = 4 ; patient type of account
+			var accounts = _context.Accounts.Where(c => c.AccountTypeId == 4).ToList();
+			var users = accounts.Select(account => _context.Users.FirstOrDefault(c => c.UserAccountId == account.AccountNumber)).ToList();
+			return Ok(users);
+		}
 
 		// api/account?id=r0001
 		[HttpGet]
