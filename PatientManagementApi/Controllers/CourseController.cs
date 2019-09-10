@@ -40,7 +40,7 @@ namespace PatientManagementApi.Controllers
 			}
 		}
 
-		// usage : api/course?id=r0001
+		// usage : api/course?id=c0001
 		[HttpGet]
 		public async Task<ActionResult> Get(string id)
 		{

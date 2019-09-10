@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PatientManagementApi.Middlewares;
 using PatientManagementApi.Services.AccountServices;
+using PatientManagementApi.Services.CourseServices;
 using PatientManagementApi.Services.UserServices;
 using PatientManagementBackend.Model;
 
@@ -52,11 +53,14 @@ namespace PatientManagementApi
 					options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 				);
 
-			// set the dbcontext lifetime to transient
+			//TODO: Always add services here
+			// set the dbcontext lifetime to transientd
 			services.AddDbContext<PMDbContext>(
 				ServiceLifetime.Transient); 
 			services.AddTransient<UserService>();
 			services.AddTransient<AccountService>();
+			services.AddTransient<CourseService>();
+
 			services.AddAuthentication(IISServerDefaults.AuthenticationScheme);
 		}
 
