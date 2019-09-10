@@ -64,7 +64,7 @@ namespace PatientManagementApi.Controllers
 			}
 			catch
 			{
-				throw new NullReferenceException("Register Failed");
+				throw new NullReferenceException("Patient Registration Failed");
 			}
 		}
 	}

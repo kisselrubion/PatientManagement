@@ -13,6 +13,9 @@
 			<Button
 				Text="Add patients"
 				Command="{Binding AddPatientsCommand}"></Button>
+			<Button
+				Text="Add Course"
+				Command="{Binding AddCourseCommand}"></Button>
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage> 
