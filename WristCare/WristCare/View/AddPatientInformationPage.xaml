@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	BindingContext="{Binding PatientsViewModel,Source={StaticResource Locator}}"
+	Title="Patient Info"
+	x:Class="WristCare.View.AddPatientInformationPage">
+	<ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<StackLayout Orientation="Vertical">
+				<Entry Text="{Binding Path=Patient.FirstName}" Placeholder="First Name"></Entry>
+				<Entry Text="{Binding Patient.LastName}" Placeholder="Middle Name"></Entry>
+				<Entry Text="{Binding Patient.LastName}" Placeholder="Last Name"></Entry>
+				<Entry Text="{Binding Patient.Age}" Placeholder="Age"></Entry>
+				<Entry Text="{Binding Patient.BirthDate}" Placeholder="Birthdate"></Entry>
+				<Entry Text="{Binding Patient.Address}" Placeholder="Address"></Entry>
+				<Entry Text="{Binding Patient.ContactNumber}" Placeholder="Contact Number"></Entry>
+				<Entry Text="{Binding Patient.Email}" Placeholder="Email"></Entry>
+
+				<Button Text="Add Wristband ID"></Button>
+				<Button Text="Register Patient" Command="{Binding RegisterPatientCommand}"></Button>
+			</StackLayout>
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>

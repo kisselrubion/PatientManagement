@@ -103,13 +103,17 @@ namespace WristCare.RequestProvider
 		}
 
 		//Only returns the success status code true or false
-		public async Task<bool> PostAsync<TResult>(string uri, TResult data) 
+		public async Task<TResult> PostAsync<TResult>(string uri, TResult data) 
 		{
 			using (var httpClient = CreateHttpClientAsync(AccessToken))
 			{
-				var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+				var serializedData = JsonConvert.SerializeObject(data);
+				var content = new StringContent(serializedData, Encoding.UTF8, "application/json");
 				var response = await httpClient.PostAsync(uri, content);
-				return response.IsSuccessStatusCode;
+				var serialized = await response.Content.ReadAsStringAsync();
+				var result = await Task.Run(() =>
+					JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
+				return result;
 			}
 		}
 
@@ -139,10 +143,11 @@ namespace WristCare.RequestProvider
 			{
 				//android base ip 10.0.2.2
 				//Dorm ip
-				//BaseAddress = new Uri("http://192.168.1.5/pms/api/")
+				BaseAddress = new Uri("http://192.168.1.59/pms/api/")
 
 				//office ip
-				BaseAddress = new Uri("http://192.168.1.59/pms/api/")
+				//TODO : always check ip CONNECTION
+				//BaseAddress = new Uri("http://192.168.143.145/pms/api/")
 			};
 
 			httpClient.DefaultRequestHeaders.Accept.Add(

@@ -26,6 +26,12 @@ namespace WristCare.Service.Patient
 			var patients = await _requestProvider.GetAsync<List<User>>("account/patients");
 			return patients;
 		}
+
+		public async Task<Account> RegisterPatient(Account account)
+		{
+			var response = await _requestProvider.PostAsync("account", account);
+			return response;
+		}
 		
 	}
 }

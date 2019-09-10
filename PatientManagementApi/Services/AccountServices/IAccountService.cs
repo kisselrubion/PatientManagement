@@ -8,7 +8,7 @@ namespace PatientManagementApi.Services.AccountServices
 {
 	public interface IAccountService
 	{
-		Task<bool> Post(Account account);
+		Task<Account> Post(Account account);
 		bool Put(Account account);
 		Task<Account> Get(string id);
 		Task<bool> Remove(string id);

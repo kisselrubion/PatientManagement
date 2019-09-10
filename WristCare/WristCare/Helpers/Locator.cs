@@ -5,6 +5,7 @@ using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using WristCare.Service.Patient;
 using WristCare.Service.SingUp;
+using WristCare.Service.Users;
 using WristCare.ViewModel;
 using Xamarin.Forms;
 
@@ -18,6 +19,7 @@ namespace WristCare.Helpers
 		public const string ScanPage = "ScanPage";
 		public const string PatientInformationPage = "PatientInformationPage";
 		public const string PatientsPage = "PatientsPage";
+		public const string AddPatientInformationPage = "AddPatientInformationPage";
 
 		public Locator()
 		{
@@ -31,6 +33,7 @@ namespace WristCare.Helpers
 			//Services
 			SimpleIoc.Default.Register<RequestProvider.RequestProvider>();
 			SimpleIoc.Default.Register<PatientService>();
+			SimpleIoc.Default.Register<UserService>();
 			SimpleIoc.Default.Register<ISignUpService, SignupService>();
 		}
 

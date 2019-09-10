@@ -37,8 +37,8 @@ namespace PatientManagementApi.Controllers
 		public async Task<ActionResult> Post([FromBody] User user)
 		{
 			if (user == null) throw new NullReferenceException("User not found");
-			await _userService.Post(user);
-			return Ok();
+			var entity =  await _userService.Post(user);
+			return Ok(entity);
 		}
 
 

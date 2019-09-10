@@ -26,8 +26,14 @@ namespace WristCare.ViewModel
 		}
 
 		public ICommand AddPatientsCommand => new RelayCommand(AddPatients);
+		public ICommand SearchPatientCommand => new RelayCommand(SearchPatients);
 
 		private void AddPatients()
+		{
+			navigationService.NavigateTo(Locator.AddPatientInformationPage);
+
+		}
+		private void SearchPatients()
 		{
 			navigationService.NavigateTo(Locator.PatientsPage);
 		}

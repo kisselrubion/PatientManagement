@@ -57,8 +57,8 @@ namespace PatientManagementApi.Controllers
 
 			try
 			{
-				await _context.Accounts.AddAsync(account);
-				return Ok();
+				var entity = await _context.Accounts.AddAsync(account);
+				return Ok(entity);
 			}
 			catch
 			{

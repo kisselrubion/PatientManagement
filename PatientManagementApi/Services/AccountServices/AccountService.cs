@@ -15,16 +15,17 @@ namespace PatientManagementApi.Services.AccountServices
 		{
 			_context = context;
 		}
-		public async Task<bool> Post(Account account)
+		public async Task<Account> Post(Account account)
 		{
 			try
 			{
-				await _context.Accounts.AddAsync(account);
-				return true;
+				var addedAccount =  await _context.Accounts.AddAsync(account);
+				await _context.SaveChangesAsync();
+				return addedAccount.Entity;
 			}
 			catch
 			{
-				return false;
+				return new Account();
 			}
 		}
 

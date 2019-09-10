@@ -8,7 +8,7 @@ namespace PatientManagementApi.Services.UserServices
 {
 	public interface IUserService
 	{
-		Task<bool> Post(User user);
+		Task<User> Post(User user);
 		bool Put(User user);
 		Task<User> Get(string id);
 		Task<bool> Remove(string id);

@@ -15,16 +15,18 @@ namespace PatientManagementApi.Services.UserServices
 		{
 			_context = context;
 		}
-		public async Task<bool> Post(User user)
+		public async Task<User> Post(User user)
 		{
 			try
 			{
-				await _context.Users.AddAsync(user);
-				return true;
+				var addedUser =  await _context.Users.AddAsync(user);
+				await _context.SaveChangesAsync();
+
+				return addedUser.Entity;
 			}
 			catch
 			{
-				return false;
+				return new User();
 			}
 		}
 
