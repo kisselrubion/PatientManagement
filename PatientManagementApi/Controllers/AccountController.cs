@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
+using PatientManagementApi.Services.AccountServices;
 using PatientManagementBackend.Model;
 
 namespace PatientManagementApi.Controllers
@@ -16,12 +17,13 @@ namespace PatientManagementApi.Controllers
 	public class AccountController : ControllerBase
 	{
 		private readonly PMDbContext _context;
+		private readonly AccountService _accountService;
 
 
-		public AccountController(PMDbContext context)
+		public AccountController(PMDbContext context, AccountService accountService)
 		{
 			_context = context;
-
+			_accountService = accountService;
 		}
 		
 		//Returns all patient type of account
@@ -57,7 +59,7 @@ namespace PatientManagementApi.Controllers
 
 			try
 			{
-				var entity = await _context.Accounts.AddAsync(account);
+				var entity = await _accountService.Post(account);
 				return Ok(entity);
 			}
 			catch

@@ -57,7 +57,6 @@ namespace PatientManagementApi
 				ServiceLifetime.Transient); 
 			services.AddTransient<UserService>();
 			services.AddTransient<AccountService>();
-
 			services.AddAuthentication(IISServerDefaults.AuthenticationScheme);
 		}
 
