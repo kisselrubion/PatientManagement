@@ -7,6 +7,7 @@ namespace WristCare.Model
 		public int ProcedureId { get; set; }
 		public int? ProcedureNumber { get; set; }
 
-		public List<Course> Courses { get; set; }
+		public int? CourseId { get; set; }
+		public Course Course { get; set; }
 	}
 }

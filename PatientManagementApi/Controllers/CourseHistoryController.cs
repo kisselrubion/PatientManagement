@@ -16,9 +16,9 @@ namespace PatientManagementApi.Controllers
 	public class CourseHistoryController : ControllerBase
 	{
 		private readonly PMDbContext _context;
-		private readonly CouseHistoryService _couseHistoryService;
+		private readonly CourseHistoryService _couseHistoryService;
 
-		public CourseHistoryController(PMDbContext context, CouseHistoryService couseHistoryService)
+		public CourseHistoryController(PMDbContext context, CourseHistoryService couseHistoryService)
 		{
 			_context = context;
 			_couseHistoryService = couseHistoryService;

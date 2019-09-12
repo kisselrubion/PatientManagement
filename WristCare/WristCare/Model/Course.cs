@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WristCare.Model
 {
@@ -14,15 +15,10 @@ namespace WristCare.Model
 		public bool IsArchived { get; set; }
 		public string Description { get; set; }
 
-		//Foreign key
-		public int? TransferId { get; set; }
-		public int? TreatmentId { get; set; }
-		public int? MedicineId { get; set; }
-		public int? MedProcedureId { get; set; }
 
-		public Transfer Transfer { get; set; }
-		public Treatment Treatment { get; set; }
-		public Medicine Medicine { get; set; }
-		public Procedure Procedure { get; set; }
+		public List<Transfer> Transfers { get; set; }
+		public List<Treatment> Treatments { get; set; }
+		public List<Medicine> Medicines { get; set; }
+		public List<Procedure> Procedures { get; set; }
 	}
 }

@@ -7,10 +7,10 @@ using PatientManagementBackend.Model;
 
 namespace PatientManagementApi.Services.CourseHistoryService
 {
-	public class CouseHistoryService : ICourseHistoryService
+	public class CourseHistoryService : ICourseHistoryService
 	{
 		private readonly PMDbContext _context;
-		public CouseHistoryService(PMDbContext context)
+		public CourseHistoryService(PMDbContext context)
 		{
 			_context = context;
 		}
