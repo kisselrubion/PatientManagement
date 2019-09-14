@@ -12,16 +12,21 @@
 		<Frame
 			HorizontalOptions="CenterAndExpand"
 			VerticalOptions="CenterAndExpand"
-			HeightRequest="700"
-			WidthRequest="500"
 			Padding="0"
 			CornerRadius="10"
 			HasShadow="False"
 			BackgroundColor="White"
-			Margin="4">
-			<Label Text="Welcome to Xamarin.Forms!"
-				VerticalOptions="CenterAndExpand" 
-				HorizontalOptions="CenterAndExpand" />
+			Margin="20">
+			<ScrollView>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"></RowDefinition>
+					</Grid.RowDefinitions>
+					<StackLayout Orientation="Vertical">
+
+					</StackLayout>
+				</Grid>
+			</ScrollView>
 		</Frame>
 	</ContentPage.Content>
 </pages:PopupPage>

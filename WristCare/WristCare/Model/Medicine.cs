@@ -9,5 +9,7 @@ namespace WristCare.Model
 		public int? MedicineNumber { get; set; }
 		public int? CourseId { get; set; }
 		public Course Course { get; set; }
+		public List<Measurement> Measurements { get; set; }
+
 	}
 }
