@@ -21,8 +21,8 @@ namespace WristCare.ViewModel
 		public CourseViewModel(CourseService courseService)
 		{
 			_courseService = courseService;
-			device = DependencyService.Get<INfcForms>();
-			device.NewTag += HandleNewTag;
+			//device = DependencyService.Get<INfcForms>();
+			//device.NewTag += HandleNewTag;
 		}
 
 		void HandleNewTag(object sender, NfcFormsTag e)

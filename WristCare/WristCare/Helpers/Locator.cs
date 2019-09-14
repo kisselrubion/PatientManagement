@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using WristCare.Service.Courses;
 using WristCare.Service.Patient;
 using WristCare.Service.SingUp;
 using WristCare.Service.Users;
@@ -30,10 +31,12 @@ namespace WristCare.Helpers
 			SimpleIoc.Default.Register<CourseViewModel>();
 			SimpleIoc.Default.Register<PatientsViewModel>();
 
+			//TODO: always inject ALL services here
 			//Services
 			SimpleIoc.Default.Register<RequestProvider.RequestProvider>();
 			SimpleIoc.Default.Register<PatientService>();
 			SimpleIoc.Default.Register<UserService>();
+			SimpleIoc.Default.Register<CourseService>();
 			SimpleIoc.Default.Register<ISignUpService, SignupService>();
 		}
 

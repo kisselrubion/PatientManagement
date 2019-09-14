@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PatientManagementApi.Middlewares;
 using PatientManagementApi.Services.AccountServices;
+using PatientManagementApi.Services.CourseHistoryService;
 using PatientManagementApi.Services.CourseServices;
 using PatientManagementApi.Services.UserServices;
 using PatientManagementBackend.Model;
@@ -54,13 +55,14 @@ namespace PatientManagementApi
 				);
 
 			//TODO: Always add services here
-			// set the dbcontext lifetime to transientd
-			services.AddDbContext<PMDbContext>(
-				ServiceLifetime.Transient); 
+			// set the dbContext lifetime to transient
+			services.AddDbContext<PMDbContext>(ServiceLifetime.Transient); 
 			services.AddTransient<UserService>();
 			services.AddTransient<AccountService>();
 			services.AddTransient<CourseService>();
+			services.AddTransient<CourseHistoryService>();
 
+			//Auth
 			services.AddAuthentication(IISServerDefaults.AuthenticationScheme);
 		}
 
@@ -76,9 +78,7 @@ namespace PatientManagementApi
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
-
 			app.UseExceptionBlockerMiddleware();
-
 			app.UseHttpsRedirection();
 			app.UseMvc();
 		}

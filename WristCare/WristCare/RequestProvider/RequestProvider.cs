@@ -143,7 +143,7 @@ namespace WristCare.RequestProvider
 			{
 				//android base ip 10.0.2.2
 				//Dorm ip
-				BaseAddress = new Uri("http://192.168.1.59/pms/api/")
+				BaseAddress = new Uri("http://192.168.1.8/pms/api/")
 
 				//office ip
 				//TODO : always check ip CONNECTION
