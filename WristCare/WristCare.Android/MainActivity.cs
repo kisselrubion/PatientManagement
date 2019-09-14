@@ -26,6 +26,9 @@ namespace WristCare.Droid
 
 			base.OnCreate(savedInstanceState);
 
+			//For popup pages
+			Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+
 			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
 			//Required according to the Docs
