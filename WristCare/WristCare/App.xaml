@@ -8,7 +8,35 @@
 			<helpers:Locator x:Key="Locator"></helpers:Locator>
 
 			<Color x:Key="Primary">#1ec8c8</Color>
+			<Color x:Key="PassiveGreen">#e3f2e6</Color>
+			<Color x:Key="LightTextColor">#FAFAFA</Color>
+			<Color x:Key="PrimaryBackgroundColor">#dddddd</Color>
+			<Color x:Key="PrimaryTextColor">#3c465a</Color>
 
+
+			<!--Buttons, first one is the default-->
+			<Style ApplyToDerivedTypes="True" CanCascade="True" TargetType="Button">
+				<Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+				<Setter Property="BorderColor" Value="{StaticResource Primary}" />
+				<Setter Property="BorderRadius" Value="3" />
+				<Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
+				<Setter Property="HorizontalOptions" Value="FillAndExpand" />
+			</Style>
+
+			<Style x:Key="PrimaryActiveButtonStyle" TargetType="Button">
+				<Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
+				<Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+			</Style>
+
+			<Style x:Key="PrimaryPassiveButtonStyle" TargetType="Button">
+				<Setter Property="TextColor" Value="{StaticResource Primary}" />
+				<Setter Property="BackgroundColor" Value="{StaticResource PassiveGreen}" />
+			</Style>
+
+			<Style x:Key="SecondaryPassiveButtonStyle" TargetType="Button">
+				<Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+				<Setter Property="BackgroundColor" Value="{StaticResource PrimaryBackgroundColor}" />
+			</Style>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

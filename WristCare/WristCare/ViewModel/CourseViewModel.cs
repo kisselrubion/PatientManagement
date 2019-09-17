@@ -19,42 +19,60 @@ namespace WristCare.ViewModel
 	{
 		private readonly INfcForms device;
 		private readonly CourseService _courseService;
+		private Course _selectedCourse;
+
+		public Course SelectedCourse
+		{
+			get => _selectedCourse;
+			set => Set(ref _selectedCourse, value);
+		}
 
 		public CourseViewModel(CourseService courseService)
 		{
 			_courseService = courseService;
 			//device = DependencyService.Get<INfcForms>();
 			//device.NewTag += HandleNewTag;
+			InitializeData();
 		}
 
-		void HandleNewTag(object sender, NfcFormsTag e)
+		public void InitializeData()
 		{
-
+			SelectedCourse = new Course
+			{
+				Title = "Stroke Medication",
+				IsArchived = false,
+				CourseDate = DateTime.Now,
+				Description = "Sample Description",
+				TransactionId = Guid.NewGuid().ToString(),
+			};
 		}
-
 		public ICommand AddPatientsCommand => new RelayCommand(AddPatients);
 		public ICommand SearchPatientCommand => new RelayCommand(SearchPatients);
-		public ICommand AddCourseCommand => new RelayCommand(async () => await CreateCourse());
+		public ICommand AddCourseCommand => new RelayCommand(async () => await CoursePopup());
+		public ICommand CancelCourseCommand => new RelayCommand(async () => await CoursePopupCancel());
+
+		private async Task CoursePopupCancel()
+		{
+			await PopupNavigation.Instance.PopAsync();
+		}
+
+		public ICommand CreateCourseCommand => new RelayCommand(async () => await CreateCourse());
 
 		private async Task CreateCourse()
 		{
+			if (SelectedCourse != null)
+			{
+				var result = await _courseService.CreateCourse(SelectedCourse);
+				if (result.CourseId != 0)
+				{
+					await PopupHelper.ActionResultMessage("Success", "Course created");
+				}
+			}
+		}
+
+		private async Task CoursePopup()
+		{
 			await PopupNavigation.Instance.PushAsync(new AddCoursePage());
-
-			//var course = new Course
-			//{
-			//	Title = "Stroke Medication",
-			//	IsArchived = false,
-			//	CourseDate = DateTime.Now,
-			//	Description = "Sample Description",
-			//	TransactionId = Guid.NewGuid().ToString(),
-			//};
-
-			//var result = await _courseService.CreateCourse(course);
-
-			//if (result.CourseId != 0)
-			//{
-			//	await PopupHelper.ActionResultMessage("Success", "Course created");
-			//}
 		}
 
 		private void AddPatients()

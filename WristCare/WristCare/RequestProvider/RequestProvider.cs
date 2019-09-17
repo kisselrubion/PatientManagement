@@ -142,7 +142,7 @@ namespace WristCare.RequestProvider
 			var httpClient = new HttpClient
 			{
 				//android base ip 10.0.2.2
-				//Dorm ip
+				//Dorm ip and house
 				BaseAddress = new Uri("http://192.168.1.8/pms/api/")
 
 				//office ip

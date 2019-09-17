@@ -29,6 +29,7 @@ namespace WristCare.Helpers
 			navigationService.Configure(Locator.PatientsPage, typeof(PatientsPage));
 			navigationService.Configure(Locator.AddPatientInformationPage, typeof(AddPatientInformationPage));
 			navigationService.Configure(Locator.AddCoursePage, typeof(AddCoursePage));
+			navigationService.Configure(Locator.CourseDetailsPage, typeof(CourseDetailsPage));
 		}
 
 		public Page InitializeMainPage()

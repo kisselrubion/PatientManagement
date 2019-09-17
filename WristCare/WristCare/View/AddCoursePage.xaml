@@ -6,25 +6,48 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
 	mc:Ignorable="d"
+	BindingContext="{Binding Path=CourseViewModel,Source={StaticResource Locator}}"
 	NavigationPage.HasNavigationBar="False"
 	x:Class="WristCare.View.AddCoursePage">
 	<ContentPage.Content>
 		<Frame
 			HorizontalOptions="CenterAndExpand"
-			VerticalOptions="CenterAndExpand"
+			VerticalOptions="FillAndExpand"
 			Padding="0"
 			CornerRadius="10"
 			HasShadow="False"
 			BackgroundColor="White"
 			Margin="20">
 			<ScrollView>
-				<Grid>
+				<Grid Margin="20">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
 					</Grid.RowDefinitions>
-					<StackLayout Orientation="Vertical">
+					<StackLayout 
+						Margin="5"
+						Orientation="Vertical" 
+						VerticalOptions="StartAndExpand">
+						<Entry Text="{Binding SelectedCourse.Title}"  Placeholder="Title"></Entry>
+						<Entry Text="{Binding SelectedCourse.CourseDate}" Placeholder="Date"></Entry>
+						<Entry Text="{Binding SelectedCourse.Description}" Placeholder="Description"></Entry>
+
 
 					</StackLayout>
+
+					<Button 
+						Margin="5"
+						Grid.Row="1"
+						Command="{Binding CreateCourseCommand}"
+						Text="Create Course"></Button>
+
+					<Button 
+						Margin="5,0,5,5"
+						Grid.Row="2"
+						Style="{StaticResource SecondaryPassiveButtonStyle}"
+						Command="{Binding }"
+						Text="Back"></Button>
 				</Grid>
 			</ScrollView>
 		</Frame>
