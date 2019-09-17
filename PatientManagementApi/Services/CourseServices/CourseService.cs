@@ -37,8 +37,14 @@ namespace PatientManagementApi.Services.CourseServices
 
 		public async Task<Course> Get(string id)
 		{
-			var course = await _context.Courses.FirstOrDefaultAsync(c => c.TransactionId == id);
+			var course = await _context.Courses.FirstOrDefaultAsync(c => c.TransactionId == id && c.IsArchived == false);
 			return course ?? new Course();
+		}
+		public List<Course> GetRange(bool all)
+		{
+			if(!all) return new List<Course>();
+			var courses = _context.Courses.Where(c => c.IsArchived == false).ToList();
+			return courses;
 		}
 
 		public Task<bool> Remove(string id)

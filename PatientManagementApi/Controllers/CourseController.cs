@@ -41,12 +41,23 @@ namespace PatientManagementApi.Controllers
 		}
 
 		// usage : api/course?id=c0001
-		[HttpGet]
+		[HttpGet("{id}")]
 		public async Task<ActionResult> Get(string id)
 		{
+			if (id == null) throw new NullReferenceException("Users not found");
 			if (!_context.Users.Any()) throw new NullReferenceException("Users not found");
 			var user = await _courseService.Get(id);
 			return Ok(user);
+		}
+
+		// usage : api/course?all=true
+		[HttpGet]
+		public ActionResult Get(bool all)
+		{
+			if (!all) throw new NullReferenceException("Courses not found");
+			if (!_context.Courses.Any()) throw new NullReferenceException("Course no entries");
+			var courses = _courseService.GetRange(all);
+			return Ok(courses);
 		}
 	}
 }

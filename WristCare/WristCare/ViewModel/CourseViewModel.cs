@@ -9,6 +9,7 @@ using Rg.Plugins.Popup.Services;
 using WristCare.Helpers;
 using WristCare.Model;
 using WristCare.Service.Courses;
+using WristCare.Service.Patient;
 using WristCare.View;
 using WristCare.ViewModel.Base;
 using Xamarin.Forms;
@@ -19,6 +20,7 @@ namespace WristCare.ViewModel
 	{
 		private readonly INfcForms device;
 		private readonly CourseService _courseService;
+		private readonly PatientService _patientService;
 		private Course _selectedCourse;
 
 		public Course SelectedCourse
@@ -27,9 +29,10 @@ namespace WristCare.ViewModel
 			set => Set(ref _selectedCourse, value);
 		}
 
-		public CourseViewModel(CourseService courseService)
+		public CourseViewModel(CourseService courseService, PatientService patientService)
 		{
 			_courseService = courseService;
+			_patientService = patientService;
 			//device = DependencyService.Get<INfcForms>();
 			//device.NewTag += HandleNewTag;
 			InitializeData();
@@ -43,20 +46,27 @@ namespace WristCare.ViewModel
 				IsArchived = false,
 				CourseDate = DateTime.Now,
 				Description = "Sample Description",
+				//Todo: Create Id creator helper
 				TransactionId = Guid.NewGuid().ToString(),
 			};
+		}
+
+		public async Task GetPatientsAsync()
+		{
+
+			//Todo : Priority! Get patients that are enrolled with courses
+			var patientsWithCourses = await _patientService.GetPatientsWithCourses();
 		}
 		public ICommand AddPatientsCommand => new RelayCommand(AddPatients);
 		public ICommand SearchPatientCommand => new RelayCommand(SearchPatients);
 		public ICommand AddCourseCommand => new RelayCommand(async () => await CoursePopup());
 		public ICommand CancelCourseCommand => new RelayCommand(async () => await CoursePopupCancel());
+		public ICommand CreateCourseCommand => new RelayCommand(async () => await CreateCourse());
 
 		private async Task CoursePopupCancel()
 		{
 			await PopupNavigation.Instance.PopAsync();
 		}
-
-		public ICommand CreateCourseCommand => new RelayCommand(async () => await CreateCourse());
 
 		private async Task CreateCourse()
 		{

@@ -6,16 +6,37 @@
 	BindingContext="{Binding CourseViewModel,Source={StaticResource Locator}}"
 	x:Class="WristCare.View.CoursePage">
 	<ContentPage.Content>
-		<StackLayout>
-			<Button
-				Text="Search patients"
-				Command="{Binding SearchPatientCommand}"></Button>
-			<Button
-				Text="Add patients"
-				Command="{Binding AddPatientsCommand}"></Button>
-			<Button
-				Text="Add Course"
-				Command="{Binding AddCourseCommand}"></Button>
-		</StackLayout>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+			</Grid.RowDefinitions>
+			<ListView
+				Header="Courses"
+				Margin="5">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+			<StackLayout 
+				Grid.Row="1"
+				Margin="5"
+				Orientation="Vertical">
+				<Button
+					Text="Search patients"
+					Command="{Binding SearchPatientCommand}"></Button>
+				<Button
+					Text="Add patients"
+					Command="{Binding AddPatientsCommand}"></Button>
+				<Button
+					Text="Add Course"
+					Command="{Binding AddCourseCommand}"></Button>
+			</StackLayout>
+		</Grid>
+
 	</ContentPage.Content>
 </ContentPage> 
