@@ -16,5 +16,11 @@ namespace WristCare.View
 		{
 			InitializeComponent ();
 		}
+
+		private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
+		{
+			//todo : navigate to course details page
+			throw new NotImplementedException();
+		}
 	}
 }

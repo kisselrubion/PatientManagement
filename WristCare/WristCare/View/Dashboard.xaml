@@ -6,6 +6,16 @@
 			 x:Class="WristCare.View.Dashboard">
 	<ContentPage.Content>
 		<StackLayout>
+			<Image
+				Margin="20"
+				Source="nfc.png"
+				HeightRequest="200"
+				WidthRequest="200"
+				Opacity="0.5"
+				HorizontalOptions="CenterAndExpand"
+				VerticalOptions="Start"
+				Aspect="AspectFit"/>
+
 			<StackLayout Orientation="Horizontal">
 				<Label Text="{Binding RfidData}"
 				       TextColor="{Binding Indicator}"></Label>

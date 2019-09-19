@@ -6,9 +6,10 @@ namespace WristCare.Model
 	{
 		public int TransferId { get; set; }
 		public int? TransferNumber { get; set; }
-
 		public int? CourseId { get; set; }
+		public int? RoomId { get; set; }
 		public Course Course { get; set; }
+		public Room Rooms { get; set; }
 
 	}
 }

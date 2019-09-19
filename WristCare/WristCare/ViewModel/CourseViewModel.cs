@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -29,6 +30,9 @@ namespace WristCare.ViewModel
 			set => Set(ref _selectedCourse, value);
 		}
 
+		public ObservableCollection<Course> Courses { get; set; }
+		public ObservableCollection<string> CourseTypes { get; set; }
+
 		public CourseViewModel(CourseService courseService, PatientService patientService)
 		{
 			_courseService = courseService;
@@ -49,8 +53,24 @@ namespace WristCare.ViewModel
 				//Todo: Create Id creator helper
 				TransactionId = Guid.NewGuid().ToString(),
 			};
+			Courses = new ObservableCollection<Course>();
+			CourseTypes = new ObservableCollection<string>
+			{
+				"Medication",
+				"Treatment",
+				"Procedure",
+			};
+			Task.Run(async () => await GetCoursesAsync());
 		}
 
+		public async Task GetCoursesAsync()
+		{
+			var courses = await _courseService.GetAllCoursesAsync();
+			foreach (var course in courses)
+			{
+				Courses.Add(course);
+			}
+		}
 		public async Task GetPatientsAsync()
 		{
 

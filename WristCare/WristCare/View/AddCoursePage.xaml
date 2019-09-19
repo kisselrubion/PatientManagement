@@ -29,11 +29,10 @@
 						Margin="5"
 						Orientation="Vertical" 
 						VerticalOptions="StartAndExpand">
-						<Entry Text="{Binding SelectedCourse.Title}"  Placeholder="Title"></Entry>
+						<Entry Text="{Binding SelectedCourse.Title}" Placeholder="Title"></Entry>
+						<Picker ItemsSource="{Binding CourseTypes}" Title="Course Type"></Picker>
 						<Entry Text="{Binding SelectedCourse.CourseDate}" Placeholder="Date"></Entry>
 						<Entry Text="{Binding SelectedCourse.Description}" Placeholder="Description"></Entry>
-
-
 					</StackLayout>
 
 					<Button 
