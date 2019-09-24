@@ -31,8 +31,15 @@ namespace PatientManagementApi.Services.AccountServices
 
 		public bool Put(Account account)
 		{
-			throw new NotImplementedException();
-
+			try
+			{
+				_context.Accounts.Update(account);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 
 		public async Task<Account> Get(string id)
@@ -43,6 +50,7 @@ namespace PatientManagementApi.Services.AccountServices
 
 		public Task<bool> Remove(string id)
 		{
+			//todo
 			throw new NotImplementedException();
 		}
 	}

@@ -32,7 +32,15 @@ namespace PatientManagementApi.Services.CourseServices
 
 		public bool Put(Course course)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				_context.Courses.Update(course);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 
 		public async Task<Course> Get(string id)
@@ -49,6 +57,7 @@ namespace PatientManagementApi.Services.CourseServices
 
 		public Task<bool> Remove(string id)
 		{
+			//todo
 			throw new NotImplementedException();
 		}
 	}

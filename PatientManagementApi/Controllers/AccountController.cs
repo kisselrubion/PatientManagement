@@ -19,7 +19,6 @@ namespace PatientManagementApi.Controllers
 		private readonly PMDbContext _context;
 		private readonly AccountService _accountService;
 
-
 		public AccountController(PMDbContext context, AccountService accountService)
 		{
 			_context = context;

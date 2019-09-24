@@ -16,6 +16,13 @@ using PatientManagementApi.Middlewares;
 using PatientManagementApi.Services.AccountServices;
 using PatientManagementApi.Services.CourseHistoryService;
 using PatientManagementApi.Services.CourseServices;
+using PatientManagementApi.Services.DoctorServices;
+using PatientManagementApi.Services.MeasurementServices;
+using PatientManagementApi.Services.MedicineServices;
+using PatientManagementApi.Services.NurseServices;
+using PatientManagementApi.Services.PatientServices;
+using PatientManagementApi.Services.ProcedureServices;
+using PatientManagementApi.Services.TreatmentServices;
 using PatientManagementApi.Services.UserServices;
 using PatientManagementBackend.Model;
 
@@ -61,6 +68,13 @@ namespace PatientManagementApi
 			services.AddTransient<AccountService>();
 			services.AddTransient<CourseService>();
 			services.AddTransient<CourseHistoryService>();
+			services.AddTransient<DoctorService>();
+			services.AddTransient<NurseService>();
+			services.AddTransient<PatientService>();
+			services.AddTransient<MeasurementService>();
+			services.AddTransient<MedicineService>();
+			services.AddTransient<TreatmentService>();
+			services.AddTransient<ProcedureService>();
 
 			//Auth
 			services.AddAuthentication(IISServerDefaults.AuthenticationScheme);
