@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PatientManagementApi.Services.CourseHistoryService;
 using PatientManagementApi.Services.CourseServices;
+using PatientManagementApi.Services.MeasurementServices;
+using PatientManagementApi.Services.MedicineServices;
+using PatientManagementApi.Services.ProcedureServices;
 using PatientManagementBackend.Model;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,21 +21,38 @@ namespace PatientManagementApi.Controllers
 	{
 		private readonly PMDbContext _context;
 		private readonly CourseService _courseService;
+		private readonly MedicineService _medicineService;
+		private readonly ProcedureService _procedureService;
+		private readonly MeasurementService _measurementService;
+		private readonly CourseHistoryService _courseHistoryService;
 
-		public CourseController(PMDbContext context, CourseService courseService)
+		public CourseController(
+			PMDbContext context, 
+			CourseService courseService, 
+			MedicineService medicineService, 
+			ProcedureService procedureService, 
+			MeasurementService measurementService,
+			CourseHistoryService courseHistoryService)
 		{
 			_context = context;
 			_courseService = courseService;
+			_medicineService = medicineService;
+			_procedureService = procedureService;
+			_measurementService = measurementService;
+			_courseHistoryService = courseHistoryService;
 		}
 
-		// usage: api/course
+		// usage: api/course/id
 		[HttpPost]
-		public async Task<ActionResult> Post([FromBody] Course course)
+		[HttpPost("{id}")]
+
+		public async Task<ActionResult> Post([FromBody] Course course,int id)
 		{
 			if (course == null) throw new NullReferenceException("Course not found");
 			try
 			{
 				var entity = await _courseService.Post(course);
+
 				return Ok(entity);
 			}
 			catch 
@@ -40,12 +61,12 @@ namespace PatientManagementApi.Controllers
 			}
 		}
 
-		// usage : api/course?id=c0001
+		// usage : api/course/c0001
 		[HttpGet("{id}")]
-		public async Task<ActionResult> Get(string id)
+		public async Task<ActionResult> Get(int id)
 		{
-			if (id == null) throw new NullReferenceException("Users not found");
-			if (!_context.Users.Any()) throw new NullReferenceException("Users not found");
+			if (id == 0) throw new NullReferenceException("Course not found");
+			if (!_context.Courses.Any()) throw new NullReferenceException("Course not found");
 			var user = await _courseService.Get(id);
 			return Ok(user);
 		}

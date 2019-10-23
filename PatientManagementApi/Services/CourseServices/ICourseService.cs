@@ -10,7 +10,7 @@ namespace PatientManagementApi.Services.CourseServices
 	{
 		Task<Course> Post(Course course);
 		bool Put(Course course);
-		Task<Course> Get(string id);
+		Task<Course> Get(int id);
 		Task<bool> Remove(string id);
 	}
 }

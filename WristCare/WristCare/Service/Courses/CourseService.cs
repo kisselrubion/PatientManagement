@@ -13,9 +13,10 @@ namespace WristCare.Service.Courses
 			_requestProvider = requestProvider;
 		}
 
-		public async Task<Course> CreateCourse(Course course)
+		public async Task<Course> CreateCourse(Course course, int courseTypeNumber)
 		{
-			var response = await _requestProvider.PostAsync("course", course);
+			var response = await _requestProvider.PostAsync("course/" + courseTypeNumber, course);
+
 			return response;
 		}
 

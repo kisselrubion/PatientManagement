@@ -14,7 +14,7 @@
 		</x:Arguments>
 	</NavigationPage>
 
-	<NavigationPage Title="Course">
+	<NavigationPage Title="Courses">
 		<x:Arguments>
 			<view:CoursePage/>
 		</x:Arguments>

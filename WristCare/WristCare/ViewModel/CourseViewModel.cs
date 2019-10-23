@@ -23,6 +23,8 @@ namespace WristCare.ViewModel
 		private readonly CourseService _courseService;
 		private readonly PatientService _patientService;
 		private Course _selectedCourse;
+		private Course _createdCourse;
+		private CourseType _selectedCourseType;
 
 		public Course SelectedCourse
 		{
@@ -30,35 +32,47 @@ namespace WristCare.ViewModel
 			set => Set(ref _selectedCourse, value);
 		}
 
+		public Course CreatedCourse
+		{
+			get => _createdCourse;
+			set => Set(ref _createdCourse, value);
+		}
+
+		public CourseType SelectedCourseType
+		{
+			get => _selectedCourseType;
+			set => Set(ref _selectedCourseType, value);
+		}
+
 		public ObservableCollection<Course> Courses { get; set; }
-		public ObservableCollection<string> CourseTypes { get; set; }
+		public ObservableCollection<CourseType> CourseTypes { get; set; }
 
 		public CourseViewModel(CourseService courseService, PatientService patientService)
 		{
 			_courseService = courseService;
 			_patientService = patientService;
-			//device = DependencyService.Get<INfcForms>();
-			//device.NewTag += HandleNewTag;
+
+			//Sample data
+			CreatedCourse = new Course
+			{
+				Title = "Title",
+				IsArchived = false,
+				CourseDate = DateTime.Now,
+				Description = "Sample description",
+				TransactionId = 1003,
+			};
 			InitializeData();
 		}
 
 		public void InitializeData()
 		{
-			SelectedCourse = new Course
-			{
-				Title = "Stroke Medication",
-				IsArchived = false,
-				CourseDate = DateTime.Now,
-				Description = "Sample Description",
-				//Todo: Create Id creator helper
-				TransactionId = Guid.NewGuid().ToString(),
-			};
 			Courses = new ObservableCollection<Course>();
-			CourseTypes = new ObservableCollection<string>
+
+			CourseTypes = new ObservableCollection<CourseType>
 			{
-				"Medication",
-				"Treatment",
-				"Procedure",
+				new CourseType{Key = 1,Value = "Medication"},
+				new CourseType{Key = 2,Value = "Procedure"},
+				new CourseType{Key = 3,Value = "Monitoring"},
 			};
 			Task.Run(async () => await GetCoursesAsync());
 		}
@@ -73,7 +87,6 @@ namespace WristCare.ViewModel
 		}
 		public async Task GetPatientsAsync()
 		{
-
 			//Todo : Priority! Get patients that are enrolled with courses
 			var patientsWithCourses = await _patientService.GetPatientsWithCourses();
 		}
@@ -90,13 +103,21 @@ namespace WristCare.ViewModel
 
 		private async Task CreateCourse()
 		{
-			if (SelectedCourse != null)
+			try
 			{
-				var result = await _courseService.CreateCourse(SelectedCourse);
-				if (result.CourseId != 0)
+				if (CreatedCourse != null)
 				{
-					await PopupHelper.ActionResultMessage("Success", "Course created");
+					var result = await _courseService.CreateCourse(CreatedCourse,SelectedCourseType.Key);
+					if (result.CourseId != 0)
+					{
+						await PopupHelper.ActionResultMessage("Success", "Course created");
+					}
 				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
 			}
 		}
 
@@ -107,12 +128,27 @@ namespace WristCare.ViewModel
 
 		private void AddPatients()
 		{
-			navigationService.NavigateTo(Locator.AddPatientInformationPage);
-
+			try
+			{
+				navigationService.NavigateTo(Locator.AddPatientInformationPage);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 		}
 		private void SearchPatients()
 		{
-			navigationService.NavigateTo(Locator.PatientsPage);
+			try
+			{
+				navigationService.NavigateTo(Locator.PatientsPage);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 		}
 	}
 }

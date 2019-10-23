@@ -3,7 +3,7 @@
 	public class CourseHistory
 	{
 		public int CourseHistoryId { get; set; }
-		public string CourseHistoryNumber { get; set; }
+		public int CourseHistoryNumber { get; set; }
 		public int? CourseId { get; set; }
 		public Course Course { get; set; }
 		public int? PatientId { get; set; }

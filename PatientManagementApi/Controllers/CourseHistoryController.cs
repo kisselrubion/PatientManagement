@@ -42,11 +42,11 @@ namespace PatientManagementApi.Controllers
 
 		// usage : api/coursehistory?id=c0001
 		[HttpGet]
-		public async Task<ActionResult> Get(string id)
+		public async Task<ActionResult> Get(int id)
 		{
-			if (!_context.Users.Any()) throw new NullReferenceException("Users not found");
-			var user = await _couseHistoryService.Get(id);
-			return Ok(user);
+			if (!_context.CourseHistories.Any()) throw new NullReferenceException("Course History not found");
+			var courseHistory = await _couseHistoryService.Get(id);
+			return Ok(courseHistory);
 		}
 	}
 }

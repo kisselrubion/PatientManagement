@@ -19,7 +19,7 @@
 			BackgroundColor="White"
 			Margin="20">
 			<ScrollView>
-				<Grid Margin="20">
+				<Grid Margin="20" >
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
@@ -29,10 +29,12 @@
 						Margin="5"
 						Orientation="Vertical" 
 						VerticalOptions="StartAndExpand">
-						<Entry Text="{Binding SelectedCourse.Title}" Placeholder="Title"></Entry>
-						<Picker ItemsSource="{Binding CourseTypes}" Title="Course Type"></Picker>
-						<Entry Text="{Binding SelectedCourse.CourseDate}" Placeholder="Date"></Entry>
-						<Entry Text="{Binding SelectedCourse.Description}" Placeholder="Description"></Entry>
+						<Entry Text="{Binding CreatedCourse.Title}"></Entry>
+						<Picker ItemsSource="{Binding Path=CourseTypes}" Title="Course Type" SelectedItem="{Binding SelectedCourseType}">
+
+						</Picker>
+						<Entry Text="{Binding Path=CreatedCourse.CourseDate}" Placeholder="Date"></Entry>
+						<Entry Text="{Binding Path=CreatedCourse.Description}" Placeholder="Description"></Entry>
 					</StackLayout>
 
 					<Button 

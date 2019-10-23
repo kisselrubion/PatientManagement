@@ -41,7 +41,7 @@ namespace PatientManagementApi.Services.CourseHistoryService
 			}
 		}
 
-		public async Task<CourseHistory> Get(string id)
+		public async Task<CourseHistory> Get(int id)
 		{
 			var course = await _context.CourseHistories.FirstOrDefaultAsync(c => c.CourseHistoryNumber == id);
 			return course ?? new CourseHistory();

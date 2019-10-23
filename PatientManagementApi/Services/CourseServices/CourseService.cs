@@ -43,7 +43,7 @@ namespace PatientManagementApi.Services.CourseServices
 			}
 		}
 
-		public async Task<Course> Get(string id)
+		public async Task<Course> Get(int id)
 		{
 			var course = await _context.Courses.FirstOrDefaultAsync(c => c.TransactionId == id && c.IsArchived == false);
 			return course ?? new Course();

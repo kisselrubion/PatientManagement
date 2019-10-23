@@ -22,14 +22,16 @@ namespace WristCare.Helpers
 
 		public void SetPages()
 		{
+			navigationService.Configure(Locator.AddCoursePage, typeof(AddCoursePage));
 			navigationService.Configure(Locator.CoursePage, typeof(CoursePage));
 			navigationService.Configure(Locator.HomePage, typeof(HomePage));
 			navigationService.Configure(Locator.Dashboard, typeof(Dashboard));
 			navigationService.Configure(Locator.PatientInformationPage, typeof(PatientInformationPage));
 			navigationService.Configure(Locator.PatientsPage, typeof(PatientsPage));
 			navigationService.Configure(Locator.AddPatientInformationPage, typeof(AddPatientInformationPage));
-			navigationService.Configure(Locator.AddCoursePage, typeof(AddCoursePage));
 			navigationService.Configure(Locator.CourseDetailsPage, typeof(CourseDetailsPage));
+			navigationService.Configure(Locator.DoctorsPage, typeof(DoctorPage));
+			navigationService.Configure(Locator.NursesPage, typeof(NursePage));
 		}
 
 		public Page InitializeMainPage()
