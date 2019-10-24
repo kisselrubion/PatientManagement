@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using WristCare.Service.Navigation;
 using WristCare.View;
+using WristCare.Views;
 using Xamarin.Forms;
 
 namespace WristCare.Helpers
@@ -32,6 +33,7 @@ namespace WristCare.Helpers
 			navigationService.Configure(Locator.CourseDetailsPage, typeof(CourseDetailsPage));
 			navigationService.Configure(Locator.DoctorsPage, typeof(DoctorPage));
 			navigationService.Configure(Locator.NursesPage, typeof(NursePage));
+			navigationService.Configure(Locator.MedicalPlanPage, typeof(MedicalPlanPage));
 		}
 
 		public Page InitializeMainPage()

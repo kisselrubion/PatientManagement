@@ -25,6 +25,7 @@ namespace WristCare.Helpers
 		public const string CourseDetailsPage = "CourseDetailsPage";
 		public const string DoctorsPage = "DoctorsPage";
 		public const string NursesPage = "NursesPage";
+		public const string MedicalPlanPage = "MedicalPlanPage";
 
 		public Locator()
 		{
@@ -42,11 +43,13 @@ namespace WristCare.Helpers
 			SimpleIoc.Default.Register<ScanViewModel>();
 			SimpleIoc.Default.Register<CourseViewModel>();
 			SimpleIoc.Default.Register<PatientsViewModel>();
+			SimpleIoc.Default.Register<CourseDetailsViewModel>();
 		}
 
 		public ScanViewModel ScanViewModel => ServiceLocator.Current.GetInstance<ScanViewModel>();
 		public PatientsViewModel PatientsViewModel => ServiceLocator.Current.GetInstance<PatientsViewModel>();
 		public CourseViewModel CourseViewModel => ServiceLocator.Current.GetInstance<CourseViewModel>();
+		public CourseDetailsViewModel CourseDetailsViewModel => ServiceLocator.Current.GetInstance<CourseDetailsViewModel>();
 
 	}
 

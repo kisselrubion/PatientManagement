@@ -30,9 +30,7 @@
 						Orientation="Vertical" 
 						VerticalOptions="StartAndExpand">
 						<Entry Text="{Binding CreatedCourse.Title}"></Entry>
-						<Picker ItemsSource="{Binding Path=CourseTypes}" Title="Course Type" SelectedItem="{Binding SelectedCourseType}">
 
-						</Picker>
 						<Entry Text="{Binding Path=CreatedCourse.CourseDate}" Placeholder="Date"></Entry>
 						<Entry Text="{Binding Path=CreatedCourse.Description}" Placeholder="Description"></Entry>
 					</StackLayout>

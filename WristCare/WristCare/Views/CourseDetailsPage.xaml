@@ -5,12 +5,30 @@
 	xmlns:d="http://xamarin.com/schemas/2014/forms/design"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
+	Title="Course details"
+	BindingContext="{Binding CourseDetailsViewModel,Source={StaticResource Locator}}"
 	x:Class="WristCare.View.CourseDetailsPage">
 	<ContentPage.Content>
-		<StackLayout>
-			<Label Text="Welcome to Xamarin.Forms!"
-				VerticalOptions="CenterAndExpand" 
-				HorizontalOptions="CenterAndExpand" />
-		</StackLayout>
+		<Grid
+			Margin="20">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<StackLayout Orientation="Vertical">
+				<Label Text="{Binding SelectedCourse.Title}"></Label>
+				<Label Text="{Binding SelectedCourse.TransactionId}"></Label>
+				<Label Text="{Binding SelectedCourse.Description}"></Label>
+				<Label Text="{Binding SelectedCourse.CourseDate}"></Label>
+			</StackLayout>
+			<StackLayout Grid.Row="1" Orientation=" Vertical">
+				<Button Text="Select medication plan" Style="{StaticResource PrimaryPassiveButtonStyle}" Command="{Binding AddMedicalPlanCommand}"></Button>
+			</StackLayout>
+			<Button Grid.Row="2" Text="Enroll a patient"></Button>
+		</Grid>
 	</ContentPage.Content>
 </ContentPage>

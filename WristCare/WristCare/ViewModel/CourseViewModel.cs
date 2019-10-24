@@ -45,7 +45,6 @@ namespace WristCare.ViewModel
 		}
 
 		public ObservableCollection<Course> Courses { get; set; }
-		public ObservableCollection<CourseType> CourseTypes { get; set; }
 
 		public CourseViewModel(CourseService courseService, PatientService patientService)
 		{
@@ -67,13 +66,6 @@ namespace WristCare.ViewModel
 		public void InitializeData()
 		{
 			Courses = new ObservableCollection<Course>();
-
-			CourseTypes = new ObservableCollection<CourseType>
-			{
-				new CourseType{Key = 1,Value = "Medication"},
-				new CourseType{Key = 2,Value = "Procedure"},
-				new CourseType{Key = 3,Value = "Monitoring"},
-			};
 			Task.Run(async () => await GetCoursesAsync());
 		}
 
@@ -107,7 +99,8 @@ namespace WristCare.ViewModel
 			{
 				if (CreatedCourse != null)
 				{
-					var result = await _courseService.CreateCourse(CreatedCourse,SelectedCourseType.Key);
+					//Todo : add " are you sure you want to create..." popup
+					var result = await _courseService.CreateCourse(CreatedCourse);
 					if (result.CourseId != 0)
 					{
 						await PopupHelper.ActionResultMessage("Success", "Course created");
