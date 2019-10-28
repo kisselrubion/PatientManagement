@@ -1,15 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="WristCare.Views.MedicalPlanPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	Title="Medication Plan"
+	BindingContext="{Binding CourseDetailsViewModel,Source={StaticResource Locator}}"
+	x:Class="WristCare.Views.MedicalPlanPage">
+	<ContentPage.Content>
+		<Grid Margin="20">
+			
+			<StackLayout Orientation="Vertical">
+				<Label Text="Select Plan" FontSize="18"></Label>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<StackLayout 
+						Orientation="Horizontal"
+						BackgroundColor="{StaticResource DarkBackgroundColor}">
+						<Label
+							Text="Monitoring"
+							FontSize="16"
+							Margin="8,4,4,4"
+							VerticalOptions="CenterAndExpand"
+							VerticalTextAlignment="Center"
+							HorizontalOptions="StartAndExpand"/>
+						<Button
+							Text="&#xf0fe;"
+							HorizontalOptions="End"
+							FontFamily="{StaticResource FontAwesomeRegular}"
+							FontSize="26"
+							WidthRequest="50"
+							Style="{StaticResource PrimaryActiveButtonStyle}"
+							Margin="4"/>
+					</StackLayout>
+
+					<StackLayout 
+						Orientation="Horizontal"
+						Grid.Row="1"
+						BackgroundColor="{StaticResource DarkBackgroundColor}">
+						<Label
+							Text="Medicine"
+							FontSize="16"
+							Margin="8,4,4,4"
+							VerticalOptions="CenterAndExpand"
+							VerticalTextAlignment="Center"
+							HorizontalOptions="StartAndExpand"/>
+						<Button
+							Text="&#xf0fe;"
+							HorizontalOptions="End"
+							FontFamily="{StaticResource FontAwesomeRegular}"
+							FontSize="26"
+							WidthRequest="50"
+							Style="{StaticResource PrimaryActiveButtonStyle}"
+							Margin="4"/>
+					</StackLayout>
+
+					<StackLayout 
+						Orientation="Horizontal"
+						Grid.Row="2"
+						BackgroundColor="{StaticResource DarkBackgroundColor}">
+						<Label
+							Text="Procedure"
+							FontSize="16"
+							Margin="8,4,4,4"
+							VerticalOptions="CenterAndExpand"
+							VerticalTextAlignment="Center"
+							HorizontalOptions="StartAndExpand"/>
+						<Button
+							Text="&#xf0fe;"
+							HorizontalOptions="End"
+							FontFamily="{StaticResource FontAwesomeRegular}"
+							FontSize="26"
+							WidthRequest="50"
+							Style="{StaticResource PrimaryActiveButtonStyle}"
+							Margin="4"/>
+					</StackLayout>
+				</Grid>
+			</StackLayout>
+		</Grid>
+	</ContentPage.Content>
 </ContentPage>

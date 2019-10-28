@@ -4,6 +4,7 @@ using System.Text;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using WristCare.Service.Courses;
+using WristCare.Service.MedicalPlan;
 using WristCare.Service.Patient;
 using WristCare.Service.SingUp;
 using WristCare.Service.Users;
@@ -37,6 +38,7 @@ namespace WristCare.Helpers
 			SimpleIoc.Default.Register<PatientService>();
 			SimpleIoc.Default.Register<UserService>();
 			SimpleIoc.Default.Register<CourseService>();
+			SimpleIoc.Default.Register<MedicalPlanService>();
 			SimpleIoc.Default.Register<ISignUpService, SignupService>();
 
 			//View Models
@@ -44,12 +46,14 @@ namespace WristCare.Helpers
 			SimpleIoc.Default.Register<CourseViewModel>();
 			SimpleIoc.Default.Register<PatientsViewModel>();
 			SimpleIoc.Default.Register<CourseDetailsViewModel>();
+			SimpleIoc.Default.Register<MedicalPlanViewModel>();
 		}
 
 		public ScanViewModel ScanViewModel => ServiceLocator.Current.GetInstance<ScanViewModel>();
 		public PatientsViewModel PatientsViewModel => ServiceLocator.Current.GetInstance<PatientsViewModel>();
 		public CourseViewModel CourseViewModel => ServiceLocator.Current.GetInstance<CourseViewModel>();
 		public CourseDetailsViewModel CourseDetailsViewModel => ServiceLocator.Current.GetInstance<CourseDetailsViewModel>();
+		public MedicalPlanViewModel MedicalPlanViewModel => ServiceLocator.Current.GetInstance<MedicalPlanViewModel>();
 
 	}
 

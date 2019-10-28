@@ -11,6 +11,8 @@
 			<Color x:Key="PassiveGreen">#e3f2e6</Color>
 			<Color x:Key="LightTextColor">#FAFAFA</Color>
 			<Color x:Key="PrimaryBackgroundColor">#dddddd</Color>
+			<Color x:Key="DarkBackgroundColor">#eeeeee</Color>
+			<Color x:Key="MediumGrayTextColor">#bdbdbd</Color>
 			<Color x:Key="PrimaryTextColor">#3c465a</Color>
 
 
@@ -37,6 +39,16 @@
 				<Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
 				<Setter Property="BackgroundColor" Value="{StaticResource PrimaryBackgroundColor}" />
 			</Style>
+
+			<!--Fonts-->
+			<OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeRegular">
+				<On Platform="Android" Value="Font Awesome 5 Free-Regular-400.otf#Font Awesome 5 Free-Regular-400" />
+				<On Platform="iOS" Value="Font Awesome 5 Free" />
+			</OnPlatform>
+			<OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeSolid">
+				<On Platform="Android" Value="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free-Solid-900" />
+				<On Platform="iOS" Value="Font Awesome 5 Free" />
+			</OnPlatform>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>
