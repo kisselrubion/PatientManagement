@@ -45,7 +45,6 @@ namespace PatientManagementApi.Controllers
 		// usage: api/course/id
 		[HttpPost]
 		[HttpPost("{id}")]
-
 		public async Task<ActionResult> Post([FromBody] Course course,int id)
 		{
 			if (course == null) throw new NullReferenceException("Course not found");

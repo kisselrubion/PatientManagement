@@ -8,12 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PatientManagementApi.Controllers
 {
+	[Produces("application/json")]
+	[Route("api/procedure")]
+	[ApiController]
 	public class ProcedureController : Controller
 	{
-		// GET: /<controller>/
-		public IActionResult Index()
-		{
-			return View();
-		}
+
 	}
 }
