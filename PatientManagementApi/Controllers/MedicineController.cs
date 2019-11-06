@@ -26,7 +26,7 @@ namespace PatientManagementApi.Controllers
 			_medicineService = medicineService;
 		}
 
-		// usage: api/medicine/id
+		// usage: api/medicine/22001
 		[HttpPost]
 		[HttpPost("{id}")]
 		public async Task<ActionResult> Post([FromBody] Medicine medicine)
