@@ -13,19 +13,15 @@ namespace WristCare.View
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CoursePage : ContentPage
 	{
-		private readonly CourseViewModel _cvm;
-		private readonly CourseDetailsViewModel _cdvm;
 		public CoursePage ()
 		{
-			_cvm = App.Locator.CourseViewModel;
-			_cdvm = App.Locator.CourseDetailsViewModel;
 			InitializeComponent ();
 		}
 
 		//Used so the ripple animation shows
 		private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
 		{
-			_cdvm.SelectedCourse = _cvm.SelectedCourse;
+			App.Locator.CourseDetailsViewModel.SelectedCourse = App.Locator.CourseViewModel.SelectedCourse;
 			App.NavigationService.NavigateTo(Locator.CourseDetailsPage);
 			LstCourses.SelectedItem = null;
 		}

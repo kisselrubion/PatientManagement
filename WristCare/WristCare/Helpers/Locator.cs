@@ -27,12 +27,14 @@ namespace WristCare.Helpers
 		public const string DoctorsPage = "DoctorsPage";
 		public const string NursesPage = "NursesPage";
 		public const string MedicalPlanPage = "MedicalPlanPage";
+		public const string AddMedicinePage = "AddMedicinePage";
 
 		public Locator()
 		{
 			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
 			//TODO: always inject ALL services here
+
 			//Services
 			SimpleIoc.Default.Register<RequestProvider.RequestProvider>();
 			SimpleIoc.Default.Register<PatientService>();
@@ -45,8 +47,9 @@ namespace WristCare.Helpers
 			SimpleIoc.Default.Register<ScanViewModel>();
 			SimpleIoc.Default.Register<CourseViewModel>();
 			SimpleIoc.Default.Register<PatientsViewModel>();
-			SimpleIoc.Default.Register<CourseDetailsViewModel>();
 			SimpleIoc.Default.Register<MedicalPlanViewModel>();
+			SimpleIoc.Default.Register<CourseDetailsViewModel>();
+
 		}
 
 		public ScanViewModel ScanViewModel => ServiceLocator.Current.GetInstance<ScanViewModel>();

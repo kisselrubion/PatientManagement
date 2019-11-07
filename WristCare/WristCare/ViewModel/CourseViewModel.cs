@@ -50,7 +50,7 @@ namespace WristCare.ViewModel
 		{
 			_courseService = courseService;
 			_patientService = patientService;
-
+			SelectedCourse = new Course();
 			//Sample data
 			CreatedCourse = new Course
 			{

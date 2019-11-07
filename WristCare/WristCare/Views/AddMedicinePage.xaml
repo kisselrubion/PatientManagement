@@ -1,15 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="WristCare.Views.AddMedicinePage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	BindingContext="{Binding CourseDetailsViewModel,Source={StaticResource Locator}}"
+	Title="Medicine details"
+	x:Class="WristCare.Views.AddMedicinePage">
+	<ContentPage.Content>
+		<Grid Margin="20">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+			</Grid.RowDefinitions>
+			<StackLayout 
+				Grid.Row="1"
+				Orientation="Vertical">
+				<Entry Text="{Binding SelectedMedicine.MedicineName}" Placeholder="Medicine Name"></Entry>
+				<Entry Text="{Binding SelectedMedicine.MedicineNumber}" Placeholder="Medicine Number"></Entry>
+				<Picker SelectedItem="{Binding SelectedMedicine.Dosage}" Title="Dosage"></Picker>
+				<Picker SelectedItem="{Binding .}" Title="Interval"></Picker>
+				<Entry Placeholder="Comments"></Entry>
+			</StackLayout>
+			<Button Grid.Row="2" Text="Add medicine to course"></Button>
+			<Button Grid.Row="3" Text="Cancel"></Button>
+		</Grid>
+	</ContentPage.Content>
 </ContentPage>

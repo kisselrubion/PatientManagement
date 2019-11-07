@@ -56,6 +56,7 @@
 						<Button
 							Text="&#xf0fe;"
 							HorizontalOptions="End"
+							Command="{Binding SelectMedicinePlanCommand}"
 							FontFamily="{StaticResource FontAwesomeRegular}"
 							FontSize="26"
 							WidthRequest="50"

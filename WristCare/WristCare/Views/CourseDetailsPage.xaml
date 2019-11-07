@@ -26,7 +26,7 @@
 				<Label Text="{Binding SelectedCourse.CourseDate}"></Label>
 			</StackLayout>
 			<StackLayout Grid.Row="1" Orientation=" Vertical">
-				<Button Text="Select medication plan" Style="{StaticResource PrimaryPassiveButtonStyle}" Command="{Binding AddMedicalPlanCommand}"></Button>
+				<Button Text="Select medication plan" Style="{StaticResource PrimaryPassiveButtonStyle}" Command="{Binding ShowMedicalPlanCommand}"></Button>
 			</StackLayout>
 			<Button Grid.Row="2" Text="Enroll a patient"></Button>
 		</Grid>
