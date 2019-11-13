@@ -50,6 +50,12 @@ namespace PatientManagementApi.Services.MedicineServices
 			return medicine ?? new Medicine();
 		}
 
+		public async Task<List<Medicine>> GetByForeignKey(int id)
+		{
+			var medicine = await _context.Medicines.Where(c => c.CourseId == id).ToListAsync();
+			return medicine;
+		}
+
 		public async Task<ICollection<Medicine>> GetRange(bool all)
 		{
 			if (!all) return new List<Medicine>();

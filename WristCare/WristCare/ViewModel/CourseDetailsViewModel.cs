@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -41,7 +42,7 @@ namespace WristCare.ViewModel
 			set => Set(ref _selectedCourseType, value);
 		}
 
-		public ObservableCollection<CourseType> CourseTypes { get; set; }
+		public ObservableCollection<Medicine> Medicines { get; set; }
 
 		public CourseDetailsViewModel(CourseService courseService,MedicalPlanService medicalPlanService )
 		{
@@ -49,26 +50,33 @@ namespace WristCare.ViewModel
 			_medicalPlanService = medicalPlanService;
 			_selectedCourse = new Course();
 			InitializeData();
+
+			Task.Run(async () => await GetCourseMedicines());
 		}
 
 		private void InitializeData()
 		{
 			_selectedMedicine = new Medicine
 			{
-				CourseId = _selectedCourse.CourseId
+				MedicineName = "medicine name",
+				MedicineNumber = 12123,
+				Comments = "comments",
+				CourseId = _selectedCourse.CourseId,
+				Dosage = "2ml",
+				Interval = 2,
 			};
-			CourseTypes = new ObservableCollection<CourseType>
-			{
-				new CourseType{Key = 1,Value = "Medication"},
-				new CourseType{Key = 2,Value = "Procedure"},
-				new CourseType{Key = 3,Value = "Monitoring"},
-			};
+
 		}
 
 		public ICommand ShowMedicalPlanCommand => new RelayCommand(ShowMedicalPlanPage);
 		public ICommand SelectMedicinePlanCommand => new RelayCommand(ShowMedicineDetailsPage);
 		public ICommand AddMedicinePlanCommand => new RelayCommand(async () => await AddMedicalPlanToCourseHistory());
 
+		private async Task GetCourseMedicines()
+		{
+			var medicines = await _medicalPlanService.GetMedicinePlan(_selectedCourse);
+			Medicines = new ObservableCollection<Medicine>(medicines);
+		}
 		private void ShowMedicineDetailsPage()
 		{
 			navigationService.NavigateTo(Locator.AddMedicinePage);
@@ -81,8 +89,10 @@ namespace WristCare.ViewModel
 
 		public async Task AddMedicalPlanToCourseHistory()
 		{
-			var result = await _medicalPlanService.AddMedicinePlan(_selectedMedicine);
-			if (result != null)
+			_selectedMedicine.CourseId = _selectedCourse.CourseId;
+			var medResult = await _medicalPlanService.AddMedicinePlan(_selectedMedicine);
+			//var histResult = await _medicalPlanService
+			if (medResult != null)
 			{ 
 				await PopupHelper.ActionResultMessage("Success", "medicine plan added to course");
 			}

@@ -18,7 +18,6 @@ namespace PatientManagementApi.Controllers
 		private readonly PMDbContext _context;
 
 		private readonly MeasurementService _measurementService;
-
 		public MonitoringController(MeasurementService measurementService, PMDbContext context)
 		{
 			_measurementService = measurementService;
@@ -55,11 +54,11 @@ namespace PatientManagementApi.Controllers
 
 		// usage : api/measurement?all=true
 		[HttpGet]
-		public ActionResult Get(bool all)
+		public async Task<ActionResult> Get(bool all)
 		{
 			if (!all) throw new NullReferenceException("measurement not found");
 			if (!_context.Measurements.Any()) throw new NullReferenceException("Measurements no entries");
-			var measurements = _measurementService.GetRange(all);
+			var measurements = await _measurementService.GetRange(all);
 			return Ok(measurements);
 		}
 	}

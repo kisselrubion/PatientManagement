@@ -19,13 +19,13 @@
 			<StackLayout 
 				Grid.Row="1"
 				Orientation="Vertical">
-				<Entry Text="{Binding SelectedMedicine.MedicineName}" Placeholder="Medicine Name"></Entry>
-				<Entry Text="{Binding SelectedMedicine.MedicineNumber}" Placeholder="Medicine Number"></Entry>
-				<Picker SelectedItem="{Binding SelectedMedicine.Dosage}" Title="Dosage"></Picker>
-				<Picker SelectedItem="{Binding .}" Title="Interval"></Picker>
-				<Entry Placeholder="Comments"></Entry>
+				<Entry Text="{Binding SelectedMedicine.MedicineName,Mode=TwoWay}" Placeholder="Medicine Name"></Entry>
+				<Entry Text="{Binding SelectedMedicine.MedicineNumber,Mode=TwoWay}" Placeholder="Medicine Number"></Entry>
+				<Entry Text="{Binding SelectedMedicine.Dosage,Mode=TwoWay}" Placeholder="Dosage"></Entry>
+				<Entry Text="{Binding SelectedMedicine.Interval,Mode=TwoWay}" Placeholder="Interval"></Entry>
+				<Entry Text="{Binding SelectedMedicine.Comments,Mode=TwoWay}" Placeholder="Comments"></Entry>
 			</StackLayout>
-			<Button Grid.Row="2" Text="Add medicine to course"></Button>
+			<Button Grid.Row="2" Command="{Binding AddMedicinePlanCommand}" Text="Add medicine to course"></Button>
 			<Button Grid.Row="3" Text="Cancel"></Button>
 		</Grid>
 	</ContentPage.Content>

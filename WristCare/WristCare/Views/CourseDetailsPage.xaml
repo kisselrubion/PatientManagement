@@ -15,6 +15,7 @@
 				<RowDefinition Height="Auto"></RowDefinition>
 				<RowDefinition Height="*"></RowDefinition>
 				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*"></ColumnDefinition>
@@ -25,10 +26,14 @@
 				<Label Text="{Binding SelectedCourse.Description}"></Label>
 				<Label Text="{Binding SelectedCourse.CourseDate}"></Label>
 			</StackLayout>
-			<StackLayout Grid.Row="1" Orientation=" Vertical">
+			<StackLayout
+				Grid.Row="1">
+
+			</StackLayout>
+			<StackLayout Grid.Row="2" Orientation=" Vertical">
 				<Button Text="Select medication plan" Style="{StaticResource PrimaryPassiveButtonStyle}" Command="{Binding ShowMedicalPlanCommand}"></Button>
 			</StackLayout>
-			<Button Grid.Row="2" Text="Enroll a patient"></Button>
+			<Button Grid.Row="3" Text="Enroll a patient"></Button>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>

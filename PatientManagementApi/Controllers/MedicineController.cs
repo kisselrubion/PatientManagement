@@ -26,16 +26,14 @@ namespace PatientManagementApi.Controllers
 			_medicineService = medicineService;
 		}
 
-		// usage: api/medicine/22001
+		// usage: api/medicine
 		[HttpPost]
-		[HttpPost("{id}")]
 		public async Task<ActionResult> Post([FromBody] Medicine medicine)
 		{
 			if (medicine == null) throw new NullReferenceException("medicine not found");
 			try
 			{
 				var entity = await _medicineService.Post(medicine);
-
 				return Ok(entity);
 			}
 			catch
@@ -56,12 +54,22 @@ namespace PatientManagementApi.Controllers
 
 		// usage : api/medicine?all=true
 		[HttpGet]
-		public ActionResult Get(bool all)
+		public async Task<ActionResult> Get(bool all)
 		{
 			if (!all) throw new NullReferenceException("medicine not found");
 			if (!_context.Medicines.Any()) throw new NullReferenceException("medicine no entries");
-			var medicines = _medicineService.GetRange(all);
+			var medicines = await _medicineService.GetRange(all);
 			return Ok(medicines);
+		}
+
+		// usage : api/medicine/MedicineCourseHistory
+		[HttpGet("MedicineCourse/{id}")]
+		public async Task<ActionResult> MedicineCourse(int id)
+		{
+			if (id == 0) throw new NullReferenceException("medicine course  not found");
+			if (!_context.Medicines.Any()) throw new NullReferenceException("medicine no entries");
+			var medicines = await _medicineService.GetByForeignKey(id);
+			return Ok(medicines ?? new List<Medicine>());
 		}
 	}
 
