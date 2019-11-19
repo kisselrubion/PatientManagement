@@ -29,8 +29,7 @@ namespace PatientManagementApi.Controllers
 		[HttpGet("patients")]
 		public ActionResult Get()
 		{
-			if (!_context.Accounts.Any()) throw new NullReferenceException("Accounts not found");
-
+			if (!_context.Accounts.Any()) return Ok(new List<User>());
 			//AccountTypeId = 4 ; patient type of account
 			var accounts = _context.Accounts.Where(c => c.AccountTypeId == 4).ToList();
 			var users = accounts.Select(account => _context.Users.FirstOrDefault(c => c.UserAccountId == account.AccountNumber)).ToList();

@@ -172,13 +172,13 @@ namespace WristCare.RequestProvider
 				//android base ip 10.0.2.2
 				//Dorm ip and house
 				
-				BaseAddress = new Uri("http://192.168.1.59/pms/api/")
+				//BaseAddress = new Uri("http://192.168.1.59/pms/api/")
 				
 				//BaseAddress = new Uri("http://localhost/pms/api/")
 
 				//office ip
 				//TODO : always check ip CONNECTION
-				//BaseAddress = new Uri("http://192.168.1.5/pms/api/")
+				BaseAddress = new Uri("http://192.168.1.5/pms/api/")
 			};
 
 			httpClient.DefaultRequestHeaders.Accept.Add(

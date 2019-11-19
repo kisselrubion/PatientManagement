@@ -10,17 +10,17 @@ namespace WristCare.Service.Patient
 	{
 		private RequestProvider.RequestProvider _requestProvider;
 		
-		private string Uri { get; set; }
 		public PatientService(RequestProvider.RequestProvider requestProvider)
 		{
 			_requestProvider = requestProvider;
-			Uri = "http://192.168.1.5/patient/api/account";
 		}
 
 		/// <summary>
 		/// Gets value of all accounts with patient type of ID
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>
+		/// List of patients
+		/// </returns>
 		public async Task<List<User>> GetAllPatientsAsync()
 		{
 			var patients = await _requestProvider.GetAsync<List<User>>("account/patients");
