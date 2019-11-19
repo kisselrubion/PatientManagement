@@ -65,8 +65,8 @@ namespace PatientManagementApi.Controllers
 		{
 			if (id == 0) throw new NullReferenceException("Course not found");
 			if (!_context.Courses.Any()) throw new NullReferenceException("Course not found");
-			var user = await _courseService.Get(id);
-			return Ok(user);
+			var course = await _courseService.Get(id);
+			return Ok(course);
 		}
 
 		// usage : api/course?all=true

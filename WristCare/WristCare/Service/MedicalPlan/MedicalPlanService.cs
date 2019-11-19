@@ -30,5 +30,11 @@ namespace WristCare.Service.MedicalPlan
 			var response = await _requestProvider.PostAsync("medicine", medicine);
 			return response;
 		}
+
+		public async Task<CourseHistory> AddCourseHistory(CourseHistory courseHistory)
+		{
+			var response = await _requestProvider.PostAsync("coursehistory", courseHistory);
+			return response;
+		}
 	}
 }

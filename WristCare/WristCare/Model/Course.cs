@@ -11,6 +11,7 @@ namespace WristCare.Model
 		//Pseudo Primary key used for querying
 		public int TransactionId { get; set; }
 		public DateTime CourseDate { get; set; }
+		public DateTime EditedDate { get; set; }
 		public DateTime DischargeDate { get; set; }
 		public bool IsArchived { get; set; }
 		public string Description { get; set; }

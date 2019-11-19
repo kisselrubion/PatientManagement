@@ -178,7 +178,7 @@ namespace WristCare.RequestProvider
 
 				//office ip
 				//TODO : always check ip CONNECTION
-				//BaseAddress = new Uri("http://192.168.143.145/pms/api/")
+				//BaseAddress = new Uri("http://192.168.1.5/pms/api/")
 			};
 
 			httpClient.DefaultRequestHeaders.Accept.Add(

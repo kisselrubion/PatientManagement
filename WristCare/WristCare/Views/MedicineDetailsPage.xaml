@@ -1,15 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="WristCare.Views.MedicineDetailsPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d"
+			 BindingContext="{Binding CourseDetailsViewModel,Source={StaticResource Locator}}"
+			 Title="Medicine logs"
+			 x:Class="WristCare.Views.MedicineDetailsPage">
+	<ContentPage.Content>
+		<Grid Margin="20">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+			</Grid.RowDefinitions>
+			<StackLayout Orientation="Vertical">
+				<Label Text="{Binding SelectedCourse.EditedDate}"></Label>
+			</StackLayout>
+			<Grid Grid.Row="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"></RowDefinition>
+				</Grid.RowDefinitions>
+				<ListView 
+					ItemsSource="{Binding Medicines}"
+					HasUnevenRows="True">
+					<ListView.ItemTemplate>
+							<DataTemplate>
+								<ViewCell>
+									<ContentView Padding="2">
+									<Frame
+										Padding="0"
+										HasShadow="False"
+										CornerRadius="5"
+										Margin="5">
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width=".2*"></ColumnDefinition>
+												<ColumnDefinition Width=".8*"></ColumnDefinition>
+											</Grid.ColumnDefinitions>
+											<StackLayout Orientation="Vertical">
+												<Label Text="{Binding MedicineNumber}"></Label>
+												<Label Text="{Binding MedicineName}"></Label>
+											</StackLayout>
+											<StackLayout Grid.Column="1" Orientation="Vertical">
+												<Label Text="{Binding Dosage}"></Label>
+												<Label Text="{Binding Comments}"></Label>
+											</StackLayout>
+										</Grid>
+									</Frame>
+									</ContentView>
+								</ViewCell>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+
+			</Grid>
+		</Grid>
+	</ContentPage.Content>
 </ContentPage>

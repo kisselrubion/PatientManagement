@@ -4,6 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:d="http://xamarin.com/schemas/2014/forms/design"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:view="clr-namespace:WristCare.View;assembly=WristCare"
 	mc:Ignorable="d"
 	Title="Course details"
 	BindingContext="{Binding CourseDetailsViewModel,Source={StaticResource Locator}}"
@@ -26,14 +27,136 @@
 				<Label Text="{Binding SelectedCourse.Description}"></Label>
 				<Label Text="{Binding SelectedCourse.CourseDate}"></Label>
 			</StackLayout>
-			<StackLayout
-				Grid.Row="1">
 
-			</StackLayout>
+			<!--medical details container-->
+
+				<Grid Grid.Row="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"></RowDefinition>
+						<RowDefinition Height="*"></RowDefinition>
+						<RowDefinition Height="*"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid 
+						Grid.Column="0"
+						HeightRequest="100"
+						MinimumWidthRequest="100"
+						>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="21"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="21"></RowDefinition>
+							<RowDefinition Height=".4*"></RowDefinition>
+							<RowDefinition Height=".4*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Button 
+							FontSize="40"
+							Text="&#xf46b;"
+							Command="{Binding ShowMedicineLogsCommand}"
+							Grid.ColumnSpan="2"
+							Grid.Row="0"
+							Grid.RowSpan="3"
+							FontFamily="{StaticResource FontAwesomeSolid}"
+							FontAttributes="Bold"
+							TextColor="{StaticResource Primary}"
+							BackgroundColor="{StaticResource PassiveGreen}"
+							Margin="5,5,0,5"/>
+						<Label 
+							Text="Medicine"
+							Grid.Row="2"
+							Grid.ColumnSpan="2"
+							TextColor="{StaticResource Primary}"
+							VerticalTextAlignment="End"
+							VerticalOptions="Center"
+							HorizontalOptions="Fill"
+							HorizontalTextAlignment="Center"
+							BackgroundColor="Transparent"/>
+					</Grid>
+
+					<Grid 
+						Grid.Column="0"
+						HeightRequest="100"
+						Grid.Row="1"
+						MinimumWidthRequest="100">
+					<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="21"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="21"></RowDefinition>
+							<RowDefinition Height=".4*"></RowDefinition>
+							<RowDefinition Height=".4*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Button 
+							FontSize="40"
+							Text="&#xf487;"
+							Grid.ColumnSpan="2"
+							Command="{Binding ShowProcedureLogsCommand}"
+							Grid.Row="0"
+							Grid.RowSpan="3"
+							FontFamily="{StaticResource FontAwesomeSolid}"
+							FontAttributes="Bold"
+							TextColor="{StaticResource Primary}"
+							BackgroundColor="{StaticResource PassiveGreen}"
+							Margin="5,5,0,5"/>
+						<Label 
+							Text="Procedure"
+							Grid.Row="2"
+							Grid.ColumnSpan="2"
+							TextColor="{StaticResource Primary}"
+							VerticalTextAlignment="End"
+							VerticalOptions="Center"
+							HorizontalOptions="Fill"
+							HorizontalTextAlignment="Center"
+							BackgroundColor="Transparent"/>
+					</Grid>
+
+					<Grid 
+						Grid.Column="0"
+						HeightRequest="100"
+						Grid.Row="2"
+						MinimumWidthRequest="100">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="21"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="21"></RowDefinition>
+							<RowDefinition Height=".4*"></RowDefinition>
+							<RowDefinition Height=".4*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Button 
+							FontSize="40"
+							Text="&#xf2c9;"
+							Grid.ColumnSpan="2"
+							Grid.Row="0"
+							Command="{Binding ShowMeasurementLogsCommand}"
+							Grid.RowSpan="3"
+							FontFamily="{StaticResource FontAwesomeSolid}"
+							FontAttributes="Bold"
+							TextColor="{StaticResource Primary}"
+							BackgroundColor="{StaticResource PassiveGreen}"
+							Margin="5,5,0,5"/>
+						<Label 
+							Text="Measurement"
+							Grid.Row="2"
+							Grid.ColumnSpan="2"
+							TextColor="{StaticResource Primary}"
+							VerticalTextAlignment="End"
+							VerticalOptions="Center"
+							HorizontalOptions="Fill"
+							HorizontalTextAlignment="Center"
+							BackgroundColor="Transparent"/>
+					</Grid>
+
+
+			</Grid>
+
 			<StackLayout Grid.Row="2" Orientation=" Vertical">
-				<Button Text="Select medication plan" Style="{StaticResource PrimaryPassiveButtonStyle}" Command="{Binding ShowMedicalPlanCommand}"></Button>
+				<Button Text="Select medication plan" Style="{StaticResource PrimaryActiveButtonStyle}" Command="{Binding ShowMedicalPlanCommand}"></Button>
 			</StackLayout>
-			<Button Grid.Row="3" Text="Enroll a patient"></Button>
+			<Button Grid.Row="3" Text="Enroll a patient" Style="{StaticResource SecondaryPassiveButtonStyle}"></Button>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>

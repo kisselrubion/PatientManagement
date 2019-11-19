@@ -33,7 +33,14 @@ namespace WristCare.ViewModel
 		public Course SelectedCourse
 		{
 			get => _selectedCourse;
-			set => Set(ref _selectedCourse, value);
+			set
+			{
+				if (Set(ref _selectedCourse, value))
+				{
+					Task.Run(async () => await GetCourseMedicines(_selectedCourse));
+				}
+			}
+			
 		}
 
 		public CourseType SelectedCourseType
@@ -51,7 +58,6 @@ namespace WristCare.ViewModel
 			_selectedCourse = new Course();
 			InitializeData();
 
-			Task.Run(async () => await GetCourseMedicines());
 		}
 
 		private void InitializeData()
@@ -72,9 +78,29 @@ namespace WristCare.ViewModel
 		public ICommand SelectMedicinePlanCommand => new RelayCommand(ShowMedicineDetailsPage);
 		public ICommand AddMedicinePlanCommand => new RelayCommand(async () => await AddMedicalPlanToCourseHistory());
 
-		private async Task GetCourseMedicines()
+		public ICommand ShowMedicineLogsCommand => new RelayCommand(ShowMedicineLogs);
+		public ICommand ShowProcedureLogsCommand => new RelayCommand(ShowProcedureLogs);
+		public ICommand ShowMeasurementLogsCommand => new RelayCommand(ShowMeasurementLogs);
+
+
+		private void ShowProcedureLogs()
 		{
-			var medicines = await _medicalPlanService.GetMedicinePlan(_selectedCourse);
+			navigationService.NavigateTo(Locator.ProcedureDetailsPage);
+		}
+
+		private void ShowMeasurementLogs()
+		{
+			navigationService.NavigateTo(Locator.MeasurementDetailsPage);
+		}
+
+		private void ShowMedicineLogs()
+		{
+			navigationService.NavigateTo(Locator.MedicineDetailsPage);
+		}
+
+		private async Task GetCourseMedicines(Course course)
+		{
+			var medicines = await _medicalPlanService.GetMedicinePlan(course);
 			Medicines = new ObservableCollection<Medicine>(medicines);
 		}
 		private void ShowMedicineDetailsPage()
