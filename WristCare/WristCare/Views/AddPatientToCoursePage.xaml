@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+			 mc:Ignorable="d"
+			 d:NavigationPage.HasNavigationBar="False"
+			 BindingContext="{Binding CourseDetailsViewModel,Source={StaticResource Locator}}"
+			 x:Class="WristCare.Views.AddPatientToCoursePage">
+	<ContentPage.Content>
+		<Frame
+			BackgroundColor="White"
+			HasShadow="False"
+			Margin="20"
+			Padding="0"
+			CornerRadius="10">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Label Margin="10" Text="Select a patient"></Label>
+				<StackLayout Orientation="Vertical" Grid.Row="1">
+					<SearchBar Placeholder="Patient name"></SearchBar>
+					<ListView 
+						ItemsSource="{Binding Patients}" IsRefreshing="{Binding IsBusy}" 
+						ItemTapped="ListView_OnItemTapped"
+						SelectedItem="{Binding SelectedPatient}">
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<ViewCell>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto"></ColumnDefinition>
+											<ColumnDefinition Width="*"></ColumnDefinition>
+											<ColumnDefinition Width="Auto"></ColumnDefinition>
+										</Grid.ColumnDefinitions>
+										<StackLayout Orientation="Horizontal">
+											<Label Text="{Binding UserAccountId}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Start"></Label>
+											<Label Text="{Binding LastName}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Start"></Label>
+										</StackLayout>
+										<Button 
+											Grid.Column="2"
+											Margin="4,4,10,4"
+											Text="Add"
+											IsEnabled="False"
+											></Button>
+									</Grid>
+								</ViewCell>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+				</StackLayout>
+			</Grid>
+		</Frame>
+	</ContentPage.Content>
+</pages:PopupPage>

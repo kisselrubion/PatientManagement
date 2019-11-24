@@ -10,7 +10,7 @@ using Rg.Plugins.Popup.Services;
 using WristCare.Helpers;
 using WristCare.Model;
 using WristCare.Service.Courses;
-using WristCare.Service.Patient;
+using WristCare.Service.PatientServ;
 using WristCare.View;
 using WristCare.ViewModel.Base;
 using Xamarin.Forms;

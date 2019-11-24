@@ -10,7 +10,5 @@ namespace WristCare.Model
 		public int? PatientNumber { get; set; }
 		public int? AccountId { get; set; }
 		public Account Account { get; set; }
-		public List<CourseHistory> CourseHistories { get; set; }
-		public List<Room> Rooms { get; set; }
 	}
 }

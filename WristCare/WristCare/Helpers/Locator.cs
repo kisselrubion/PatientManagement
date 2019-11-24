@@ -5,7 +5,7 @@ using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using WristCare.Service.Courses;
 using WristCare.Service.MedicalPlan;
-using WristCare.Service.Patient;
+using WristCare.Service.PatientServ;
 using WristCare.Service.SingUp;
 using WristCare.Service.Users;
 using WristCare.ViewModel;
@@ -32,6 +32,7 @@ namespace WristCare.Helpers
 		public const string MeasurementDetailsPage = "MeasurementDetailsPage";
 		public const string MedicineDetailsPage = "MedicineDetailsPage";
 		public const string ProcedureDetailsPage = "ProcedureDetailsPage";
+		public const string AddPatientToCoursePage = "AddPatientToCoursePage";
 
 		public Locator()
 		{

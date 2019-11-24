@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WristCare.Model;
 
-namespace WristCare.Service.Patient
+namespace WristCare.Service.PatientServ
 {
 	public class PatientService
 	{
@@ -19,7 +17,7 @@ namespace WristCare.Service.Patient
 		/// Gets value of all accounts with patient type of ID
 		/// </summary>
 		/// <returns>
-		/// List of patients
+		/// List of patients if theres any but receives empty list of patients to be quantified as null
 		/// </returns>
 		public async Task<List<User>> GetAllPatientsAsync()
 		{
@@ -36,6 +34,16 @@ namespace WristCare.Service.Patient
 		public async Task<Account> RegisterPatient(Account account)
 		{
 			var response = await _requestProvider.PostAsync("account", account);
+
+			//todo : test this 
+			//var newPatient = new Patient
+			//{
+			//	AccountId = response.AccountId,
+			//	PatientNumber = int.Parse(response.AccountNumber)
+			//};
+
+			//var result = await _requestProvider.PostAsync("patient", account);
+
 			return response;
 		}
 		

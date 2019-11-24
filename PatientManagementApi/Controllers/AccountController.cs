@@ -62,7 +62,27 @@ namespace PatientManagementApi.Controllers
 			}
 			catch
 			{
-				throw new NullReferenceException("Patient Registration Failed");
+				throw new NullReferenceException("Account Registration Failed");
+			}
+		}
+
+		//api/account
+		[HttpPut]
+		public ActionResult Put([FromBody] Account account)
+		{
+			if (account == null)
+			{
+				throw new NoNullAllowedException("No Account found");
+			}
+
+			try
+			{
+				var entity =  _accountService.Put(account);
+				return Ok(entity);
+			}
+			catch
+			{
+				throw new NullReferenceException("Account Update Failed");
 			}
 		}
 	}

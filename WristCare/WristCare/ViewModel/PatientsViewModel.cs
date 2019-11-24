@@ -8,7 +8,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using WristCare.Helpers;
 using WristCare.Model;
-using WristCare.Service.Patient;
+using WristCare.Service.PatientServ;
 using WristCare.Service.Users;
 using WristCare.ViewModel.Base;
 
@@ -87,6 +87,9 @@ namespace WristCare.ViewModel
 			};
 
 			var response = await _patientService.RegisterPatient(newPatientAccount);
+
+
+
 			if (response.AccountId != 0)
 			{
 				await PopupHelper.ActionResultMessage("Success", "Patient added");

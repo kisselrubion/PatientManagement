@@ -156,7 +156,7 @@
 			<StackLayout Grid.Row="2" Orientation=" Vertical">
 				<Button Text="Select medication plan" Style="{StaticResource PrimaryActiveButtonStyle}" Command="{Binding ShowMedicalPlanCommand}"></Button>
 			</StackLayout>
-			<Button Grid.Row="3" Text="Enroll a patient" Style="{StaticResource SecondaryPassiveButtonStyle}"></Button>
+			<Button Grid.Row="3" Command="{Binding ShowPatientsCommand}" Text="Enroll a patient" Style="{StaticResource SecondaryPassiveButtonStyle}"></Button>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>
