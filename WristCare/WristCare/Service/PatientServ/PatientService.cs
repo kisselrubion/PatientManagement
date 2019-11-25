@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WristCare.Model;
 
@@ -35,16 +36,13 @@ namespace WristCare.Service.PatientServ
 		{
 			var response = await _requestProvider.PostAsync("account", account);
 
-			//todo : test this 
-			//var newPatient = new Patient
-			//{
-			//	AccountId = response.AccountId,
-			//	PatientNumber = int.Parse(response.AccountNumber)
-			//};
-
-			//var result = await _requestProvider.PostAsync("patient", account);
-
-			return response;
+			var newPatient = new Patient
+			{
+				AccountId = response.AccountId,
+				PatientNumber = response.AccountNumber,
+			};
+			var result = await _requestProvider.PostAsync("patient", newPatient);
+			return result!=null ? response : new Account();
 		}
 		
 	}

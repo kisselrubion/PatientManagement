@@ -7,7 +7,7 @@ namespace WristCare.Model
 	public class Patient
 	{
 		public int PatientId { get; set; }
-		public int? PatientNumber { get; set; }
+		public string PatientNumber { get; set; }
 		public int? AccountId { get; set; }
 		public Account Account { get; set; }
 	}

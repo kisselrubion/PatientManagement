@@ -52,7 +52,7 @@ namespace WristCare.ViewModel
 
 		public void InitializeData()
 		{
-			PatientRfid = "prf1001";
+			PatientRfid = "prf2200011"; //string is necessary because the rfid value contains characters
 			Patients = new ObservableCollection<User>();
 			IsBusy = false;
 			Patient = new User

@@ -7,7 +7,7 @@ namespace WristCare.Model
 	public class Measurement
 	{
 		public int MeasurementId { get; set; }
-		public string MeasurementNumber { get; set; }
+		public int? MeasurementNumber { get; set; }
 		public string Description { get; set; }
 		public string Comments { get; set; }
 		public DateTime MeasurementDateTime { get; set; }
