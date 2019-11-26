@@ -99,9 +99,9 @@ namespace WristCare.ViewModel
 		{
 			var createdCourseHistory = new CourseHistory
 			{
-				CourseHistoryNumber = 10001,
 				CourseId = _selectedCourse.CourseId,
-				PatientId = int.Parse(_selectedPatient.UserAccountId)
+				//patientId is only used to store the selectedPatient.userAccountId temporarily
+				PatientId =int.Parse(_selectedPatient.UserAccountId),
 			};
 
 			var result = await _medicalPlanService.AddCourseHistory(createdCourseHistory);

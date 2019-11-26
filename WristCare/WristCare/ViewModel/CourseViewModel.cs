@@ -58,7 +58,6 @@ namespace WristCare.ViewModel
 				IsArchived = false,
 				CourseDate = DateTime.Now,
 				Description = "Sample description",
-				TransactionId = 1003,
 			};
 			InitializeData();
 		}

@@ -26,6 +26,7 @@ namespace WristCare.Service.PatientServ
 			return patients;
 		}
 
+
 		public async Task<List<User>> GetPatientsWithCourses()
 		{
 			var patients = await _requestProvider.GetAsync<List<User>>("account/patientCourses");

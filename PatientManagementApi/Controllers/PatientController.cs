@@ -70,11 +70,11 @@ namespace PatientManagementApi.Controllers
 
 		// usage : api/course?all=true
 		[HttpGet]
-		public ActionResult Get(bool all)
+		public async Task<ActionResult> Get(bool all)
 		{
 			if (!all) throw new NullReferenceException("Patient not found");
 			if (!_context.Patients.Any()) throw new NullReferenceException("Patient no entries");
-			var patient = _patientService.GetRange(all);
+			var patient = await _patientService.GetRange(all);
 			return Ok(patient);
 		}
 	}

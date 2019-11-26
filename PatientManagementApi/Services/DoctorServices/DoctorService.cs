@@ -45,7 +45,7 @@ namespace PatientManagementApi.Services.DoctorServices
 
 		public async Task<Doctor> Get(string id)
 		{
-			var doctor = await _context.Doctors.FirstOrDefaultAsync(c => c.DoctorNumber == int.Parse(id));
+			var doctor = await _context.Doctors.FirstOrDefaultAsync(c => c.DoctorNumber == id);
 			return doctor ?? new Doctor();
 		}
 

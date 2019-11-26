@@ -131,7 +131,7 @@ namespace WristCare.RequestProvider
 			}
 		}
 
-		public async Task<TResult> PostAsync<TResult>(string uri, TResult data,int id)
+		public async Task<TResult> PostAsync<TResult>(string uri, TResult data, string id)
 		{
 			using (var httpClient = CreateHttpClientAsync(AccessToken))
 			{

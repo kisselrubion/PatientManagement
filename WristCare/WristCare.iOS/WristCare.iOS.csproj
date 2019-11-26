@@ -153,5 +153,11 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.1.0.618606" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WristCare\WristCare.csproj">
+      <Project>{3dffee64-2d36-4a5d-9459-0c239a26e1a1}</Project>
+      <Name>WristCare</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

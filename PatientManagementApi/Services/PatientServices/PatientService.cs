@@ -28,6 +28,7 @@ namespace PatientManagementApi.Services.PatientServices
 			catch
 			{
 				return new Patient();
+				
 			}
 		}
 
@@ -46,7 +47,7 @@ namespace PatientManagementApi.Services.PatientServices
 
 		public async Task<Patient> Get(string id)
 		{
-			var patient = await _context.Patients.FirstOrDefaultAsync(c => c.PatientNumber == int.Parse(id));
+			var patient = await _context.Patients.FirstOrDefaultAsync(c => c.PatientNumber == id);
 			return patient ?? new Patient();
 		}
 

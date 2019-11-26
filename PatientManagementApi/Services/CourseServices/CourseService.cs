@@ -20,6 +20,10 @@ namespace PatientManagementApi.Services.CourseServices
 		{
 			try
 			{
+				var lastCourse = await _context.Courses.LastAsync();
+				//id indexer
+				course.TransactionId = lastCourse.TransactionId + 1;
+
 				var addedCourse = await _context.Courses.AddAsync(course);
 				await _context.SaveChangesAsync();
 				return addedCourse.Entity;

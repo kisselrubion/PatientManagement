@@ -18,6 +18,13 @@ namespace PatientManagementApi.Services.CourseHistoryService
 		{
 			try
 			{
+				var lastCourseHistory = await _context.CourseHistories.LastAsync();
+
+				var patient = await _context.Patients.FirstOrDefaultAsync(c => c.AccountId == courseHistory.PatientId);
+				courseHistory.PatientId = patient.PatientId;
+
+				//auto indexer
+				courseHistory.CourseHistoryNumber = lastCourseHistory.CourseHistoryNumber + 1;
 				var addedCourseHistory = await _context.CourseHistories.AddAsync(courseHistory);
 				await _context.SaveChangesAsync();
 				return addedCourseHistory.Entity;
