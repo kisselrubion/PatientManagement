@@ -10,7 +10,7 @@
 		public int? NurseId { get; set; }
 		public int? DoctorId { get; set; }
 		public int? RoomId { get; set; }
-
+		public string UserAccountNumber { get; set; }
 		public Patient Patient { get; set; }
 		public Nurse Nurse { get; set; }
 		public Doctor Doctor { get; set; }

@@ -27,7 +27,7 @@
 					<ListView 
 						ItemsSource="{Binding Patients}" IsRefreshing="{Binding IsBusy}" 
 						ItemTapped="ListView_OnItemTapped"
-						SelectedItem="{Binding SelectedPatient}">
+						SelectedItem="{Binding SelectedUser}">
 						<ListView.ItemTemplate>
 							<DataTemplate>
 								<ViewCell>

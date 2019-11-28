@@ -20,7 +20,7 @@ namespace PatientManagementApi.Services.CourseHistoryService
 			{
 				var lastCourseHistory = await _context.CourseHistories.LastAsync();
 
-				var patient = await _context.Patients.FirstOrDefaultAsync(c => c.AccountId == courseHistory.PatientId);
+				var patient = await _context.Patients.FirstOrDefaultAsync(c => c.PatientNumber == courseHistory.UserAccountNumber);
 				courseHistory.PatientId = patient.PatientId;
 
 				//auto indexer

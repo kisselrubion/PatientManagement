@@ -26,14 +26,21 @@ namespace WristCare.ViewModel
 		private Course _selectedCourse;
 		private CourseType _selectedCourseType;
 		private Medicine _selectedMedicine;
-		private User _selectedPatient;
+		private User _selectedUser;
+		private Patient _selectedPatient;
 
 		public Medicine SelectedMedicine
 		{
 			get => _selectedMedicine;
 			set => Set(ref _selectedMedicine, value);
 		}
-		public User SelectedPatient
+		public User SelectedUser
+		{
+			get => _selectedUser;
+			set => Set(ref _selectedUser, value);
+		}
+
+		public Patient SelectedPatient
 		{
 			get => _selectedPatient;
 			set => Set(ref _selectedPatient, value);
@@ -73,7 +80,8 @@ namespace WristCare.ViewModel
 		private void InitializeData()
 		{
 			_selectedCourse = new Course();
-			_selectedPatient = new User();
+			_selectedPatient = new Patient();
+			_selectedUser = new User();
 			_selectedMedicine = new Medicine
 			{
 				MedicineName = "medicine name",
@@ -100,8 +108,8 @@ namespace WristCare.ViewModel
 			var createdCourseHistory = new CourseHistory
 			{
 				CourseId = _selectedCourse.CourseId,
+				UserAccountNumber = _selectedUser.UserAccountId
 				//patientId is only used to store the selectedPatient.userAccountId temporarily
-				PatientId =int.Parse(_selectedPatient.UserAccountId),
 			};
 
 			var result = await _medicalPlanService.AddCourseHistory(createdCourseHistory);

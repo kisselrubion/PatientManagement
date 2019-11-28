@@ -46,7 +46,7 @@ namespace PatientManagementApi.Services.MeasurementServices
 
 		public async Task<Measurement> Get(string id)
 		{
-			var measurement = await _context.Measurements.FirstOrDefaultAsync(c => c.MeasurementNumber == id);
+			var measurement = await _context.Measurements.FirstOrDefaultAsync(c => c.MeasurementNumber == int.Parse(id));
 			return measurement ?? new Measurement();
 		}
 
