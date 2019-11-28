@@ -48,5 +48,19 @@ namespace PatientManagementApi.Controllers
 			var courseHistory = await _couseHistoryService.Get(id);
 			return Ok(courseHistory);
 		}
+
+		// usage: api/coursehistory/history/
+		/// <summary>
+		/// Returns the history by using the id in course
+		/// </summary>
+		/// <param name="course"></param>
+		/// <returns></returns>
+		[HttpPost("history")]
+		public async Task<ActionResult> GetHistoryByCourse([FromBody] Course course)
+		{
+			if (course == null) throw new NullReferenceException("Course History not found");
+			var courseHistory = await _couseHistoryService.GetHistoryByCourse(course.CourseId);
+			return Ok(courseHistory);
+		}
 	}
 }

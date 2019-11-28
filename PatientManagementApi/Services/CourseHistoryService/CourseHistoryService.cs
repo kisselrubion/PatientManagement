@@ -56,6 +56,13 @@ namespace PatientManagementApi.Services.CourseHistoryService
 			return course ?? new CourseHistory();
 		}
 
+		public async Task<CourseHistory> GetHistoryByCourse(int id)
+		{
+
+			var course = await _context.CourseHistories.FirstOrDefaultAsync(c => c.CourseId == id);
+			return course ?? new CourseHistory();
+		}
+
 		public Task<bool> Remove(string id)
 		{
 			//todo

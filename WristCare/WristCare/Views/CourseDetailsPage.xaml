@@ -32,10 +32,15 @@
 
 				<Grid Grid.Row="1">
 					<Grid.RowDefinitions>
-						<RowDefinition Height="*"></RowDefinition>
-						<RowDefinition Height="*"></RowDefinition>
+						<RowDefinition Height="120"></RowDefinition>
 						<RowDefinition Height="*"></RowDefinition>
 					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+
 					<Grid 
 						Grid.Column="0"
 						HeightRequest="100"
@@ -75,9 +80,8 @@
 					</Grid>
 
 					<Grid 
-						Grid.Column="0"
+						Grid.Column="1"
 						HeightRequest="100"
-						Grid.Row="1"
 						MinimumWidthRequest="100">
 					<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*"></ColumnDefinition>
@@ -113,9 +117,8 @@
 					</Grid>
 
 					<Grid 
-						Grid.Column="0"
+						Grid.Column="2"
 						HeightRequest="100"
-						Grid.Row="2"
 						MinimumWidthRequest="100">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*"></ColumnDefinition>
@@ -148,6 +151,13 @@
 							HorizontalOptions="Fill"
 							HorizontalTextAlignment="Center"
 							BackgroundColor="Transparent"/>
+					</Grid>
+
+					<Grid 
+						Grid.Row="1"
+						Grid.ColumnSpan="3" 
+						Grid.Column="0">
+						<Label Text="Patients"></Label>
 					</Grid>
 
 

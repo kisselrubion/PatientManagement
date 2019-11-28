@@ -17,7 +17,7 @@ namespace WristCare.Service.MedicalPlan
 
 		public async Task GetAllRelatedMedicalPlan(int id)
 		{
-			var result = await _requestProvider.GetAsync<CourseHistory>("courseHistory/"+id);
+			var response = await _requestProvider.GetAsync<CourseHistory>("courseHistory/"+id);
 		}
 
 		public async Task<List<Medicine>> GetMedicinePlan(Course course)

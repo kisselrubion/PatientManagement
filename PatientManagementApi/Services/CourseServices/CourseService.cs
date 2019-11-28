@@ -50,7 +50,14 @@ namespace PatientManagementApi.Services.CourseServices
 		public async Task<Course> Get(int id)
 		{
 			var course = await _context.Courses.FirstOrDefaultAsync(c => c.TransactionId == id && c.IsArchived == false);
-			return course ?? new Course();
+			if (course == null) return new Course();
+			{
+				course.Medicines = await _context.Medicines.Where(c => c.CourseId == course.CourseId).ToListAsync();
+				course.Measurements = await _context.Measurements.Where(c => c.CourseId == course.CourseId).ToListAsync();
+				course.Procedures = await _context.Procedures.Where(c => c.CourseId == course.CourseId).ToListAsync();
+				course.Transfers = await _context.Transfers.Where(c => c.CourseId == course.CourseId).ToListAsync();
+			}
+			return course;
 		}
 		public List<Course> GetRange(bool all)
 		{

@@ -48,6 +48,10 @@ namespace PatientManagementApi.Services.PatientServices
 		public async Task<Patient> Get(string id)
 		{
 			var patient = await _context.Patients.FirstOrDefaultAsync(c => c.PatientNumber == id);
+			if (patient != null)
+			{
+				patient.CourseHistories = await _context.CourseHistories.Where(c => c.PatientId == patient.PatientId).ToListAsync();
+			}
 			return patient ?? new Patient();
 		}
 

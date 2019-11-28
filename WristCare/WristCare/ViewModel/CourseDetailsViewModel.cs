@@ -15,6 +15,7 @@ using WristCare.Service.PatientServ;
 using WristCare.View;
 using WristCare.ViewModel.Base;
 using WristCare.Views;
+using Xamarin.Forms;
 
 namespace WristCare.ViewModel
 {
@@ -51,10 +52,9 @@ namespace WristCare.ViewModel
 			get => _selectedCourse;
 			set
 			{
-				if (Set(ref _selectedCourse, value))
-				{
-					Task.Run(async () => await GetCourseMedicines(_selectedCourse));
-				}
+				if (!Set(ref _selectedCourse, value)) return;
+				Task.Run(async () => await GetCourseMedicines(_selectedCourse));
+				//Task.Run(async () => await GetPatientsInCourse(_selectedCourse));
 			}
 			
 		}
@@ -122,7 +122,7 @@ namespace WristCare.ViewModel
 		private async void ShowAddPatientToCoursePage()
 		{
 			await PopupNavigation.Instance.PushAsync(new AddPatientToCoursePage());
-			await GetPatients();
+			await GetAllPatients();
 		}
 
 
@@ -164,15 +164,18 @@ namespace WristCare.ViewModel
 		{
 			_selectedMedicine.CourseId = _selectedCourse.CourseId;
 			var medResult = await _medicalPlanService.AddMedicinePlan(_selectedMedicine);
-			//var histResult = await _medicalPlanService
 			if (medResult != null)
 			{ 
 				await PopupHelper.ActionResultMessage("Success", "medicine plan added to course");
 			}
 		}
 
+		//Gets patients that are enrolled in selected course
+		public async Task GetPatientsInCourse(Course selectedCourse)
+		{
+		}
 
-		public async Task GetPatients()
+		public async Task GetAllPatients()
 		{
 			IsBusy = true;
 			var patients = await _patientService.GetAllPatientsAsync();
