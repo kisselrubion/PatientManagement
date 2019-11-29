@@ -15,26 +15,27 @@ namespace WristCare.Service.MedicalPlan
 			_requestProvider = requestProvider;
 		}
 
-		public async Task GetAllRelatedMedicalPlan(int id)
+		public async Task<CourseHistory> GetCourseHistory(Course course)
 		{
-			var response = await _requestProvider.GetAsync<CourseHistory>("courseHistory/"+id);
+			var data = await _requestProvider.PostAsync<CourseHistory>("courseHistory/history/",course);
+			return data;
 		}
 
 		public async Task<List<Medicine>> GetMedicinePlan(Course course)
 		{
-			var response = await _requestProvider.GetAsync<List<Medicine>>("medicine/MedicineCourse/" + course.CourseId);
-			return response;
+			var data = await _requestProvider.GetAsync<List<Medicine>>("medicine/MedicineCourse/" + course.CourseId);
+			return data;
 		}
 		public async Task<Medicine> AddMedicinePlan(Medicine medicine)
 		{
-			var response = await _requestProvider.PostAsync("medicine", medicine);
-			return response;
+			var data = await _requestProvider.PostAsync("medicine", medicine);
+			return data;
 		}
 
 		public async Task<CourseHistory> AddCourseHistory(CourseHistory courseHistory )
 		{
-			var response = await _requestProvider.PostAsync("coursehistory/", courseHistory);
-			return response;
+			var data = await _requestProvider.PostAsync("coursehistory/", courseHistory);
+			return data;
 		}
 	}
 }

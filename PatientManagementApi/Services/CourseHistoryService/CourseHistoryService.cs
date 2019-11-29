@@ -60,6 +60,10 @@ namespace PatientManagementApi.Services.CourseHistoryService
 		{
 
 			var course = await _context.CourseHistories.FirstOrDefaultAsync(c => c.CourseId == id);
+			if (course != null)
+			{
+				course.Patient = await _context.Patients.FirstOrDefaultAsync(c => c.PatientId == course.PatientId);
+			}
 			return course ?? new CourseHistory();
 		}
 

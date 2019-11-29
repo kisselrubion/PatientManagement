@@ -25,7 +25,7 @@
 				<StackLayout Orientation="Vertical" Grid.Row="1">
 					<SearchBar Placeholder="Patient name"></SearchBar>
 					<ListView 
-						ItemsSource="{Binding Patients}" IsRefreshing="{Binding IsBusy}" 
+						ItemsSource="{Binding AllPatients}" IsRefreshing="{Binding IsBusy}" 
 						ItemTapped="ListView_OnItemTapped"
 						SelectedItem="{Binding SelectedUser}">
 						<ListView.ItemTemplate>
@@ -53,6 +53,7 @@
 						</ListView.ItemTemplate>
 					</ListView>
 				</StackLayout>
+				<Button Grid.Row="2" Text="Close"></Button>
 			</Grid>
 		</Frame>
 	</ContentPage.Content>

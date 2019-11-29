@@ -54,27 +54,24 @@ namespace WristCare.ViewModel
 			{
 				if (!Set(ref _selectedCourse, value)) return;
 				Task.Run(async () => await GetCourseMedicines(_selectedCourse));
-				//Task.Run(async () => await GetPatientsInCourse(_selectedCourse));
+				Task.Run(async () => await GetPatientsInCourse(_selectedCourse));
 			}
-			
-		}
 
+		}
 		public CourseType SelectedCourseType
 		{
 			get => _selectedCourseType;
 			set => Set(ref _selectedCourseType, value);
 		}
-
 		public ObservableCollection<Medicine> Medicines { get; set; }
+		public ObservableCollection<User> AllPatients { get; set; }
 		public ObservableCollection<User> Patients { get; set; }
-
-		public CourseDetailsViewModel(CourseService courseService,MedicalPlanService medicalPlanService, PatientService patientService)
+		public CourseDetailsViewModel(CourseService courseService, MedicalPlanService medicalPlanService, PatientService patientService)
 		{
 			_courseService = courseService;
 			_medicalPlanService = medicalPlanService;
 			_patientService = patientService;
 			InitializeData();
-
 		}
 
 		private void InitializeData()
@@ -91,7 +88,9 @@ namespace WristCare.ViewModel
 				Dosage = "2ml",
 				Interval = 2,
 			};
+			AllPatients = new ObservableCollection<User>();
 			Patients = new ObservableCollection<User>();
+			Task.Run(async () => await GetAllPatients());
 		}
 
 		public ICommand ShowMedicalPlanCommand => new RelayCommand(ShowMedicalPlanPage);
@@ -122,7 +121,6 @@ namespace WristCare.ViewModel
 		private async void ShowAddPatientToCoursePage()
 		{
 			await PopupNavigation.Instance.PushAsync(new AddPatientToCoursePage());
-			await GetAllPatients();
 		}
 
 
@@ -160,28 +158,33 @@ namespace WristCare.ViewModel
 			navigationService.NavigateTo(Locator.MedicalPlanPage);
 		}
 
-		public async Task AddMedicalPlanToCourseHistory()
+		private async Task AddMedicalPlanToCourseHistory()
 		{
 			_selectedMedicine.CourseId = _selectedCourse.CourseId;
 			var medResult = await _medicalPlanService.AddMedicinePlan(_selectedMedicine);
 			if (medResult != null)
-			{ 
+			{
 				await PopupHelper.ActionResultMessage("Success", "medicine plan added to course");
 			}
 		}
 
 		//Gets patients that are enrolled in selected course
-		public async Task GetPatientsInCourse(Course selectedCourse)
+		private async Task GetPatientsInCourse(Course selectedCourse)
 		{
+			IsBusy = true;
+			var courseHistory = await _medicalPlanService.GetCourseHistory(selectedCourse);
+			var patient = AllPatients.FirstOrDefault(c => c.UserAccountId == courseHistory.Patient.PatientNumber);
+			Patients.Add(patient);
+			IsBusy = false;
 		}
 
-		public async Task GetAllPatients()
+		private async Task GetAllPatients()
 		{
 			IsBusy = true;
 			var patients = await _patientService.GetAllPatientsAsync();
 			foreach (var patient in patients)
 			{
-				Patients.Add(patient);
+				AllPatients.Add(patient);
 			}
 			IsBusy = false;
 		}

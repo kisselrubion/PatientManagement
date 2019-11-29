@@ -27,11 +27,11 @@
 				<Label Text="{Binding SelectedCourse.Description}"></Label>
 				<Label Text="{Binding SelectedCourse.CourseDate}"></Label>
 			</StackLayout>
-
 			<!--medical details container-->
-
 				<Grid Grid.Row="1">
 					<Grid.RowDefinitions>
+						<RowDefinition Height="120"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="120"></RowDefinition>
 						<RowDefinition Height="*"></RowDefinition>
 					</Grid.RowDefinitions>
@@ -42,6 +42,44 @@
 					</Grid.ColumnDefinitions>
 
 					<Grid 
+						Grid.Row="0"
+						Margin="5"
+						Grid.ColumnSpan="3" 
+						Grid.Column="0">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Label Text="Patients" HorizontalOptions="Start" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" TextColor="{StaticResource PrimaryTextColor}"></Label>
+						<ListView Grid.Row="1" ItemsSource="{Binding Patients}" HasUnevenRows="True" IsRefreshing="{Binding IsBusy}" RefreshControlColor="{StaticResource Primary}">
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<ViewCell>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="*"></ColumnDefinition>
+											</Grid.ColumnDefinitions>
+											<StackLayout
+												Orientation="Horizontal"
+												VerticalOptions="Center"
+												HorizontalOptions="StartAndExpand">
+												<Label Text="{Binding LastName}" FontSize="Medium" VerticalTextAlignment="Center"></Label>
+												<Label Text=", " FontSize="Medium" VerticalTextAlignment="Center"></Label>
+												<Label Text="{Binding FirstName}" FontSize="Medium" VerticalTextAlignment="Center"></Label>
+											</StackLayout>
+										</Grid>
+									</ViewCell>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+					</Grid>
+
+					<StackLayout Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" Orientation="Horizontal" VerticalOptions="Center">
+						<Label Text="Course Types" FontSize="Large" TextColor="{StaticResource PrimaryTextColor}"></Label>
+					</StackLayout>
+
+					<Grid
+						Grid.Row="2"
 						Grid.Column="0"
 						HeightRequest="100"
 						MinimumWidthRequest="100"
@@ -80,6 +118,7 @@
 					</Grid>
 
 					<Grid 
+						Grid.Row="2"
 						Grid.Column="1"
 						HeightRequest="100"
 						MinimumWidthRequest="100">
@@ -117,6 +156,7 @@
 					</Grid>
 
 					<Grid 
+						Grid.Row="2"
 						Grid.Column="2"
 						HeightRequest="100"
 						MinimumWidthRequest="100">
@@ -153,12 +193,6 @@
 							BackgroundColor="Transparent"/>
 					</Grid>
 
-					<Grid 
-						Grid.Row="1"
-						Grid.ColumnSpan="3" 
-						Grid.Column="0">
-						<Label Text="Patients"></Label>
-					</Grid>
 
 
 			</Grid>
