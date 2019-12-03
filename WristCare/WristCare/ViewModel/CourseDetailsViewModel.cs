@@ -79,6 +79,7 @@ namespace WristCare.ViewModel
 			_selectedCourse = new Course();
 			_selectedPatient = new Patient();
 			_selectedUser = new User();
+			//Todo : remove this sample data
 			_selectedMedicine = new Medicine
 			{
 				MedicineName = "medicine name",
@@ -86,8 +87,9 @@ namespace WristCare.ViewModel
 				Comments = "comments",
 				CourseId = _selectedCourse.CourseId,
 				Dosage = "2ml",
-				Interval = 2,
+				Interval = DateTime.Now.Hour,
 			};
+			Medicines = new ObservableCollection<Medicine>();
 			AllPatients = new ObservableCollection<User>();
 			Patients = new ObservableCollection<User>();
 			Task.Run(async () => await GetAllPatients());
@@ -96,6 +98,7 @@ namespace WristCare.ViewModel
 		public ICommand ShowMedicalPlanCommand => new RelayCommand(ShowMedicalPlanPage);
 		public ICommand SelectMedicinePlanCommand => new RelayCommand(ShowMedicineDetailsPage);
 		public ICommand AddMedicinePlanCommand => new RelayCommand(async () => await AddMedicalPlanToCourseHistory());
+		public ICommand AddMedicineLogCommand => new RelayCommand(async () => await AddMedicalPlanToCourseHistory());
 		public ICommand ShowMedicineLogsCommand => new RelayCommand(ShowMedicineLogs);
 		public ICommand ShowProcedureLogsCommand => new RelayCommand(ShowProcedureLogs);
 		public ICommand ShowMeasurementLogsCommand => new RelayCommand(ShowMeasurementLogs);
@@ -141,7 +144,6 @@ namespace WristCare.ViewModel
 
 		private async Task GetCourseMedicines(Course course)
 		{
-			Medicines.Clear();
 			var medicines = await _medicalPlanService.GetMedicinePlan(course);
 			foreach (var medicine in medicines)
 			{

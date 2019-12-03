@@ -15,6 +15,7 @@ namespace WristCare.Service.MedicalPlan
 			_requestProvider = requestProvider;
 		}
 
+
 		public async Task<CourseHistory> GetCourseHistory(Course course)
 		{
 			var data = await _requestProvider.PostAsync<CourseHistory>("courseHistory/history/",course);

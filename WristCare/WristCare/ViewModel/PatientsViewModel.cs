@@ -52,6 +52,7 @@ namespace WristCare.ViewModel
 
 		public void InitializeData()
 		{
+			//Todo : remove this sample data
 			PatientRfid = "prf2200011"; //string is necessary because the rfid value contains characters
 			Patients = new ObservableCollection<User>();
 			IsBusy = false;

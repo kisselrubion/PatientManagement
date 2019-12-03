@@ -51,7 +51,7 @@ namespace WristCare.ViewModel
 			_courseService = courseService;
 			_patientService = patientService;
 			SelectedCourse = new Course();
-			//Sample data
+			//Todo : remove this sample data
 			CreatedCourse = new Course
 			{
 				Title = "Title",

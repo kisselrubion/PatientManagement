@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+			 mc:Ignorable="d"
+			 BindingContext="{Binding CourseDetailsViewModel,Source={StaticResource Locator}}"
+			 x:Class="WristCare.Views.AddMedicineLogPage">
+	<ContentPage.Content>
+		<Frame
+			HorizontalOptions="CenterAndExpand" 
+			VerticalOptions="FillAndExpand" Padding="0"
+			CornerRadius="10"
+			HasShadow="False"
+			BackgroundColor="White"
+			Margin="20">
+			<ScrollView>
+				<Grid Margin="20" >
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+					</Grid.RowDefinitions>
+					<StackLayout 
+						Margin="5"
+						Orientation="Vertical" 
+						VerticalOptions="StartAndExpand">
+						<Entry Text="{Binding Path=SelectedCourse.Title}"></Entry>
+						<Entry Text="{Binding Path=SelectedCourse.CourseDate, StringFormat='{0:dddd, MMMM dd, yyyy h:mm tt}'}" Placeholder="Date"></Entry>
+						<Entry Text="{Binding Path=SelectedCourse.Description}" Placeholder="Description"></Entry>
+					</StackLayout>
+
+					<Button 
+						Margin="5"
+						Grid.Row="1"
+						Command="{Binding CreateCourseCommand}"
+						Text="Save log"></Button>
+
+					<Button 
+						Margin="5,0,5,5"
+						Grid.Row="2"
+						Style="{StaticResource SecondaryPassiveButtonStyle}"
+						Command="{Binding CancelCourseCommand}"
+						Text="Back"></Button>
+				</Grid>
+			</ScrollView>
+
+		</Frame>
+	</ContentPage.Content>
+</pages:PopupPage>

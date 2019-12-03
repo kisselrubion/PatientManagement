@@ -13,10 +13,13 @@
 				<RowDefinition Height="Auto"></RowDefinition>
 				<RowDefinition Height="*"></RowDefinition>
 				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
 			</Grid.RowDefinitions>
+
 			<StackLayout Orientation="Vertical">
 				<Label Text="{Binding SelectedCourse.EditedDate}"></Label>
 			</StackLayout>
+
 			<Grid Grid.Row="1">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"></RowDefinition>
@@ -55,6 +58,9 @@
 					</ListView>
 
 			</Grid>
+
+			<Button Grid.Row="2" Text="Add Medicine log" Style="{StaticResource PrimaryActiveButtonStyle}" Command="{Binding }"></Button>
+			<Button Grid.Row="3" Text="Close" Style="{StaticResource SecondaryPassiveButtonStyle}"></Button>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>

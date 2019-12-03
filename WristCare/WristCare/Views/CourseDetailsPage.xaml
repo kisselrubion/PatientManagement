@@ -30,7 +30,7 @@
 			<!--medical details container-->
 				<Grid Grid.Row="1">
 					<Grid.RowDefinitions>
-						<RowDefinition Height="120"></RowDefinition>
+						<RowDefinition Height="*"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="120"></RowDefinition>
 						<RowDefinition Height="*"></RowDefinition>
@@ -41,33 +41,35 @@
 						<ColumnDefinition Width="*"></ColumnDefinition>
 					</Grid.ColumnDefinitions>
 
-					<Grid 
-						Grid.Row="0"
-						Margin="5"
-						Grid.ColumnSpan="3" 
-						Grid.Column="0">
+					<Grid Grid.Row="0" Margin="5" Grid.ColumnSpan="3" Grid.Column="0">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"></RowDefinition>
 							<RowDefinition Height="*"></RowDefinition>
 						</Grid.RowDefinitions>
-						<Label Text="Patients" HorizontalOptions="Start" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" TextColor="{StaticResource PrimaryTextColor}"></Label>
-						<ListView Grid.Row="1" ItemsSource="{Binding Patients}" HasUnevenRows="True" IsRefreshing="{Binding IsBusy}" RefreshControlColor="{StaticResource Primary}">
+						<Label Text="Patient" HorizontalOptions="Start" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Large" TextColor="{StaticResource PrimaryTextColor}"></Label>
+						<ListView Grid.Row="1" SeparatorVisibility="None" ItemsSource="{Binding Patients}" HasUnevenRows="True" IsRefreshing="{Binding IsBusy}" RefreshControlColor="{StaticResource Primary}">
 							<ListView.ItemTemplate>
 								<DataTemplate>
 									<ViewCell>
-										<Grid>
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="*"></ColumnDefinition>
-											</Grid.ColumnDefinitions>
-											<StackLayout
-												Orientation="Horizontal"
-												VerticalOptions="Center"
-												HorizontalOptions="StartAndExpand">
-												<Label Text="{Binding LastName}" FontSize="Medium" VerticalTextAlignment="Center"></Label>
-												<Label Text=", " FontSize="Medium" VerticalTextAlignment="Center"></Label>
-												<Label Text="{Binding FirstName}" FontSize="Medium" VerticalTextAlignment="Center"></Label>
-											</StackLayout>
-										</Grid>
+										<ContentView Padding="4">
+											<Frame
+												BorderColor="{StaticResource MediumGrayTextColor}" HasShadow="False" Padding="4" CornerRadius="5">
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="*"></RowDefinition>
+													</Grid.RowDefinitions>
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition Width="*"></ColumnDefinition>
+													</Grid.ColumnDefinitions>
+													<StackLayout
+														Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="StartAndExpand" Margin="10">
+														<Label Text="{Binding LastName}" FontSize="Medium" VerticalTextAlignment="Center"></Label>
+														<Label Text=", " FontSize="Medium" VerticalTextAlignment="Center"></Label>
+														<Label Text="{Binding FirstName}" FontSize="Medium" VerticalTextAlignment="Center"></Label>
+													</StackLayout>
+												</Grid>
+											</Frame>
+										</ContentView>
 									</ViewCell>
 								</DataTemplate>
 							</ListView.ItemTemplate>
@@ -78,12 +80,7 @@
 						<Label Text="Course Types" FontSize="Large" TextColor="{StaticResource PrimaryTextColor}"></Label>
 					</StackLayout>
 
-					<Grid
-						Grid.Row="2"
-						Grid.Column="0"
-						HeightRequest="100"
-						MinimumWidthRequest="100"
-						>
+					<Grid Grid.Row="2" Grid.Column="0" HeightRequest="100" MinimumWidthRequest="100">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*"></ColumnDefinition>
 							<ColumnDefinition Width="21"></ColumnDefinition>
