@@ -53,7 +53,7 @@
 						</ListView.ItemTemplate>
 					</ListView>
 				</StackLayout>
-				<Button Grid.Row="2" Text="Close"></Button>
+				<Button  Margin="20" Grid.Row="2" Text="Close" Command="{Binding ClosePopupCommand}"></Button>
 			</Grid>
 		</Frame>
 	</ContentPage.Content>

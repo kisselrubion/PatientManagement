@@ -48,6 +48,7 @@ namespace WristCare.ViewModel
 
 		public CourseViewModel(CourseService courseService, PatientService patientService)
 		{
+			IsBusy = false;
 			_courseService = courseService;
 			_patientService = patientService;
 			SelectedCourse = new Course();
@@ -66,15 +67,22 @@ namespace WristCare.ViewModel
 		{
 			Courses = new ObservableCollection<Course>();
 			Task.Run(async () => await GetCoursesAsync());
+			IsBusy = false;
 		}
 
 		public async Task GetCoursesAsync()
 		{
+			IsBusy = true;
+			Courses.Clear();
 			var courses = await _courseService.GetAllCoursesAsync();
-			foreach (var course in courses)
+			if (courses.Count != 0)
 			{
-				Courses.Add(course);
+				foreach (var course in courses)
+				{
+					Courses.Add(course);
+				}
 			}
+			IsBusy = false;
 		}
 		public async Task GetPatientsAsync()
 		{
@@ -103,6 +111,7 @@ namespace WristCare.ViewModel
 					if (result.CourseId != 0)
 					{
 						await PopupHelper.ActionResultMessage("Success", "Course created");
+						await GetCoursesAsync();
 					}
 				}
 			}

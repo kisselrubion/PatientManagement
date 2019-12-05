@@ -15,6 +15,7 @@
 				<ListView
 					x:Name="LstCourses"
 					HasUnevenRows="True"
+					IsRefreshing="{Binding IsBusy,Mode=TwoWay}"
 					Header="Courses"
 					ItemTapped="ListView_OnItemTapped"
 					SelectedItem="{Binding SelectedCourse}"

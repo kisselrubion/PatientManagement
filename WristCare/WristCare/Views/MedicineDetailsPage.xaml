@@ -26,6 +26,8 @@
 				</Grid.RowDefinitions>
 				<ListView 
 					ItemsSource="{Binding Medicines}"
+					SelectedItem="{Binding SelectedMedicine}"
+					ItemTapped="ListView_OnItemTapped"
 					HasUnevenRows="True">
 					<ListView.ItemTemplate>
 							<DataTemplate>
@@ -38,14 +40,15 @@
 										Margin="5">
 										<Grid>
 											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width=".2*"></ColumnDefinition>
-												<ColumnDefinition Width=".8*"></ColumnDefinition>
+												<ColumnDefinition Width=".2"></ColumnDefinition>
+												<ColumnDefinition Width=".4*"></ColumnDefinition>
+												<ColumnDefinition Width=".4*"></ColumnDefinition>
 											</Grid.ColumnDefinitions>
-											<StackLayout Orientation="Vertical">
-												<Label Text="{Binding MedicineNumber}"></Label>
-												<Label Text="{Binding MedicineName}"></Label>
-											</StackLayout>
 											<StackLayout Grid.Column="1" Orientation="Vertical">
+												<Label Text="{Binding MedicineName}" FontSize="Medium"></Label>
+												<Label Text="{Binding MedicineNumber}"></Label>
+											</StackLayout>
+											<StackLayout Grid.Column="2" Orientation="Vertical">
 												<Label Text="{Binding Dosage}"></Label>
 												<Label Text="{Binding Comments}"></Label>
 											</StackLayout>
@@ -58,9 +61,8 @@
 					</ListView>
 
 			</Grid>
-
-			<Button Grid.Row="2" Text="Add Medicine log" Style="{StaticResource PrimaryActiveButtonStyle}" Command="{Binding }"></Button>
-			<Button Grid.Row="3" Text="Close" Style="{StaticResource SecondaryPassiveButtonStyle}"></Button>
+			<Button Grid.Row="2" Text="Add Medicine log" Style="{StaticResource PrimaryActiveButtonStyle}" Command="{Binding AddMedicineLogCommand}"></Button>
+			<Button Grid.Row="3" Text="Close" Style="{StaticResource SecondaryPassiveButtonStyle}" Command="{Binding ClosePageCommand}"></Button>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>

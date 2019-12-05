@@ -76,6 +76,7 @@ namespace WristCare.ViewModel
 
 		private void InitializeData()
 		{
+			IsBusy = false;
 			_selectedCourse = new Course();
 			_selectedPatient = new Patient();
 			_selectedUser = new User();
@@ -96,22 +97,32 @@ namespace WristCare.ViewModel
 		}
 
 		public ICommand ShowMedicalPlanCommand => new RelayCommand(ShowMedicalPlanPage);
+		public ICommand ClosePopupCommand => new RelayCommand(async () => await ClosePopUpPage());
+		public ICommand ClosePageCommand => new RelayCommand(ClosePage);
 		public ICommand SelectMedicinePlanCommand => new RelayCommand(ShowMedicineDetailsPage);
 		public ICommand AddMedicinePlanCommand => new RelayCommand(async () => await AddMedicalPlanToCourseHistory());
-		public ICommand AddMedicineLogCommand => new RelayCommand(async () => await AddMedicalPlanToCourseHistory());
+		public ICommand AddMedicineLogCommand => new RelayCommand(ShowMedicineDetailsPage);
 		public ICommand ShowMedicineLogsCommand => new RelayCommand(ShowMedicineLogs);
 		public ICommand ShowProcedureLogsCommand => new RelayCommand(ShowProcedureLogs);
 		public ICommand ShowMeasurementLogsCommand => new RelayCommand(ShowMeasurementLogs);
 		public ICommand ShowPatientsCommand => new RelayCommand(ShowAddPatientToCoursePage);
 		public ICommand AddSelectedPatientToCourseCommand => new RelayCommand(async () => await AddPatientToCourse());
 
+		private void ClosePage()
+		{
+			navigationService.GoBack();
+		}
+		private async Task ClosePopUpPage()
+		{
+			await PopupNavigation.Instance.PopAsync();
+		}
 		private async Task AddPatientToCourse()
 		{
+			IsBusy = true;
 			var createdCourseHistory = new CourseHistory
 			{
 				CourseId = _selectedCourse.CourseId,
 				UserAccountNumber = _selectedUser.UserAccountId
-				//patientId is only used to store the selectedPatient.userAccountId temporarily
 			};
 
 			var result = await _medicalPlanService.AddCourseHistory(createdCourseHistory);
@@ -119,6 +130,10 @@ namespace WristCare.ViewModel
 			{
 				await PopupHelper.ActionResultMessage("Success", "patient enrolled to course");
 			}
+			//to trigger refresh
+			await GetPatientsInCourse(_selectedCourse);
+			IsBusy = false;
+
 		}
 
 		private async void ShowAddPatientToCoursePage()
@@ -144,13 +159,14 @@ namespace WristCare.ViewModel
 
 		private async Task GetCourseMedicines(Course course)
 		{
+			Medicines.Clear();
 			var medicines = await _medicalPlanService.GetMedicinePlan(course);
 			foreach (var medicine in medicines)
 			{
 				Medicines.Add(medicine);
 			}
 		}
-		private void ShowMedicineDetailsPage()
+		public void ShowMedicineDetailsPage()
 		{
 			navigationService.NavigateTo(Locator.AddMedicinePage);
 		}
@@ -162,33 +178,41 @@ namespace WristCare.ViewModel
 
 		private async Task AddMedicalPlanToCourseHistory()
 		{
+			
 			_selectedMedicine.CourseId = _selectedCourse.CourseId;
 			var medResult = await _medicalPlanService.AddMedicinePlan(_selectedMedicine);
 			if (medResult != null)
 			{
 				await PopupHelper.ActionResultMessage("Success", "medicine plan added to course");
 			}
+
+			IsBusy = true;
+			//to trigger refresh
+			await GetCourseMedicines(_selectedCourse);
+			IsBusy = false;
 		}
 
 		//Gets patients that are enrolled in selected course
 		private async Task GetPatientsInCourse(Course selectedCourse)
 		{
-			IsBusy = true;
+			Patients.Clear();
 			var courseHistory = await _medicalPlanService.GetCourseHistory(selectedCourse);
 			var patient = AllPatients.FirstOrDefault(c => c.UserAccountId == courseHistory.Patient.PatientNumber);
 			Patients.Add(patient);
-			IsBusy = false;
 		}
 
 		private async Task GetAllPatients()
 		{
-			IsBusy = true;
+			Patients.Clear();
 			var patients = await _patientService.GetAllPatientsAsync();
-			foreach (var patient in patients)
+			if (patients.Count != 0)
 			{
-				AllPatients.Add(patient);
+				foreach (var patient in patients)
+				{
+					AllPatients.Add(patient);
+				}
 			}
-			IsBusy = false;
+
 		}
 	}
 }

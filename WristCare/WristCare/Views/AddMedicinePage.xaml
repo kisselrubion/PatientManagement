@@ -25,8 +25,8 @@
 				<Entry Text="{Binding SelectedMedicine.Interval,Mode=TwoWay}" Placeholder="Interval"></Entry>
 				<Entry Text="{Binding SelectedMedicine.Comments,Mode=TwoWay}" Placeholder="Comments"></Entry>
 			</StackLayout>
-			<Button Grid.Row="2" Command="{Binding AddMedicinePlanCommand}" Text="Add medicine to course"></Button>
-			<Button Grid.Row="3" Text="Cancel"></Button>
+			<Button Grid.Row="2" Command="{Binding AddMedicinePlanCommand}" Text="Save"></Button>
+			<Button Grid.Row="3" Text="Cancel" Command="{Binding ClosePageCommand}"></Button>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>
