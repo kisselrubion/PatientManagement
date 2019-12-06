@@ -20,7 +20,7 @@
 				Grid.Row="1"
 				Orientation="Vertical">
 				<StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
-					<Label Text="Date & Time: " FontAttributes="Italic"></Label>
+					<Label Text="Date : " FontAttributes="Italic"></Label>
 					<Label Text="{Binding SelectedMedicine.Date}" FontAttributes="Italic"></Label>
 				</StackLayout>
 				<Entry Text="{Binding SelectedMedicine.MedicineName}" Placeholder="Medicine Name"></Entry>

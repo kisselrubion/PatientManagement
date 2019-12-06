@@ -17,9 +17,11 @@ namespace WristCare.Views
 			InitializeComponent();
 		}
 
-		private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
+		private void LstMeds_OnItemTapped(object sender, ItemTappedEventArgs e)
 		{
+			var vm = App.Locator.CourseDetailsViewModel;
 			App.Locator.CourseDetailsViewModel.ShowMedicineDetailsPage();
+			LstMeds.SelectedItem = 0;
 		}
 	}
 }

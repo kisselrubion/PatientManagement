@@ -171,8 +171,8 @@ namespace WristCare.RequestProvider
 			var httpClient = new HttpClient
 			{
 				//android base ip 10.0.2.2
-				//house
-				BaseAddress = new Uri("http://192.168.1.6/pms/api/")
+				//this ip changes every once in a while so always check
+				BaseAddress = new Uri("http://192.168.1.2/pms/api/")
 
 				//office
 				//BaseAddress = new Uri("http://192.168.1.59/pms/api/")

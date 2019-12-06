@@ -27,6 +27,7 @@ namespace WristCare.ViewModel
 		private Course _selectedCourse;
 		private CourseType _selectedCourseType;
 		private Medicine _selectedMedicine;
+		private Medicine _mockSelectedMedicine;
 		private User _selectedUser;
 		private Patient _selectedPatient;
 
@@ -34,6 +35,11 @@ namespace WristCare.ViewModel
 		{
 			get => _selectedMedicine;
 			set => Set(ref _selectedMedicine, value);
+		}
+		public Medicine MockSelectedMedicine
+		{
+			get => _mockSelectedMedicine;
+			set => Set(ref _mockSelectedMedicine, value);
 		}
 		public User SelectedUser
 		{
@@ -80,8 +86,14 @@ namespace WristCare.ViewModel
 			_selectedCourse = new Course();
 			_selectedPatient = new Patient();
 			_selectedUser = new User();
+
+			_mockSelectedMedicine = new Medicine
+			{
+				Date = DateTime.Now,
+			};
+
 			_selectedMedicine = new Medicine();
-			SelectedMedicine = new Medicine();
+
 			Medicines = new ObservableCollection<Medicine>();
 			AllPatients = new ObservableCollection<User>();
 			Patients = new ObservableCollection<User>();
@@ -93,7 +105,8 @@ namespace WristCare.ViewModel
 		public ICommand ClosePageCommand => new RelayCommand(ClosePage);
 		public ICommand SelectMedicinePlanCommand => new RelayCommand(ShowMedicineDetailsPage);
 		public ICommand AddMedicinePlanCommand => new RelayCommand(async () => await AddMedicalPlanToCourseHistory());
-		public ICommand AddMedicineLogCommand => new RelayCommand(ShowMedicineDetailsPage);
+		public ICommand AddMedicineLogCommand => new RelayCommand(AddMedicineLog);
+
 		public ICommand ShowMedicineLogsCommand => new RelayCommand(ShowMedicineLogs);
 		public ICommand ShowProcedureLogsCommand => new RelayCommand(ShowProcedureLogs);
 		public ICommand ShowMeasurementLogsCommand => new RelayCommand(ShowMeasurementLogs);
@@ -132,6 +145,14 @@ namespace WristCare.ViewModel
 
 		public void ShowMedicineDetailsPage()
 		{
+			//_mockSelectedMedicine = _selectedMedicine;
+			navigationService.NavigateTo(Locator.AddMedicinePage);
+			//_mockSelectedMedicine = null;
+		}
+
+		private void AddMedicineLog()
+		{
+			SelectedMedicine = new Medicine{Date = DateTime.Now};
 			navigationService.NavigateTo(Locator.AddMedicinePage);
 		}
 
@@ -178,6 +199,7 @@ namespace WristCare.ViewModel
 		private async Task AddMedicalPlanToCourseHistory()
 		{
 			_selectedMedicine.CourseId = _selectedCourse.CourseId;
+			_selectedMedicine.Date = DateTime.Now;
 			var medResult = await _medicalPlanService.AddMedicinePlan(_selectedMedicine);
 			if (medResult != null)
 			{

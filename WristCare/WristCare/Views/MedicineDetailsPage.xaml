@@ -25,9 +25,10 @@
 					<RowDefinition Height="*"></RowDefinition>
 				</Grid.RowDefinitions>
 				<ListView 
+					x:Name="LstMeds"
 					ItemsSource="{Binding Medicines}"
-					SelectedItem="{Binding SelectedMedicine}"
-					ItemTapped="ListView_OnItemTapped"
+					SelectedItem="{Binding SelectedMedicine,Mode=OneWayToSource}"
+					ItemTapped="LstMeds_OnItemTapped"
 					HasUnevenRows="True">
 					<ListView.ItemTemplate>
 							<DataTemplate>
