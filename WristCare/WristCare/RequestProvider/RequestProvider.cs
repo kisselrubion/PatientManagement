@@ -167,17 +167,20 @@ namespace WristCare.RequestProvider
 		/// <returns></returns>
 		private HttpClient CreateHttpClientAsync(string token)
 		{
+			//TODO : always check ip CONNECTION
 			var httpClient = new HttpClient
 			{
 				//android base ip 10.0.2.2
-				//Dorm ip and house
+				//house
+				BaseAddress = new Uri("http://192.168.1.6/pms/api/")
+
+				//office
+				//BaseAddress = new Uri("http://192.168.1.59/pms/api/")
 				
-				BaseAddress = new Uri("http://192.168.1.59/pms/api/")
-				
+				//local
 				//BaseAddress = new Uri("http://localhost/pms/api/")
 
-				//office ip
-				//TODO : always check ip CONNECTION
+				//dorm
 				//BaseAddress = new Uri("http://192.168.1.5/pms/api/")
 			};
 

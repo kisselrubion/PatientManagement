@@ -80,8 +80,8 @@
 						<Label Text="Course Types" FontSize="Large" TextColor="{StaticResource PrimaryTextColor}"></Label>
 					</StackLayout>
 
-					<Grid Grid.Row="2" Grid.Column="0" HeightRequest="100" MinimumWidthRequest="100">
-						<Grid.ColumnDefinitions>
+				<Grid Grid.Row="2" Grid.Column="0" HeightRequest="100" MinimumWidthRequest="100" >
+					<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*"></ColumnDefinition>
 							<ColumnDefinition Width="21"></ColumnDefinition>
 						</Grid.ColumnDefinitions>
@@ -95,6 +95,7 @@
 							Text="&#xf46b;"
 							Command="{Binding ShowMedicineLogsCommand}"
 							Grid.ColumnSpan="2"
+							IsEnabled="{Binding IsEnabled1}"
 							Grid.Row="0"
 							Grid.RowSpan="3"
 							FontFamily="{StaticResource FontAwesomeSolid}"
@@ -130,6 +131,7 @@
 						</Grid.RowDefinitions>
 						<Button 
 							FontSize="40"
+							IsEnabled="{Binding IsEnabled2}"
 							Text="&#xf487;"
 							Grid.ColumnSpan="2"
 							Command="{Binding ShowProcedureLogsCommand}"
@@ -170,6 +172,7 @@
 							FontSize="40"
 							Text="&#xf2c9;"
 							Grid.ColumnSpan="2"
+							IsEnabled="{Binding IsEnabled3}"
 							Grid.Row="0"
 							Command="{Binding ShowMeasurementLogsCommand}"
 							Grid.RowSpan="3"

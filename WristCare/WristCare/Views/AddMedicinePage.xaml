@@ -19,11 +19,15 @@
 			<StackLayout 
 				Grid.Row="1"
 				Orientation="Vertical">
-				<Entry Text="{Binding SelectedMedicine.MedicineName,Mode=TwoWay}" Placeholder="Medicine Name"></Entry>
-				<Entry Text="{Binding SelectedMedicine.MedicineNumber,Mode=TwoWay}" Placeholder="Medicine Number"></Entry>
-				<Entry Text="{Binding SelectedMedicine.Dosage,Mode=TwoWay}" Placeholder="Dosage"></Entry>
-				<Entry Text="{Binding SelectedMedicine.Interval,Mode=TwoWay}" Placeholder="Interval"></Entry>
-				<Entry Text="{Binding SelectedMedicine.Comments,Mode=TwoWay}" Placeholder="Comments"></Entry>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+					<Label Text="Date & Time: " FontAttributes="Italic"></Label>
+					<Label Text="{Binding SelectedMedicine.Date}" FontAttributes="Italic"></Label>
+				</StackLayout>
+				<Entry Text="{Binding SelectedMedicine.MedicineName}" Placeholder="Medicine Name"></Entry>
+				<Entry Text="{Binding SelectedMedicine.MedicineNumber}" Placeholder="Medicine Number (Optional)"></Entry>
+				<Entry Text="{Binding SelectedMedicine.Dosage}" Placeholder="Dosage"></Entry>
+				<Entry Text="{Binding SelectedMedicine.Interval}" Placeholder="Interval"></Entry>
+				<Entry Text="{Binding SelectedMedicine.Comments}" Placeholder="Comments"></Entry>
 			</StackLayout>
 			<Button Grid.Row="2" Command="{Binding AddMedicinePlanCommand}" Text="Save"></Button>
 			<Button Grid.Row="3" Text="Cancel" Command="{Binding ClosePageCommand}"></Button>

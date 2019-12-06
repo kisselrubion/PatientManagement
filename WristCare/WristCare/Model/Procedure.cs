@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WristCare.Model
 {
@@ -6,7 +7,7 @@ namespace WristCare.Model
 	{
 		public int ProcedureId { get; set; }
 		public int? ProcedureNumber { get; set; }
-
+		public DateTime  Date { get; set; }
 		public int? CourseId { get; set; }
 		public Course Course { get; set; }
 	}

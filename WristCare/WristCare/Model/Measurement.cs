@@ -10,7 +10,7 @@ namespace WristCare.Model
 		public int? MeasurementNumber { get; set; }
 		public string Description { get; set; }
 		public string Comments { get; set; }
-		public DateTime MeasurementDateTime { get; set; }
+		public DateTime  Date { get; set; }
 		public string MeasurementValue { get; set; }
 		public int? ReminderInterval { get; set; }
 

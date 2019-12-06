@@ -80,16 +80,8 @@ namespace WristCare.ViewModel
 			_selectedCourse = new Course();
 			_selectedPatient = new Patient();
 			_selectedUser = new User();
-			//Todo : remove this sample data
-			_selectedMedicine = new Medicine
-			{
-				MedicineName = "medicine name",
-				MedicineNumber = 12123,
-				Comments = "comments",
-				CourseId = _selectedCourse.CourseId,
-				Dosage = "2ml",
-				Interval = DateTime.Now.Hour,
-			};
+			_selectedMedicine = new Medicine();
+			SelectedMedicine = new Medicine();
 			Medicines = new ObservableCollection<Medicine>();
 			AllPatients = new ObservableCollection<User>();
 			Patients = new ObservableCollection<User>();
@@ -116,6 +108,37 @@ namespace WristCare.ViewModel
 		{
 			await PopupNavigation.Instance.PopAsync();
 		}
+
+		private async void ShowAddPatientToCoursePage()
+		{
+			await PopupNavigation.Instance.PushAsync(new AddPatientToCoursePage());
+		}
+
+		private void ShowProcedureLogs()
+		{
+			navigationService.NavigateTo(Locator.ProcedureDetailsPage);
+		}
+
+		private void ShowMeasurementLogs()
+		{
+			navigationService.NavigateTo(Locator.MeasurementDetailsPage);
+		}
+
+		private void ShowMedicineLogs()
+		{
+			navigationService.NavigateTo(Locator.MedicineDetailsPage);
+		}
+
+
+		public void ShowMedicineDetailsPage()
+		{
+			navigationService.NavigateTo(Locator.AddMedicinePage);
+		}
+
+		private void ShowMedicalPlanPage()
+		{
+			navigationService.NavigateTo(Locator.MedicalPlanPage);
+		}
 		private async Task AddPatientToCourse()
 		{
 			IsBusy = true;
@@ -133,59 +156,33 @@ namespace WristCare.ViewModel
 			//to trigger refresh
 			await GetPatientsInCourse(_selectedCourse);
 			IsBusy = false;
-
 		}
-
-		private async void ShowAddPatientToCoursePage()
-		{
-			await PopupNavigation.Instance.PushAsync(new AddPatientToCoursePage());
-		}
-
-
-		private void ShowProcedureLogs()
-		{
-			navigationService.NavigateTo(Locator.ProcedureDetailsPage);
-		}
-
-		private void ShowMeasurementLogs()
-		{
-			navigationService.NavigateTo(Locator.MeasurementDetailsPage);
-		}
-
-		private void ShowMedicineLogs()
-		{
-			navigationService.NavigateTo(Locator.MedicineDetailsPage);
-		}
-
 		private async Task GetCourseMedicines(Course course)
 		{
 			Medicines.Clear();
 			var medicines = await _medicalPlanService.GetMedicinePlan(course);
-			foreach (var medicine in medicines)
+			if (medicines.Count != 0)
 			{
-				Medicines.Add(medicine);
+				foreach (var medicine in medicines)
+				{
+					Medicines.Add(medicine);
+				}
+				IsEnabled1 = true;
 			}
-		}
-		public void ShowMedicineDetailsPage()
-		{
-			navigationService.NavigateTo(Locator.AddMedicinePage);
-		}
+			else
+			{
+				IsEnabled1 = false;
+			}
 
-		private void ShowMedicalPlanPage()
-		{
-			navigationService.NavigateTo(Locator.MedicalPlanPage);
 		}
-
 		private async Task AddMedicalPlanToCourseHistory()
 		{
-			
 			_selectedMedicine.CourseId = _selectedCourse.CourseId;
 			var medResult = await _medicalPlanService.AddMedicinePlan(_selectedMedicine);
 			if (medResult != null)
 			{
 				await PopupHelper.ActionResultMessage("Success", "medicine plan added to course");
 			}
-
 			IsBusy = true;
 			//to trigger refresh
 			await GetCourseMedicines(_selectedCourse);
