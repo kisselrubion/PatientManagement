@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -77,6 +78,26 @@ namespace PatientManagementApi.Controllers
 			if (!_context.Courses.Any()) throw new NullReferenceException("Course no entries");
 			var courses = _courseService.GetRange(all);
 			return Ok(courses);
+		}
+
+		//api/course
+		[HttpPut]
+		public ActionResult Put([FromBody] Course course)
+		{
+			if (course == null)
+			{
+				throw new NoNullAllowedException("No course found");
+			}
+
+			try
+			{
+				var entity = _courseService.Put(course);
+				return Ok(entity);
+			}
+			catch
+			{
+				throw new NullReferenceException("course Update Failed");
+			}
 		}
 	}
 }

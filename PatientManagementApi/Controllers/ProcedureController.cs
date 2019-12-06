@@ -14,5 +14,6 @@ namespace PatientManagementApi.Controllers
 	public class ProcedureController : Controller
 	{
 
+
 	}
 }

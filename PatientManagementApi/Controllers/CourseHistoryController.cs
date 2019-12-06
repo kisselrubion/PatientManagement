@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -61,6 +62,26 @@ namespace PatientManagementApi.Controllers
 			if (course == null) throw new NullReferenceException("Course History not found");
 			var courseHistory = await _couseHistoryService.GetHistoryByCourse(course.CourseId);
 			return Ok(courseHistory);
+		}
+
+		//api/courseHistory
+		[HttpPut]
+		public ActionResult Put([FromBody] CourseHistory courseHistory)
+		{
+			if (courseHistory == null)
+			{
+				throw new NoNullAllowedException("No courseHistory found");
+			}
+
+			try
+			{
+				var entity = _couseHistoryService.Put(courseHistory);
+				return Ok(entity);
+			}
+			catch
+			{
+				throw new NullReferenceException("courseHistory Update Failed");
+			}
 		}
 	}
 }

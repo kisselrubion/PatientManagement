@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -71,6 +72,28 @@ namespace PatientManagementApi.Controllers
 			var medicines = await _medicineService.GetByForeignKey(id);
 			return Ok(medicines ?? new List<Medicine>());
 		}
+
+		//api/medicine
+		[HttpPut]
+		public ActionResult Put([FromBody] Medicine medicine)
+		{
+			if (medicine == null)
+			{
+				throw new NoNullAllowedException("No medicine found");
+			}
+
+			try
+			{
+				var entity = _medicineService.Put(medicine);
+				return Ok(entity);
+			}
+			catch
+			{
+				throw new NullReferenceException("medicine Update Failed");
+			}
+		}
+
+
 	}
 
 }
