@@ -25,7 +25,7 @@
 				<Label Text="{Binding SelectedCourse.Title}"></Label>
 				<Label Text="{Binding SelectedCourse.TransactionId}"></Label>
 				<Label Text="{Binding SelectedCourse.Description}"></Label>
-				<Label Text="{Binding SelectedCourse.CourseDate}"></Label>
+				<Label Text="{Binding SelectedCourse.CourseDate,StringFormat='{0:dddd, MMMM dd, yyyy h:mm tt}'}"></Label>
 			</StackLayout>
 			<!--medical details container-->
 				<Grid Grid.Row="1">

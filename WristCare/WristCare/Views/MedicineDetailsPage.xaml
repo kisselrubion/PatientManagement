@@ -17,7 +17,7 @@
 			</Grid.RowDefinitions>
 
 			<StackLayout Orientation="Vertical">
-				<Label Text="{Binding SelectedCourse.EditedDate}"></Label>
+				<Label Text="{Binding SelectedCourse.EditedDate,StringFormat='{0:dddd, MMMM dd, yyyy h:mm tt}'}"></Label>
 			</StackLayout>
 
 			<Grid Grid.Row="1">

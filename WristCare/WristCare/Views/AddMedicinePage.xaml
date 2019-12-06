@@ -21,7 +21,7 @@
 				Orientation="Vertical">
 				<StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
 					<Label Text="Date : " FontAttributes="Italic"></Label>
-					<Label Text="{Binding SelectedMedicine.Date}" FontAttributes="Italic"></Label>
+					<Label Text="{Binding SelectedMedicine.Date,StringFormat='{0:dddd, MMMM dd, yyyy h:mm tt}'}" FontAttributes="Italic"></Label>
 				</StackLayout>
 				<Entry Text="{Binding SelectedMedicine.MedicineName}" Placeholder="Medicine Name"></Entry>
 				<Entry Text="{Binding SelectedMedicine.MedicineNumber}" Placeholder="Medicine Number (Optional)"></Entry>
