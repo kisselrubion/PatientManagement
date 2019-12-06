@@ -34,6 +34,7 @@ namespace PatientManagementApi.Services.AccountServices
 			try
 			{
 				_context.Accounts.Update(account);
+				_context.SaveChanges();
 				return true;
 			}
 			catch

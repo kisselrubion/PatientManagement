@@ -41,6 +41,7 @@ namespace PatientManagementApi.Services.CourseHistoryService
 			try
 			{
 				_context.CourseHistories.Update(courseHistory);
+				_context.SaveChanges();
 				return true;
 			}
 			catch

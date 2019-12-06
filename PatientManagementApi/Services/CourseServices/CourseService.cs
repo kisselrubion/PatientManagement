@@ -39,6 +39,7 @@ namespace PatientManagementApi.Services.CourseServices
 			try
 			{
 				_context.Courses.Update(course);
+				_context.SaveChanges();
 				return true;
 			}
 			catch

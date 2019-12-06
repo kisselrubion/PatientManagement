@@ -36,6 +36,7 @@ namespace PatientManagementApi.Services.MeasurementServices
 			try
 			{
 				_context.Measurements.Update(item);
+				_context.SaveChanges();
 				return true;
 			}
 			catch

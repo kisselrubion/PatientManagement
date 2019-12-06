@@ -37,6 +37,7 @@ namespace PatientManagementApi.Services.PatientServices
 			try
 			{
 				_context.Patients.Update(item);
+				_context.SaveChanges();
 				return true;
 			}
 			catch
