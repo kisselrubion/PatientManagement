@@ -8,6 +8,7 @@
 			<helpers:Locator x:Key="Locator"></helpers:Locator>
 
 			<Color x:Key="Primary">#1ec8c8</Color>
+			<Color x:Key="Blue">#20A1f3</Color>
 			<Color x:Key="PassiveGreen">#e3f2e6</Color>
 			<Color x:Key="LightTextColor">#FAFAFA</Color>
 			<Color x:Key="PrimaryBackgroundColor">#dddddd</Color>

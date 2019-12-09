@@ -9,9 +9,11 @@
 	Title="Patient Info"
 	x:Class="WristCare.View.AddPatientInformationPage">
 	<ContentPage.Content>
-		<Grid>
+		<Grid Margin="20">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
 			</Grid.RowDefinitions>
 			<StackLayout Orientation="Vertical">
 				<Entry Text="{Binding Path=Patient.FirstName}" Placeholder="First Name"></Entry>
@@ -22,10 +24,10 @@
 				<Entry Text="{Binding Patient.Address}" Placeholder="Address"></Entry>
 				<Entry Text="{Binding Patient.ContactNumber}" Placeholder="Contact Number"></Entry>
 				<Entry Text="{Binding Patient.Email}" Placeholder="Email"></Entry>
-
-				<Button Text="Add Wristband ID"></Button>
-				<Button Text="Register Patient" Command="{Binding RegisterPatientCommand}"></Button>
 			</StackLayout>
+
+			<Button Grid.Row="1" Text="Add Wristband ID"></Button>
+			<Button Grid.Row="2" Text="Register Patient" Command="{Binding RegisterPatientCommand}"></Button>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>

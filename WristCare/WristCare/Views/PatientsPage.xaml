@@ -9,7 +9,7 @@
 	BindingContext="{Binding Path=PatientsViewModel,Source={StaticResource Locator}}"
 	x:Class="WristCare.View.PatientsPage">
 	<ContentPage.Content>
-		<Grid>
+		<Grid Margin="20">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto"></RowDefinition>
 				<RowDefinition Height="*"></RowDefinition>

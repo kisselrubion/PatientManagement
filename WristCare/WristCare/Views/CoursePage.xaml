@@ -6,25 +6,37 @@
 	BindingContext="{Binding CourseViewModel,Source={StaticResource Locator}}"
 	x:Class="WristCare.View.CoursePage">
 	<ContentPage.Content>
-		<Grid>
+		<Grid Margin="5">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*"></RowDefinition>
 				<RowDefinition Height="Auto"></RowDefinition>
 			</Grid.RowDefinitions>
-			<Frame HasShadow="False">
+			<Frame 
+				HasShadow="False"
+				BackgroundColor="Transparent"
+				Margin="5">
 				<ListView
 					x:Name="LstCourses"
 					HasUnevenRows="True"
 					IsRefreshing="{Binding IsBusy,Mode=TwoWay}"
-					Header="Courses"
 					ItemTapped="ListView_OnItemTapped"
 					SelectedItem="{Binding SelectedCourse}"
-					ItemsSource="{Binding Courses}"
-					Margin="5">
+					ItemsSource="{Binding Courses}">
 					<ListView.ItemTemplate>
 						<DataTemplate>
 							<ViewCell>
-								<StackLayout Orientation="Horizontal">
+								<StackLayout 
+									Margin="5,5,5,0"
+									Orientation="Horizontal">
+									<Button 
+										FontSize="40"
+										Text="&#xf478;"
+										IsEnabled="False"
+										FontFamily="{StaticResource FontAwesomeSolid}"
+										FontAttributes="Bold"
+										TextColor="White"
+										BackgroundColor="{StaticResource Blue}"
+										Margin="5,5,0,5"/>
 									<StackLayout Orientation="Vertical" VerticalOptions="Center" Margin="2">
 										<Label Text="{Binding TransactionId}" VerticalTextAlignment="Center" Margin="2"></Label>
 										<Label Text="{Binding Title}" VerticalTextAlignment="Center" Margin="2"></Label>
