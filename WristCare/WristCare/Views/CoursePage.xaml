@@ -88,7 +88,7 @@
 					Text="Add Doctors"
 					Margin="5"
 					Style="{StaticResource PrimaryPassiveButtonStyle}"
-					Command="{Binding AddPatientsCommand}"></Button>
+					Command="{Binding AddDoctorsCommand}"></Button>
 				<Button
 					Grid.Row="3"
 					Text="Add Course"

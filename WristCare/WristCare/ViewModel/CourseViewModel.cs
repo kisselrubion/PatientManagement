@@ -90,10 +90,26 @@ namespace WristCare.ViewModel
 			var patientsWithCourses = await _patientService.GetPatientsWithCourses();
 		}
 		public ICommand AddPatientsCommand => new RelayCommand(AddPatients);
+
 		public ICommand SearchPatientCommand => new RelayCommand(SearchPatients);
 		public ICommand AddCourseCommand => new RelayCommand(async () => await CoursePopup());
 		public ICommand CancelCourseCommand => new RelayCommand(async () => await CoursePopupCancel());
 		public ICommand CreateCourseCommand => new RelayCommand(async () => await CreateCourse());
+		public ICommand AddDoctorsCommand => new RelayCommand(AddDoctors);
+
+		private void AddDoctors()
+		{
+			try
+			{
+				navigationService.NavigateTo(Locator.AddDoctorInformationPage);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
+		}
+
 
 		private async Task CoursePopupCancel()
 		{

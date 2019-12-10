@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d"
+			 Title="Doctor's info"
+			 BindingContext="{Binding DoctorsViewModel,Source={StaticResource Locator}}"
+			 x:Class="WristCare.Views.AddDoctorInformationPage">
+	<ContentPage.Content>
+		<Grid Margin="20">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+			</Grid.RowDefinitions>
+			<StackLayout Orientation="Vertical">
+				<Entry Text="{Binding Doctor.FirstName}" Placeholder="First Name"></Entry>
+				<Entry Text="{Binding Doctor.LastName}" Placeholder="Middle Name"></Entry>
+				<Entry Text="{Binding Doctor.Age}" Placeholder="Age"></Entry>
+				<Entry Text="{Binding Doctor.BirthDate}" Placeholder="Birthdate"></Entry>
+				<Entry Text="{Binding Doctor.Address}" Placeholder="Address"></Entry>
+				<Entry Text="{Binding Doctor.ContactNumber}" Placeholder="Contact Number"></Entry>
+				<Entry Text="{Binding Doctor.Email}" Placeholder="Email"></Entry>
+			</StackLayout>
+
+			<Button Grid.Row="2" Text="Register Doctor" Command="{Binding RegisterDoctorCommand}"></Button>
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>

@@ -81,7 +81,7 @@ namespace WristCare.ViewModel
 
 		private async Task AddRfidToPatient()
 		{
-
+			//todo : add scanned rfid to patient's account
 		}
 
 
@@ -116,6 +116,7 @@ namespace WristCare.ViewModel
 				await PopupHelper.ActionResultMessage("Unsuccessful", "Patient not added");
 			}
 
+			navigationService.GoBack();
 		}
 
 		private async Task GetPatientsAsync()

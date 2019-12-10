@@ -4,6 +4,7 @@ using System.Text;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using WristCare.Service.Courses;
+using WristCare.Service.Doctors;
 using WristCare.Service.MedicalPlan;
 using WristCare.Service.PatientServ;
 using WristCare.Service.Scanners;
@@ -36,6 +37,7 @@ namespace WristCare.Helpers
 		public const string AddPatientToCoursePage = "AddPatientToCoursePage";
 		public const string BleDevicesPage = "BleDevicesPage";
 		public const string StaffPage = "StaffPage";
+		public const string AddDoctorInformationPage = "AddDoctorInformationPage";
 
 		public Locator()
 		{
@@ -50,6 +52,7 @@ namespace WristCare.Helpers
 			SimpleIoc.Default.Register<CourseService>();
 			SimpleIoc.Default.Register<MedicalPlanService>();
 			SimpleIoc.Default.Register<RfidScannerService>();
+			SimpleIoc.Default.Register<DoctorService>();
 			SimpleIoc.Default.Register<ISignUpService, SignupService>();
 
 			//View Models
@@ -58,6 +61,7 @@ namespace WristCare.Helpers
 			SimpleIoc.Default.Register<PatientsViewModel>();
 			SimpleIoc.Default.Register<MedicalPlanViewModel>();
 			SimpleIoc.Default.Register<CourseDetailsViewModel>();
+			SimpleIoc.Default.Register<DoctorsViewModel>();
 
 		}
 
@@ -66,6 +70,7 @@ namespace WristCare.Helpers
 		public CourseViewModel CourseViewModel => ServiceLocator.Current.GetInstance<CourseViewModel>();
 		public CourseDetailsViewModel CourseDetailsViewModel => ServiceLocator.Current.GetInstance<CourseDetailsViewModel>();
 		public MedicalPlanViewModel MedicalPlanViewModel => ServiceLocator.Current.GetInstance<MedicalPlanViewModel>();
+		public DoctorsViewModel DoctorsViewModel => ServiceLocator.Current.GetInstance<DoctorsViewModel>();
 
 	}
 
