@@ -23,7 +23,7 @@
 			</StackLayout>
 
 			<Button 
-				Text="Scan"
+				Text="Connect to Scanner"
 				Command="{Binding StartBleScanCommand}"
 				VerticalOptions="CenterAndExpand" 
 				HorizontalOptions="CenterAndExpand" />

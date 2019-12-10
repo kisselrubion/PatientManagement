@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Ioc;
 using WristCare.Service.Courses;
 using WristCare.Service.MedicalPlan;
 using WristCare.Service.PatientServ;
+using WristCare.Service.Scanners;
 using WristCare.Service.SingUp;
 using WristCare.Service.Users;
 using WristCare.ViewModel;
@@ -46,6 +47,7 @@ namespace WristCare.Helpers
 			SimpleIoc.Default.Register<UserService>();
 			SimpleIoc.Default.Register<CourseService>();
 			SimpleIoc.Default.Register<MedicalPlanService>();
+			SimpleIoc.Default.Register<RfidScannerService>();
 			SimpleIoc.Default.Register<ISignUpService, SignupService>();
 
 			//View Models

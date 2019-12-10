@@ -3,6 +3,7 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	Title="Course"
+	BackgroundColor="White"
 	BindingContext="{Binding CourseViewModel,Source={StaticResource Locator}}"
 	x:Class="WristCare.View.CoursePage">
 	<ContentPage.Content>
@@ -17,6 +18,7 @@
 				Margin="5">
 				<ListView
 					x:Name="LstCourses"
+					RowHeight="100"
 					HasUnevenRows="True"
 					IsRefreshing="{Binding IsBusy,Mode=TwoWay}"
 					ItemTapped="ListView_OnItemTapped"
@@ -28,13 +30,17 @@
 								<StackLayout 
 									Margin="5,5,5,0"
 									Orientation="Horizontal">
-									<Button 
+									<Label
+										WidthRequest="100"
 										FontSize="40"
 										Text="&#xf478;"
-										IsEnabled="False"
+										HorizontalOptions="FillAndExpand"
+										VerticalOptions="FillAndExpand"
+										VerticalTextAlignment="Center"
+										HorizontalTextAlignment="Center"
 										FontFamily="{StaticResource FontAwesomeSolid}"
 										FontAttributes="Bold"
-										TextColor="White"
+										TextColor="{StaticResource LightTextColor}"
 										BackgroundColor="{StaticResource Blue}"
 										Margin="5,5,0,5"/>
 									<StackLayout Orientation="Vertical" VerticalOptions="Center" Margin="2">

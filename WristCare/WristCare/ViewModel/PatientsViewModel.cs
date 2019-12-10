@@ -6,9 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using Plugin.BLE.Abstractions.Contracts;
 using WristCare.Helpers;
 using WristCare.Model;
 using WristCare.Service.PatientServ;
+using WristCare.Service.Scanners;
 using WristCare.Service.Users;
 using WristCare.ViewModel.Base;
 
@@ -17,6 +19,7 @@ namespace WristCare.ViewModel
 	public class PatientsViewModel : BaseViewModel
 	{
 		private readonly PatientService _patientService;
+		private readonly RfidScannerService _rfidScannerService;
 		private readonly UserService _userService;
 		private User _patient;
 		private Account _patientAccount;
@@ -41,10 +44,12 @@ namespace WristCare.ViewModel
 		}
 
 		public ObservableCollection<User> Patients { get; set; }
-		public PatientsViewModel(PatientService patientService, UserService userService)
+		public ObservableCollection<IDevice> Devices { get; set; }
+		public PatientsViewModel(PatientService patientService, UserService userService, RfidScannerService rfidScannerService)
 		{
 			_patientService = patientService;
 			_userService = userService;
+			_rfidScannerService = rfidScannerService;
 
 			InitializeData();
 			Task.Run(async () => await GetPatientsAsync());
@@ -53,8 +58,9 @@ namespace WristCare.ViewModel
 		public void InitializeData()
 		{
 			//Todo : remove this sample data
-			PatientRfid = "prf2200011"; //string is necessary because the rfid value contains characters
+			PatientRfid = "prf2200022312"; //string is necessary because the rfid value contains characters
 			Patients = new ObservableCollection<User>();
+			Devices = new ObservableCollection<IDevice>();
 			IsBusy = false;
 			Patient = new User
 			{
@@ -71,35 +77,51 @@ namespace WristCare.ViewModel
 		}
 
 		public ICommand RegisterPatientCommand => new RelayCommand(async () => await RegisterPatient());
+		public ICommand ScanRfidCommand => new RelayCommand(async() => await AddRfidToPatient());
+
+		private async Task AddRfidToPatient()
+		{
+
+		}
+
 
 		private async Task RegisterPatient()
 		{
-			var newUserPatient = Patient;
-			newUserPatient.UserAccountId = PatientRfid;
-
-			var addedUserPatient = await _userService.RegisterUser(newUserPatient);
-
-			var newPatientAccount = new Account
+			try
 			{
-				AccountNumber = newUserPatient.UserAccountId,
-				UserId = addedUserPatient.UserId,
-				AccountTypeId = 4,
-				AccountTypeName = "patient",
-			};
+				var newUserPatient = Patient;
+				newUserPatient.UserAccountId = PatientRfid;
 
-			var response = await _patientService.RegisterPatient(newPatientAccount);
+				var addedUserPatient = await _userService.RegisterUser(newUserPatient);
 
+				var newPatientAccount = new Account
+				{
+					AccountNumber = newUserPatient.UserAccountId,
+					UserId = addedUserPatient.UserId,
+					AccountTypeId = 4,
+					AccountTypeName = "patient",
+				};
 
+				var response = await _patientService.RegisterPatient(newPatientAccount);
 
-			if (response.AccountId != 0)
-			{
-				await PopupHelper.ActionResultMessage("Success", "Patient added");
+				if (response.AccountId != 0)
+				{
+					await PopupHelper.ActionResultMessage("Success", "Patient added");
+				}
+
+				await GetPatientsAsync();
 			}
+			catch 
+			{
+				await PopupHelper.ActionResultMessage("Unsuccessful", "Patient not added");
+			}
+
 		}
 
 		private async Task GetPatientsAsync()
 		{
 			IsBusy = true;
+			Patients.Clear();
 			var userPatients = await _patientService.GetAllPatientsAsync();
 			foreach (var userPatient in userPatients)
 			{
