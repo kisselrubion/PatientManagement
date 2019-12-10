@@ -9,6 +9,7 @@
 
 			<Color x:Key="Primary">#1ec8c8</Color>
 			<Color x:Key="Blue">#20A1f3</Color>
+			<Color x:Key="Purple">#6759ff</Color>
 			<Color x:Key="PassiveGreen">#e3f2e6</Color>
 			<Color x:Key="LightTextColor">#FAFAFA</Color>
 			<Color x:Key="PrimaryBackgroundColor">#dddddd</Color>
@@ -39,6 +40,16 @@
 			<Style x:Key="SecondaryPassiveButtonStyle" TargetType="Button">
 				<Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
 				<Setter Property="BackgroundColor" Value="{StaticResource PrimaryBackgroundColor}" />
+			</Style>
+
+			<Style x:Key="TransparentBackgroundButtonStyleBlue" TargetType="Button">
+				<Setter Property="TextColor" Value="{StaticResource Blue}" />
+				<Setter Property="BackgroundColor" Value="Transparent" />
+			</Style>
+
+			<Style x:Key="TransparentBackgroundButtonStylePurple" TargetType="Button">
+				<Setter Property="TextColor" Value="{StaticResource Purple}" />
+				<Setter Property="BackgroundColor" Value="Transparent" />
 			</Style>
 
 			<!--Fonts-->
