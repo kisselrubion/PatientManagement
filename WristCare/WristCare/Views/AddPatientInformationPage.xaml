@@ -17,7 +17,6 @@
 			</Grid.RowDefinitions>
 			<StackLayout Orientation="Vertical">
 				<Entry Text="{Binding Path=Patient.FirstName}" Placeholder="First Name"></Entry>
-				<Entry Text="{Binding Patient.LastName}" Placeholder="Middle Name"></Entry>
 				<Entry Text="{Binding Patient.LastName}" Placeholder="Last Name"></Entry>
 				<Entry Text="{Binding Patient.Age}" Placeholder="Age"></Entry>
 				<Entry Text="{Binding Patient.BirthDate}" Placeholder="Birthdate"></Entry>

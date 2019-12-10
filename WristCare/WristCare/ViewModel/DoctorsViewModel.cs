@@ -24,13 +24,33 @@ namespace WristCare.ViewModel
 			get => _doctor;
 			set => Set(ref _doctor, value);
 		}
+		public ObservableCollection<User> Doctors { get; set; }
 
-		public ObservableCollection<User> Doctors;
 		public DoctorsViewModel(DoctorService doctorService, UserService userService)
 		{
 			_doctorService = doctorService;
 			_userService = userService;
+			
+			InitializeData();
+		}
+
+		private void InitializeData()
+		{
+			Doctor = new User
+			{
+				FirstName = "Test",
+				LastName = "Doctor",
+				Address = "Somewhere down the road",
+				Age = "22",
+				BirthDate = new DateTime(1996, 12, 04),
+				ContactNumber = "090901010101",
+				Email = "testdoctor@mail.com",
+				IsArchived = false,
+				Sex = "male",
+			};
+
 			Doctors = new ObservableCollection<User>();
+			//Task.Run(async () => await GetDoctors());
 		}
 
 		public ICommand RegisterDoctorCommand => new RelayCommand(async () => await RegisterDoctor());
@@ -50,13 +70,14 @@ namespace WristCare.ViewModel
 					UserId = addedUserPatient.UserId,
 					AccountTypeId = 5,
 					AccountTypeName = "doctor",
+					AdmissionDateTime = DateTime.Now,
 				};
 
 				var response = await _doctorService.RegisterDoctor(newDoctorAccount);
 
 				if (response.AccountId != 0)
 				{
-					await PopupHelper.ActionResultMessage("Success", "Patient added");
+					await PopupHelper.ActionResultMessage("Success", "Doctor added");
 				}
 
 				//await GetDoctors();
@@ -72,7 +93,7 @@ namespace WristCare.ViewModel
 
 		private async Task GetDoctors()
 		{
-			IsBusy = true;
+			//IsBusy = true;
 			Doctors.Clear();
 			var doctors = await _doctorService.GetDoctors();
 			if (doctors.Count != 0)
@@ -82,7 +103,7 @@ namespace WristCare.ViewModel
 					Doctors.Add(doctor);
 				}
 			}
-			IsBusy = false;
+			//IsBusy = false;
 		}
 	}
 }

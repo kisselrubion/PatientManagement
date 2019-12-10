@@ -38,6 +38,7 @@ namespace WristCare.Helpers
 		public const string BleDevicesPage = "BleDevicesPage";
 		public const string StaffPage = "StaffPage";
 		public const string AddDoctorInformationPage = "AddDoctorInformationPage";
+		public const string HealthPage = "HealthPage";
 
 		public Locator()
 		{

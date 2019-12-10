@@ -5,6 +5,7 @@
 	NavigationPage.HasNavigationBar="False"
 	xmlns:view="clr-namespace:WristCare.View;assembly=WristCare"
 	xmlns:androidSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+	xmlns:views="clr-namespace:WristCare.Views;assembly=WristCare"
 	androidSpecific:TabbedPage.ToolbarPlacement="Bottom"
 	x:Class="WristCare.View.HomePage">
 
@@ -14,9 +15,9 @@
 		</x:Arguments>
 	</NavigationPage>
 
-	<NavigationPage Title="Courses">
+	<NavigationPage Title="Health">
 		<x:Arguments>
-			<view:CoursePage/>
+			<views:HealthPage/>
 		</x:Arguments>
 	</NavigationPage>
 

@@ -16,7 +16,7 @@
 			</Grid.RowDefinitions>
 			<StackLayout Orientation="Vertical">
 				<Entry Text="{Binding Doctor.FirstName}" Placeholder="First Name"></Entry>
-				<Entry Text="{Binding Doctor.LastName}" Placeholder="Middle Name"></Entry>
+				<Entry Text="{Binding Doctor.LastName}" Placeholder="Last Name"></Entry>
 				<Entry Text="{Binding Doctor.Age}" Placeholder="Age"></Entry>
 				<Entry Text="{Binding Doctor.BirthDate}" Placeholder="Birthdate"></Entry>
 				<Entry Text="{Binding Doctor.Address}" Placeholder="Address"></Entry>

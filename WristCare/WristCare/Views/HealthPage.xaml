@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage 
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:view="clr-namespace:WristCare.View;assembly=WristCare"
+	mc:Ignorable="d"
+	BarBackgroundColor="White"
+	BarTextColor="{StaticResource PrimaryTextColor}"
+	d:NavigationPage.HasNavigationBar="False"
+	x:Class="WristCare.Views.HealthPage">
+
+	<!--Pages can be added as references or inline-->
+	<NavigationPage Title="Course">
+		<x:Arguments>
+			<view:CoursePage/>
+		</x:Arguments>
+	</NavigationPage>
+
+	<NavigationPage Title="Patients">
+		<x:Arguments>
+			<view:PatientsPage/>
+		</x:Arguments>
+	</NavigationPage>
+
+	<NavigationPage Title="Doctors">
+		<x:Arguments>
+			<view:DoctorPage/>
+		</x:Arguments>
+	</NavigationPage>
+
+</TabbedPage>

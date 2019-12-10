@@ -89,27 +89,36 @@ namespace WristCare.ViewModel
 		{
 			try
 			{
-				var newUserPatient = Patient;
-				newUserPatient.UserAccountId = PatientRfid;
-
-				var addedUserPatient = await _userService.RegisterUser(newUserPatient);
-
-				var newPatientAccount = new Account
+				var confirm = await PopupHelper.ProceedMessage("Confirm", "Proceed to admitting patient");
+				if (confirm)
 				{
-					AccountNumber = newUserPatient.UserAccountId,
-					UserId = addedUserPatient.UserId,
-					AccountTypeId = 4,
-					AccountTypeName = "patient",
-				};
+					var newUserPatient = Patient;
+					newUserPatient.UserAccountId = PatientRfid;
 
-				var response = await _patientService.RegisterPatient(newPatientAccount);
+					var addedUserPatient = await _userService.RegisterUser(newUserPatient);
 
-				if (response.AccountId != 0)
+					var newPatientAccount = new Account
+					{
+						AccountNumber = newUserPatient.UserAccountId,
+						UserId = addedUserPatient.UserId,
+						AccountTypeId = 4,
+						AccountTypeName = "patient",
+						AdmissionDateTime = DateTime.Now,
+					};
+
+					var response = await _patientService.RegisterPatient(newPatientAccount);
+
+					if (response.AccountId != 0)
+					{
+						await PopupHelper.ActionResultMessage("Success", "Patient added");
+					}
+					await GetPatientsAsync();
+				}
+				else
 				{
-					await PopupHelper.ActionResultMessage("Success", "Patient added");
+					return;
 				}
 
-				await GetPatientsAsync();
 			}
 			catch 
 			{
@@ -121,14 +130,14 @@ namespace WristCare.ViewModel
 
 		private async Task GetPatientsAsync()
 		{
-			IsBusy = true;
+			//IsBusy = true;
 			Patients.Clear();
 			var userPatients = await _patientService.GetAllPatientsAsync();
 			foreach (var userPatient in userPatients)
 			{
 				Patients.Add(userPatient);
 			}
-			IsBusy = false;
+			//IsBusy = false;
 		}
 	}
 }
