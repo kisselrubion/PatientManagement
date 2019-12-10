@@ -2,10 +2,7 @@
 <ContentPage 
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	mc:Ignorable="d"
-	d:NavigationPage.HasNavigationBar="False"
+	NavigationPage.HasNavigationBar="False"
 	BindingContext="{Binding Path=PatientsViewModel,Source={StaticResource Locator}}"
 	x:Class="WristCare.View.PatientsPage">
 	<ContentPage.Content>
@@ -14,7 +11,18 @@
 				<RowDefinition Height="Auto"></RowDefinition>
 				<RowDefinition Height="*"></RowDefinition>
 				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
 			</Grid.RowDefinitions>
+
+			<SearchBar
+				Grid.Row="0"
+				HorizontalOptions="StartAndExpand"
+				TextColor="{StaticResource PrimaryTextColor}"
+				VerticalOptions="Center"
+				Text="{Binding SelectedPatient}"
+				Placeholder="Patient name"
+				Margin="5"
+				Style="{StaticResource PrimaryPassiveButtonStyle}"/>
 
 			<ListView 
 				Grid.Row="1"
@@ -32,6 +40,13 @@
 					</DataTemplate>
 				</ListView.ItemTemplate>
 			</ListView>
+
+			<Button
+				Grid.Row="2"
+				Text="Add patients"
+				Margin="5"
+				Style="{StaticResource PrimaryPassiveButtonStyle}"
+				Command="{Binding AddPatientsCommand}"></Button>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>

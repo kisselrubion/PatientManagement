@@ -72,7 +72,7 @@ namespace WristCare.ViewModel
 
 		public async Task GetCoursesAsync()
 		{
-			IsBusy = true;
+			//IsBusy = true;
 			Courses.Clear();
 			var courses = await _courseService.GetAllCoursesAsync();
 			if (courses.Count != 0)
@@ -82,33 +82,18 @@ namespace WristCare.ViewModel
 					Courses.Add(course);
 				}
 			}
-			IsBusy = false;
+			//IsBusy = false;
 		}
 		public async Task GetPatientsAsync()
 		{
 			//Todo : Priority! Get patients that are enrolled with courses
 			var patientsWithCourses = await _patientService.GetPatientsWithCourses();
 		}
-		public ICommand AddPatientsCommand => new RelayCommand(AddPatients);
 
-		public ICommand SearchPatientCommand => new RelayCommand(SearchPatients);
 		public ICommand AddCourseCommand => new RelayCommand(async () => await CoursePopup());
 		public ICommand CancelCourseCommand => new RelayCommand(async () => await CoursePopupCancel());
 		public ICommand CreateCourseCommand => new RelayCommand(async () => await CreateCourse());
-		public ICommand AddDoctorsCommand => new RelayCommand(AddDoctors);
-
-		private void AddDoctors()
-		{
-			try
-			{
-				navigationService.NavigateTo(Locator.AddDoctorInformationPage);
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
-				throw;
-			}
-		}
+		
 
 
 		private async Task CoursePopupCancel()
@@ -143,29 +128,6 @@ namespace WristCare.ViewModel
 			await PopupNavigation.Instance.PushAsync(new AddCoursePage());
 		}
 
-		private void AddPatients()
-		{
-			try
-			{
-				navigationService.NavigateTo(Locator.AddPatientInformationPage);
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
-				throw;
-			}
-		}
-		private void SearchPatients()
-		{
-			try
-			{
-				navigationService.NavigateTo(Locator.PatientsPage);
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
-				throw;
-			}
-		}
+		
 	}
 }

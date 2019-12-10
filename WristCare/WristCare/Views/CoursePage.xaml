@@ -70,25 +70,6 @@
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
-
-				<Button
-					Text="Search patient"
-					Margin="5"
-					Style="{StaticResource PrimaryPassiveButtonStyle}"
-					Command="{Binding SearchPatientCommand}"/>
-				
-				<Button
-					Grid.Row="1"
-					Text="Add patients"
-					Margin="5"
-					Style="{StaticResource PrimaryPassiveButtonStyle}"
-					Command="{Binding AddPatientsCommand}"></Button>
-				<Button
-					Grid.Row="2"
-					Text="Add Doctors"
-					Margin="5"
-					Style="{StaticResource PrimaryPassiveButtonStyle}"
-					Command="{Binding AddDoctorsCommand}"></Button>
 				<Button
 					Grid.Row="3"
 					Text="Add Course"

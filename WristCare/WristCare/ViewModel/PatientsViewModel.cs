@@ -78,6 +78,22 @@ namespace WristCare.ViewModel
 
 		public ICommand RegisterPatientCommand => new RelayCommand(async () => await RegisterPatient());
 		public ICommand ScanRfidCommand => new RelayCommand(async() => await AddRfidToPatient());
+		public ICommand AddPatientsCommand => new RelayCommand(AddPatients);
+
+		//public ICommand SearchPatientCommand => new RelayCommand();
+
+		private void AddPatients()
+		{
+			try
+			{
+				navigationService.NavigateTo(Locator.AddPatientInformationPage);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
+		}
 
 		private async Task AddRfidToPatient()
 		{
