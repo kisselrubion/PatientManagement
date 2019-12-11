@@ -25,13 +25,24 @@ namespace PatientManagementApi.Controllers
 			_accountService = accountService;
 		}
 		
-		//Returns all patient type of account
+		//Returns all patient type of account using AccountTypeId == 4
 		[HttpGet("patients")]
 		public ActionResult Get()
 		{
 			if (!_context.Accounts.Any()) return Ok(new List<User>());
 			//AccountTypeId = 4 ; patient type of account
 			var accounts = _context.Accounts.Where(c => c.AccountTypeId == 4).ToList();
+			var users = accounts.Select(account => _context.Users.FirstOrDefault(c => c.UserAccountId == account.AccountNumber)).ToList();
+			return Ok(users);
+		}
+
+		//Returns all doctors type of account using AccountTypeId == 5
+		[HttpGet("doctors")]
+		public ActionResult Doctors()
+		{
+			if (!_context.Accounts.Any()) return Ok(new List<User>());
+			//AccountTypeId = 4 ; patient type of account
+			var accounts = _context.Accounts.Where(c => c.AccountTypeId == 5).ToList();
 			var users = accounts.Select(account => _context.Users.FirstOrDefault(c => c.UserAccountId == account.AccountNumber)).ToList();
 			return Ok(users);
 		}
