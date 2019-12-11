@@ -175,13 +175,13 @@ namespace WristCare.RequestProvider
 				//BaseAddress = new Uri("http://192.168.1.2/pms/api/")
 
 				//office
-				//BaseAddress = new Uri("http://192.168.1.59/pms/api/")
+				BaseAddress = new Uri("http://192.168.1.59/pms/api/")
 				
 				//local
 				//BaseAddress = new Uri("http://localhost/pms/api/")
 
 				//dorm
-				BaseAddress = new Uri("http://192.168.1.6/pms/api/")
+				//BaseAddress = new Uri("http://192.168.1.6/pms/api/")
 			};
 
 			httpClient.DefaultRequestHeaders.Accept.Add(
