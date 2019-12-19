@@ -10,6 +10,7 @@ using Rg.Plugins.Popup.Services;
 using WristCare.Helpers;
 using WristCare.Model;
 using WristCare.Service.Courses;
+using WristCare.Service.Doctors;
 using WristCare.Service.MedicalPlan;
 using WristCare.Service.PatientServ;
 using WristCare.View;
@@ -22,6 +23,7 @@ namespace WristCare.ViewModel
 	public class CourseDetailsViewModel : BaseViewModel
 	{
 		private readonly CourseService _courseService;
+		private readonly DoctorService _doctorService;
 		private readonly PatientService _patientService;
 		private readonly MedicalPlanService _medicalPlanService;
 		private Course _selectedCourse;
@@ -30,6 +32,7 @@ namespace WristCare.ViewModel
 		private Medicine _mockSelectedMedicine;
 		private User _selectedUser;
 		private Patient _selectedPatient;
+		private Doctor _selectedDoctor;
 
 		public Medicine SelectedMedicine
 		{
@@ -45,6 +48,12 @@ namespace WristCare.ViewModel
 		{
 			get => _selectedUser;
 			set => Set(ref _selectedUser, value);
+		}
+
+		public Doctor SelectedDoctor
+		{
+			get => _selectedDoctor;
+			set => Set(ref _selectedDoctor, value);
 		}
 
 		public Patient SelectedPatient
@@ -70,13 +79,17 @@ namespace WristCare.ViewModel
 			set => Set(ref _selectedCourseType, value);
 		}
 		public ObservableCollection<Medicine> Medicines { get; set; }
+		public ObservableCollection<User> UserDoctors { get; set; }
+		public ObservableCollection<Doctor> Doctors { get; set; }
+		public ObservableCollection<User> AllUserDoctors { get; set; }
 		public ObservableCollection<User> AllPatients { get; set; }
 		public ObservableCollection<User> Patients { get; set; }
-		public CourseDetailsViewModel(CourseService courseService, MedicalPlanService medicalPlanService, PatientService patientService)
+		public CourseDetailsViewModel(CourseService courseService, MedicalPlanService medicalPlanService, PatientService patientService, DoctorService doctorService)
 		{
 			_courseService = courseService;
 			_medicalPlanService = medicalPlanService;
 			_patientService = patientService;
+			_doctorService = doctorService;
 			InitializeData();
 		}
 
@@ -96,8 +109,12 @@ namespace WristCare.ViewModel
 
 			Medicines = new ObservableCollection<Medicine>();
 			AllPatients = new ObservableCollection<User>();
+			AllUserDoctors = new ObservableCollection<User>();
+			UserDoctors = new ObservableCollection<User>();
 			Patients = new ObservableCollection<User>();
+			Doctors = new ObservableCollection<Doctor>();
 			Task.Run(async () => await GetAllPatients());
+			Task.Run(async () => await GetAllUserDoctors());
 		}
 
 		public ICommand ShowMedicalPlanCommand => new RelayCommand(ShowMedicalPlanPage);
@@ -106,12 +123,38 @@ namespace WristCare.ViewModel
 		public ICommand SelectMedicinePlanCommand => new RelayCommand(ShowMedicineDetailsPage);
 		public ICommand AddMedicinePlanCommand => new RelayCommand(async () => await AddMedicalPlanToCourseHistory());
 		public ICommand AddMedicineLogCommand => new RelayCommand(AddMedicineLog);
-
 		public ICommand ShowMedicineLogsCommand => new RelayCommand(ShowMedicineLogs);
 		public ICommand ShowProcedureLogsCommand => new RelayCommand(ShowProcedureLogs);
 		public ICommand ShowMeasurementLogsCommand => new RelayCommand(ShowMeasurementLogs);
-		public ICommand ShowPatientsCommand => new RelayCommand(ShowAddPatientToCoursePage);
+		public ICommand ShowPatientsCommand => new RelayCommand(async () => await ShowAddPatientToCoursePage());
+		public ICommand ShowDoctorsCommand => new RelayCommand(async () => await ShowAddDoctorToCoursePage());
 		public ICommand AddSelectedPatientToCourseCommand => new RelayCommand(async () => await AddPatientToCourse());
+		public ICommand DeleteSelectedPatientCommand => new RelayCommand<User>( async param => await DeleteSelectedPatient(param));
+		public ICommand DeleteSelectedDoctorCommand => new RelayCommand<User>( async param => await DeleteSelectedDoctor(param));
+
+		private async Task DeleteSelectedDoctor(User doctor)
+		{
+			var response = await PopupHelper.ProceedMessage("Warning", "Remove doctor?");
+			if (response)
+			{
+
+			}
+		}
+
+		private async Task DeleteSelectedPatient(User patient)
+		{
+			var response = await PopupHelper.ProceedMessage("Warning", "Remove patient?");
+			if (response)
+			{
+				
+			}
+		}
+
+
+		private async Task ShowAddDoctorToCoursePage()
+		{
+			await PopupNavigation.Instance.PushAsync(new AddDoctorToCoursePage());
+		}
 
 		private void ClosePage()
 		{
@@ -122,7 +165,7 @@ namespace WristCare.ViewModel
 			await PopupNavigation.Instance.PopAsync();
 		}
 
-		private async void ShowAddPatientToCoursePage()
+		private async Task ShowAddPatientToCoursePage()
 		{
 			await PopupNavigation.Instance.PushAsync(new AddPatientToCoursePage());
 		}
@@ -150,6 +193,8 @@ namespace WristCare.ViewModel
 			//_mockSelectedMedicine = null;
 		}
 
+
+
 		private void AddMedicineLog()
 		{
 			SelectedMedicine = new Medicine{Date = DateTime.Now};
@@ -163,20 +208,37 @@ namespace WristCare.ViewModel
 		private async Task AddPatientToCourse()
 		{
 			IsBusy = true;
-			var createdCourseHistory = new CourseHistory
-			{
-				CourseId = _selectedCourse.CourseId,
-				UserAccountNumber = _selectedUser.UserAccountId
-			};
 
-			var result = await _medicalPlanService.AddCourseHistory(createdCourseHistory);
-			if (result.CourseHistoryId != 0)
+			var courseHistory = await _medicalPlanService.GetCourseHistory(_selectedCourse);
+			if (courseHistory != null)
 			{
-				await PopupHelper.ActionResultMessage("Success", "patient enrolled to course");
+				courseHistory.UserAccountNumber = _selectedUser.UserAccountId;
+				var result = await _medicalPlanService.UpdateCourseHistory(courseHistory);
+				if (result.CourseHistoryId != 0)
+				{
+					await PopupHelper.ActionResultMessage("Success", "patient enrolled to course");
+				}
 			}
+			//else
+			//{
+			//	var createdCourseHistory = new CourseHistory
+			//	{
+			//		CourseId = _selectedCourse.CourseId,
+			//		UserAccountNumber = _selectedUser.UserAccountId,
+			//	};
+			//	var result = await _medicalPlanService.UpdateCourseHistory(courseHistory);
+			//}
+
 			//to trigger refresh
 			await GetPatientsInCourse(_selectedCourse);
 			IsBusy = false;
+		}
+
+		private async Task AddDoctorToCourse()
+		{
+			var courseHistory = await _medicalPlanService.GetCourseHistory(_selectedCourse);
+			
+
 		}
 		private async Task GetCourseMedicines(Course course)
 		{
@@ -220,6 +282,14 @@ namespace WristCare.ViewModel
 			Patients.Add(patient);
 		}
 
+		private async Task GetDoctorsInCourse(Course selectedCourse)
+		{
+			UserDoctors.Clear();
+			var courseHistory = await _medicalPlanService.GetCourseHistory(selectedCourse);
+			var doctor = AllUserDoctors.FirstOrDefault(c => c.UserAccountId == courseHistory.Doctor.DoctorNumber);
+			UserDoctors.Add(doctor);
+		}
+
 		private async Task GetAllPatients()
 		{
 			Patients.Clear();
@@ -231,7 +301,32 @@ namespace WristCare.ViewModel
 					AllPatients.Add(patient);
 				}
 			}
+		}
 
+		private async Task GetAllUserDoctors()
+		{
+			AllUserDoctors.Clear();
+			var doctors = await _doctorService.GetUserDoctors();
+			if (doctors.Count != 0)
+			{
+				foreach (var doctor in doctors)
+				{
+					AllUserDoctors.Add(doctor);
+				}
+			}
+		}
+
+		private async Task GetDoctors()
+		{
+			Doctors.Clear();
+			var doctors = await _doctorService.GetDoctors();
+			if (doctors.Count != 0)
+			{
+				foreach (var doctor in doctors)
+				{
+					Doctors.Add(doctor);
+				}
+			}
 		}
 	}
 }

@@ -27,6 +27,10 @@
 				<Setter Property="HorizontalOptions" Value="FillAndExpand" />
 			</Style>
 
+			<Style ApplyToDerivedTypes="True" CanCascade="True" TargetType="Label">
+				<Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+			</Style>
+
 			<Style x:Key="PrimaryActiveButtonStyle" TargetType="Button">
 				<Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
 				<Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
@@ -37,14 +41,19 @@
 				<Setter Property="BackgroundColor" Value="{StaticResource PassiveGreen}" />
 			</Style>
 
+			<Style x:Key="DeleteButton" TargetType="Button">
+				<Setter Property="TextColor" Value="OrangeRed" />
+				<Setter Property="BackgroundColor" Value="Transparent" />
+			</Style>
+
 			<Style x:Key="SecondaryPassiveButtonStyle" TargetType="Button">
 				<Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
 				<Setter Property="BackgroundColor" Value="{StaticResource PrimaryBackgroundColor}" />
 			</Style>
 
-			<Style x:Key="TransparentBackgroundButtonStyleBlue" TargetType="Button">
-				<Setter Property="TextColor" Value="{StaticResource Blue}" />
-				<Setter Property="BackgroundColor" Value="Transparent" />
+			<Style x:Key="BackgroundButtonStyleBlue" TargetType="Button">
+				<Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
+				<Setter Property="BackgroundColor" Value="{StaticResource Blue}" />
 			</Style>
 
 			<Style x:Key="TransparentBackgroundButtonStylePurple" TargetType="Button">

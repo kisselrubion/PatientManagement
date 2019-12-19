@@ -16,5 +16,15 @@ namespace WristCare.View
 		{
 			InitializeComponent();
 		}
+
+		private void LstDoctors_OnItemTapped(object sender, ItemTappedEventArgs e)
+		{
+			LstDoctors.SelectedItem = null;
+		}
+
+		private void LstPatients_OnItemTapped(object sender, ItemTappedEventArgs e)
+		{
+			LstPatients.SelectedItem = null;
+		}
 	}
 }

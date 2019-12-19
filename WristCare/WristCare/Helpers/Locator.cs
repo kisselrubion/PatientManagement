@@ -35,6 +35,7 @@ namespace WristCare.Helpers
 		public const string MedicineDetailsPage = "MedicineDetailsPage";
 		public const string ProcedureDetailsPage = "ProcedureDetailsPage";
 		public const string AddPatientToCoursePage = "AddPatientToCoursePage";
+		public const string AddDoctorToCoursePage = "AddDoctorToCoursePage";
 		public const string BleDevicesPage = "BleDevicesPage";
 		public const string StaffPage = "StaffPage";
 		public const string AddDoctorInformationPage = "AddDoctorInformationPage";

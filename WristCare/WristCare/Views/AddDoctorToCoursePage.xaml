@@ -7,7 +7,7 @@
 			 mc:Ignorable="d"
 			 d:NavigationPage.HasNavigationBar="False"
 			 BindingContext="{Binding CourseDetailsViewModel,Source={StaticResource Locator}}"
-			 x:Class="WristCare.Views.AddPatientToCoursePage">
+			 x:Class="WristCare.Views.AddDoctorToCoursePage">
 	<ContentPage.Content>
 		<Frame
 			BackgroundColor="White"
@@ -21,12 +21,11 @@
 					<RowDefinition Height="*"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
 				</Grid.RowDefinitions>
-				<Label Margin="10" Text="Select a patient"></Label>
+				<Label Margin="10" Text="Select a Doctor"></Label>
 				<StackLayout Orientation="Vertical" Grid.Row="1" Margin="10">
-					<SearchBar Placeholder="Patient name"></SearchBar>
+					<SearchBar Placeholder="Doctor's name" BackgroundColor="{StaticResource LightTextColor}"></SearchBar>
 					<ListView
-						ItemsSource="{Binding AllPatients}" IsRefreshing="{Binding IsBusy}" 
-						ItemTapped="ListView_OnItemTapped"
+						ItemsSource="{Binding AllUserDoctors}" IsRefreshing="{Binding IsBusy}" 
 						SelectedItem="{Binding SelectedUser}">
 						<ListView.ItemTemplate>
 							<DataTemplate>
@@ -38,7 +37,7 @@
 											<ColumnDefinition Width="Auto"></ColumnDefinition>
 										</Grid.ColumnDefinitions>
 										<StackLayout Orientation="Horizontal">
-											<Label Text="{Binding UserAccountId}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Start"></Label>
+											<Label Text="{Binding FirstName}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Start"></Label>
 											<Label Text="{Binding LastName}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Start"></Label>
 										</StackLayout>
 										<Button 
@@ -46,7 +45,7 @@
 											Margin="4,4,10,4"
 											Text="Add"
 											IsEnabled="False"
-											></Button>
+										></Button>
 									</Grid>
 								</ViewCell>
 							</DataTemplate>

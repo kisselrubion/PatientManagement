@@ -72,7 +72,6 @@ namespace PatientManagementApi.Controllers
 			{
 				throw new NoNullAllowedException("No courseHistory found");
 			}
-
 			try
 			{
 				var entity = _couseHistoryService.Put(courseHistory);

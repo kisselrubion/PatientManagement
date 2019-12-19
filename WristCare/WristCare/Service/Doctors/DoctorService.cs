@@ -29,10 +29,17 @@ namespace WristCare.Service.Doctors
 			return result != null ? response : new Account();
 		}
 
-		public async Task<List<User>> GetDoctors()
+		public async Task<List<User>> GetUserDoctors()
 		{
 			var patients = await _requestProvider.GetAsync<List<User>>("account/doctors");
 			return patients;
 		}
+
+		public async Task<List<Doctor>> GetDoctors()
+		{
+			var doctors = await _requestProvider.GetAsync<List<Doctor>>("doctor?all=true");
+			return doctors;
+		}
+
 	}
 }

@@ -21,10 +21,17 @@ namespace PatientManagementApi.Services.CourseServices
 			try
 			{
 				var lastCourse = await _context.Courses.LastAsync();
-				//id indexer
+				//reference ID indexer
 				course.TransactionId = lastCourse.TransactionId + 1;
 
 				var addedCourse = await _context.Courses.AddAsync(course);
+
+				await _context.SaveChangesAsync();
+
+				//every instance of a course added there's also a course history created
+				var newCourseHist = new CourseHistory { CourseId = addedCourse.Entity.CourseId };
+				await _context.CourseHistories.AddAsync(newCourseHist);
+
 				await _context.SaveChangesAsync();
 				return addedCourse.Entity;
 			}

@@ -19,7 +19,7 @@
 				HorizontalOptions="StartAndExpand"
 				TextColor="{StaticResource PrimaryTextColor}"
 				VerticalOptions="Center"
-				Text="{Binding SelectedPatient}"
+				Text="{Binding SearchPatient}"
 				Placeholder="Patient name"
 				Margin="5"
 				Style="{StaticResource PrimaryPassiveButtonStyle}"/>
@@ -34,7 +34,7 @@
 						<ViewCell>
 							<StackLayout Orientation="Horizontal">
 								<Label Text="{Binding LastName}"></Label>
-								<Label Text="{Binding UserAccountId}"></Label>
+								<Label Text="{Binding FirstName}"></Label>
 							</StackLayout>
 						</ViewCell>
 					</DataTemplate>

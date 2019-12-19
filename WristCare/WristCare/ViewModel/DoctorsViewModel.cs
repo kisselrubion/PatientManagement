@@ -50,7 +50,7 @@ namespace WristCare.ViewModel
 			};
 
 			Doctors = new ObservableCollection<User>();
-			//Task.Run(async () => await GetDoctors());
+			Task.Run(async () => await GetDoctors());
 		}
 
 		public ICommand RegisterDoctorCommand => new RelayCommand(async () => await RegisterDoctor());
@@ -94,7 +94,7 @@ namespace WristCare.ViewModel
 					await PopupHelper.ActionResultMessage("Success", "Doctor added");
 				}
 
-				//await GetDoctors();
+				await GetDoctors();
 			}
 			catch
 			{
@@ -109,7 +109,7 @@ namespace WristCare.ViewModel
 		{
 			//IsBusy = true;
 			Doctors.Clear();
-			var doctors = await _doctorService.GetDoctors();
+			var doctors = await _doctorService.GetUserDoctors();
 			if (doctors.Count != 0)
 			{
 				foreach (var doctor in doctors)

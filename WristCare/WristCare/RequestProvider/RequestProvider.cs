@@ -145,6 +145,28 @@ namespace WristCare.RequestProvider
 			}
 		}
 
+		public async Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "")
+		{
+			using (var httpClient = CreateHttpClientAsync(AccessToken))
+			{
+				var content = new StringContent(JsonConvert.SerializeObject(data));
+				content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+				var response = await httpClient.PutAsync(uri, content);
+				var serialized = await response.Content.ReadAsStringAsync();
+				var result = await Task.Run(() =>
+					JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
+				return result;
+			}
+		}
+
+		public async Task DeleteAsync(string uri, string token = "")
+		{
+			using (var httpClient = CreateHttpClientAsync(AccessToken))
+			{
+				await httpClient.DeleteAsync(uri);
+			}
+		}
+
 		// returns whether the response is successful or not
 		private bool HandleResponse(HttpResponseMessage response)
 		{
@@ -175,15 +197,14 @@ namespace WristCare.RequestProvider
 				//BaseAddress = new Uri("http://192.168.1.2/pms/api/")
 
 				//office
-				BaseAddress = new Uri("http://192.168.1.59/pms/api/")
+				//BaseAddress = new Uri("http://192.168.1.59/pms/api/")
 				
 				//local
 				//BaseAddress = new Uri("http://localhost/pms/api/")
 
 				//dorm
-				//BaseAddress = new Uri("http://192.168.1.6/pms/api/")
+				BaseAddress = new Uri("http://192.168.1.6/pms/api/")
 			};
-
 			httpClient.DefaultRequestHeaders.Accept.Add(
 				new MediaTypeWithQualityHeaderValue("application/json"));
 

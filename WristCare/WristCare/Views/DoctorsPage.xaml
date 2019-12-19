@@ -22,7 +22,7 @@
 						<ViewCell>
 							<StackLayout Orientation="Horizontal">
 								<Label Text="{Binding LastName}"></Label>
-								<Label Text="{Binding UserAccountId}"></Label>
+								<Label Text="{Binding FirstName}"></Label>
 							</StackLayout>
 						</ViewCell>
 					</DataTemplate>
