@@ -213,22 +213,12 @@ namespace WristCare.ViewModel
 			if (courseHistory != null)
 			{
 				courseHistory.UserAccountNumber = _selectedUser.UserAccountId;
-				var result = await _medicalPlanService.UpdateCourseHistory(courseHistory);
+				var result = await _medicalPlanService.AddCourseHistory(courseHistory);
 				if (result.CourseHistoryId != 0)
 				{
 					await PopupHelper.ActionResultMessage("Success", "patient enrolled to course");
 				}
 			}
-			//else
-			//{
-			//	var createdCourseHistory = new CourseHistory
-			//	{
-			//		CourseId = _selectedCourse.CourseId,
-			//		UserAccountNumber = _selectedUser.UserAccountId,
-			//	};
-			//	var result = await _medicalPlanService.UpdateCourseHistory(courseHistory);
-			//}
-
 			//to trigger refresh
 			await GetPatientsInCourse(_selectedCourse);
 			IsBusy = false;
@@ -237,6 +227,10 @@ namespace WristCare.ViewModel
 		private async Task AddDoctorToCourse()
 		{
 			var courseHistory = await _medicalPlanService.GetCourseHistory(_selectedCourse);
+			if (courseHistory != null)
+			{
+				
+			}
 			
 
 		}

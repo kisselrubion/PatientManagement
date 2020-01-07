@@ -18,7 +18,7 @@ namespace PatientManagementApi.Services.CourseHistoryService
 		{
 			try
 			{
-				var lastCourseHistory = await _context.CourseHistories.LastAsync();
+
 
 				var patient = await _context.Patients.FirstOrDefaultAsync(c => c.PatientNumber == courseHistory.UserAccountNumber);
 				courseHistory.PatientId = patient.PatientId;
@@ -26,8 +26,7 @@ namespace PatientManagementApi.Services.CourseHistoryService
 				//var doctor = await _context.Doctors.FirstOrDefaultAsync(c =>c.DoctorNumber == courseHistory.UserAccountNumber)
 
 				//auto indexer
-				courseHistory.CourseHistoryNumber = lastCourseHistory.CourseHistoryNumber + 1;
-				var addedCourseHistory = await _context.CourseHistories.AddAsync(courseHistory);
+				var addedCourseHistory = _context.CourseHistories.Update(courseHistory);
 				await _context.SaveChangesAsync();
 				return addedCourseHistory.Entity;
 			}
@@ -38,17 +37,17 @@ namespace PatientManagementApi.Services.CourseHistoryService
 			}
 		}
 
-		public bool Put(CourseHistory courseHistory)
+		public CourseHistory Put(CourseHistory courseHistory)
 		{
 			try
 			{
-				_context.CourseHistories.Update(courseHistory);
+				var content = _context.CourseHistories.Update(courseHistory);
 				_context.SaveChanges();
-				return true;
+				return content.Entity;
 			}
 			catch
 			{
-				return false;
+				return new CourseHistory();
 			}
 		}
 

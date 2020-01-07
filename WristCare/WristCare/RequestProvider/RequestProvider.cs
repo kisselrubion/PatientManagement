@@ -149,8 +149,8 @@ namespace WristCare.RequestProvider
 		{
 			using (var httpClient = CreateHttpClientAsync(AccessToken))
 			{
-				var content = new StringContent(JsonConvert.SerializeObject(data));
-				content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+				var serializedData = JsonConvert.SerializeObject(data);
+				var content = new StringContent(serializedData, Encoding.UTF8, "application/json");
 				var response = await httpClient.PutAsync(uri, content);
 				var serialized = await response.Content.ReadAsStringAsync();
 				var result = await Task.Run(() =>
@@ -194,16 +194,18 @@ namespace WristCare.RequestProvider
 			{
 				//android base ip 10.0.2.2
 				//this ip changes every once in a while so always check
-				//BaseAddress = new Uri("http://192.168.1.2/pms/api/")
+
+				//home
+				//BaseAddress = new Uri("http://192.168.1.8/pms/api/")
 
 				//office
-				//BaseAddress = new Uri("http://192.168.1.59/pms/api/")
+				BaseAddress = new Uri("http://192.168.1.59/pms/api/")
 				
 				//local
 				//BaseAddress = new Uri("http://localhost/pms/api/")
 
 				//dorm
-				BaseAddress = new Uri("http://192.168.1.6/pms/api/")
+				//BaseAddress = new Uri("http://192.168.1.6/pms/api/")
 			};
 			httpClient.DefaultRequestHeaders.Accept.Add(
 				new MediaTypeWithQualityHeaderValue("application/json"));

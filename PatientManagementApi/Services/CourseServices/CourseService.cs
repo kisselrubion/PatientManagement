@@ -30,6 +30,9 @@ namespace PatientManagementApi.Services.CourseServices
 
 				//every instance of a course added there's also a course history created
 				var newCourseHist = new CourseHistory { CourseId = addedCourse.Entity.CourseId };
+				var lastCourseHistory = await _context.CourseHistories.LastAsync();
+				//auto indexer
+				newCourseHist.CourseHistoryNumber = lastCourseHistory.CourseHistoryNumber + 1;
 				await _context.CourseHistories.AddAsync(newCourseHist);
 
 				await _context.SaveChangesAsync();
