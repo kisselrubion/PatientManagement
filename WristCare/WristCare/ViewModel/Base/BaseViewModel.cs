@@ -11,6 +11,7 @@ namespace WristCare.ViewModel.Base
 		bool isBusy;
 		public NavigationService navigationService;
 		private bool _isVisible;
+		private bool _isDisabled;
 		private bool _isEnabled1;
 		private bool _isEnabled2;
 		private bool _isEnabled3;
@@ -26,6 +27,12 @@ namespace WristCare.ViewModel.Base
 		{
 			get => _isVisible;
 			set => Set(ref _isVisible, value);
+		}
+
+		public bool IsDisabled
+		{
+			get => _isDisabled;
+			set => Set(ref _isEnabled1, value);
 		}
 
 		public bool IsEnabled1

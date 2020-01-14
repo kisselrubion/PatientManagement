@@ -11,6 +11,7 @@ using GalaSoft.MvvmLight.Command;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using WristCare.Helpers;
 using WristCare.Model;
 using WristCare.Service.Bluetooth;
 using WristCare.ViewModel.Base;
@@ -70,7 +71,7 @@ namespace WristCare.ViewModel
 			{
 				if (Set(ref _selectedDevice, value))
 				{
-					BleDeviceConnect(SelectedDevice);
+					Task.Run(async () => await BleDeviceConnect(SelectedDevice));
 				}
 			}
 		}
@@ -102,19 +103,18 @@ namespace WristCare.ViewModel
 				BleDevice = a.Device;
 				if (a.Device.Name != null)
 				{
-					Devices.Add(a.Device);
+					if (a.Device.Name == "MLT-BT05" && !Devices.Contains(a.Device))
+					{
+						BleDeviceConnect(a.Device);
+					}
 				}
 			};
 			await adapter.StartScanningForDevicesAsync();
-
 			//if (SelectedDevice != null)
 			//{
 			//	var result = await adapter.ConnectToDeviceAsync(SelectedDevice);
 			//	var service = await SelectedDevice.GetServicesAsync();
 			//}
-
-
-
 			#region Initial BLE Implementation
 
 			//var adapter = CrossBleAdapter.Current;
@@ -177,7 +177,7 @@ namespace WristCare.ViewModel
 
 			#endregion
 		}
-		private async void BleDeviceConnect(IDevice selectedDevice)
+		private async Task BleDeviceConnect(IDevice selectedDevice)
 		{
 			if (selectedDevice == null) return;
 			try
@@ -185,14 +185,17 @@ namespace WristCare.ViewModel
 				var adapter = CrossBluetoothLE.Current.Adapter;
 				var param = new ConnectParameters(forceBleTransport: true);
 				await adapter.ConnectToDeviceAsync(selectedDevice, param, CancellationToken.None);
-				await ReadDevice(selectedDevice, true);
 
+				await PopupHelper.ActionResultMessage("Success", "Connected to scanner");
+				IsDisabled = true;
+				await ReadDevice(selectedDevice, true);
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
 				throw;
 			}
+
 
 		}
 		public async Task ReadDevice(IDevice selectedDevice, bool status)
@@ -216,12 +219,11 @@ namespace WristCare.ViewModel
 
 				var bytes = characteristic.Value;
 				string content = System.Text.Encoding.UTF8.GetString(bytes);
-
 				RfidData = content;
-
-				//await characteristic.StartUpdatesAsync();
-
-
+				//if (RfidData != null)
+				//{
+					
+				//}
 			}
 		}
 	}
