@@ -15,14 +15,14 @@
 			</Grid.RowDefinitions>
 
 			<SearchBar
-				Grid.Row="0"
-				HorizontalOptions="StartAndExpand"
+				Text="{Binding SearchText,Mode=OneWayToSource}"
+				Placeholder="Search patient "
+				CancelButtonColor="{StaticResource Blue}"
+				PlaceholderColor="{StaticResource MediumGrayTextColor}"
 				TextColor="{StaticResource PrimaryTextColor}"
-				VerticalOptions="Center"
-				Text="{Binding SearchPatient}"
-				Placeholder="Patient name"
-				Margin="5"
-				Style="{StaticResource PrimaryPassiveButtonStyle}"/>
+				HorizontalTextAlignment="Center"
+				FontSize="Medium"
+				FontAttributes="Italic" />
 
 			<ListView 
 				Grid.Row="1"

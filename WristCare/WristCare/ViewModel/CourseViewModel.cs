@@ -128,7 +128,7 @@ namespace WristCare.ViewModel
 
 			if (string.IsNullOrEmpty(query)) Courses = new ObservableCollection<Course>(CoursesList);
 			IsBusy = true;
-			Courses = new ObservableCollection<Course>(CoursesList.FindAll(c=>c.Title.Contains(query) || c.TransactionId.ToString().Contains(query)));
+			Courses = new ObservableCollection<Course>(CoursesList.FindAll(c=>c.Title.ToLowerInvariant().Contains(query) || c.TransactionId.ToString().ToLowerInvariant().Contains(query)));
 			IsBusy = false;
 		}
 

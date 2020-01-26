@@ -24,6 +24,9 @@ namespace WristCare.ViewModel
 		private User _patient;
 		private Account _patientAccount;
 		private string _patientRfid;
+		private ObservableCollection<User> _patients;
+		private List<User> _patientsList;
+		private string _searchText;
 
 		public User Patient
 		{
@@ -43,8 +46,33 @@ namespace WristCare.ViewModel
 			set => Set(ref _patientRfid, value);
 		}
 
-		public ObservableCollection<User> Patients { get; set; }
+		public string SearchText
+		{
+			get => _searchText;
+			set
+			{
+				if (Set(ref _searchText, value))
+				{
+					SearchPatients(_searchText);
+				}
+
+			}
+		}
+
+		public ObservableCollection<User> Patients
+		{
+			get => _patients;
+			set => Set(ref _patients, value);
+		}
+
 		public ObservableCollection<IDevice> Devices { get; set; }
+
+		public List<User> PatientsList
+		{
+			get => _patientsList;
+			set => Set(ref _patientsList, value);
+		}
+
 		public PatientsViewModel(PatientService patientService, UserService userService, RfidScannerService rfidScannerService)
 		{
 			_patientService = patientService;
@@ -60,6 +88,7 @@ namespace WristCare.ViewModel
 			//Todo : remove this sample data
 			PatientRfid = "prf2200022312"; //string is necessary because the rfid value contains characters
 			Patients = new ObservableCollection<User>();
+			PatientsList = new List<User>();
 			Devices = new ObservableCollection<IDevice>();
 			IsBusy = false;
 			Patient = new User
@@ -149,11 +178,21 @@ namespace WristCare.ViewModel
 			//IsBusy = true;
 			Patients.Clear();
 			var userPatients = await _patientService.GetAllPatientsAsync();
-			foreach (var userPatient in userPatients)
-			{
-				Patients.Add(userPatient);
-			}
+			PatientsList = userPatients;
+
+			Patients = new ObservableCollection<User>(PatientsList);
 			//IsBusy = false;
+		}
+
+		private void SearchPatients(string query)
+		{
+			IsBusy = true;
+			if (string.IsNullOrEmpty(query)) Patients = new ObservableCollection<User>(PatientsList);
+			Patients = new ObservableCollection<User>(PatientsList.FindAll(c=>
+				c.UserAccountId.ToLowerInvariant().Contains(query.ToLowerInvariant())
+				|| c.FirstName.ToLowerInvariant().Contains(query.ToLowerInvariant())
+				|| c.LastName.ToLowerInvariant().Contains(query.ToLowerInvariant())));
+			IsBusy = false;
 		}
 	}
 }

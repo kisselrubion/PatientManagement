@@ -51,6 +51,8 @@ namespace WristCare.ViewModel.Base
 			set => Set(ref _isEnabled3, value);
 		}
 
+
+
 		public BaseViewModel()
 		{
 			navigationService = App.NavigationService;
