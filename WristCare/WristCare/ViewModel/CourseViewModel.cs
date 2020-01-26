@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -25,6 +26,8 @@ namespace WristCare.ViewModel
 		private Course _selectedCourse;
 		private Course _createdCourse;
 		private CourseType _selectedCourseType;
+		private string _searchText;
+		private ObservableCollection<Course> _courses;
 
 		public Course SelectedCourse
 		{
@@ -44,7 +47,29 @@ namespace WristCare.ViewModel
 			set => Set(ref _selectedCourseType, value);
 		}
 
-		public ObservableCollection<Course> Courses { get; set; }
+		public string SearchText
+		{
+			get => _searchText;
+			set
+			{
+				if (Set(ref _searchText, value))
+				{
+					SearchCourses(SearchText);
+					IsBusy = false;
+				}
+				
+			}
+		}
+
+		public ObservableCollection<Course> Courses
+		{
+			get => _courses;
+			set => Set(ref _courses, value);
+		}
+
+		public List<Course> CoursesList { get; set; }
+		public IEnumerable<Course> CoursesIEnumerable { get; set; }
+		public ObservableCollection<Course> CoursesFromDb { get; set; }
 
 		public CourseViewModel(CourseService courseService, PatientService patientService)
 		{
@@ -65,7 +90,9 @@ namespace WristCare.ViewModel
 
 		public void InitializeData()
 		{
+			CoursesList = new List<Course>();
 			Courses = new ObservableCollection<Course>();
+			CoursesFromDb = new ObservableCollection<Course>();
 			Task.Run(async () => await GetCoursesAsync());
 			IsBusy = false;
 		}
@@ -75,13 +102,13 @@ namespace WristCare.ViewModel
 			//IsBusy = true;
 			Courses.Clear();
 			var courses = await _courseService.GetAllCoursesAsync();
-			if (courses.Count != 0)
-			{
-				foreach (var course in courses)
-				{
-					Courses.Add(course);
-				}
-			}
+			CoursesList = courses;
+			Courses = new ObservableCollection<Course>(CoursesList);
+			//foreach (var course in courses)
+			//{
+			//	Courses.Add(course);
+			//}
+
 			//IsBusy = false;
 		}
 		public async Task GetPatientsAsync()
@@ -93,8 +120,17 @@ namespace WristCare.ViewModel
 		public ICommand AddCourseCommand => new RelayCommand(async () => await CoursePopup());
 		public ICommand CancelCourseCommand => new RelayCommand(async () => await CoursePopupCancel());
 		public ICommand CreateCourseCommand => new RelayCommand(async () => await CreateCourse());
-		
 
+		public ICommand PerformSearch => new Command<string>(query => SearchCourses(query));
+
+		private void SearchCourses(string query)
+		{
+
+			if (string.IsNullOrEmpty(query)) Courses = new ObservableCollection<Course>(CoursesList);
+			IsBusy = true;
+			Courses = new ObservableCollection<Course>(CoursesList.FindAll(c=>c.Title.Contains(query) || c.TransactionId.ToString().Contains(query)));
+			IsBusy = false;
+		}
 
 		private async Task CoursePopupCancel()
 		{

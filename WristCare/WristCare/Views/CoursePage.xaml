@@ -16,46 +16,61 @@
 				HasShadow="False"
 				BackgroundColor="Transparent"
 				Margin="5">
-				<ListView
-					x:Name="LstCourses"
-					RowHeight="100"
-					HasUnevenRows="True"
-					IsRefreshing="{Binding IsBusy,Mode=TwoWay}"
-					ItemTapped="ListView_OnItemTapped"
-					SelectedItem="{Binding SelectedCourse}"
-					ItemsSource="{Binding Courses}">
-					<ListView.ItemTemplate>
-						<DataTemplate>
-							<ViewCell>
-								<StackLayout 
-									Margin="5,5,5,0"
-									Orientation="Horizontal">
-									<Label
-										WidthRequest="100"
-										FontSize="40"
-										Text="&#xf478;"
-										HorizontalOptions="FillAndExpand"
-										VerticalOptions="FillAndExpand"
-										VerticalTextAlignment="Center"
-										HorizontalTextAlignment="Center"
-										FontFamily="{StaticResource FontAwesomeSolid}"
-										FontAttributes="Bold"
-										TextColor="{StaticResource LightTextColor}"
-										BackgroundColor="{StaticResource Blue}"
-										Margin="5,5,0,5"/>
-									<StackLayout Orientation="Vertical" VerticalOptions="Center" Margin="2">
-										<Label Text="{Binding TransactionId}" VerticalTextAlignment="Center" Margin="2"></Label>
-										<Label Text="{Binding Title}" VerticalTextAlignment="Center" Margin="2"></Label>
-										<Label Text="{Binding Description}" VerticalTextAlignment="Center" Margin="2"></Label>
+				<StackLayout Orientation=" Vertical">
+					<SearchBar
+						Text="{Binding SearchText,Mode=OneWayToSource}"
+						Placeholder="Search courses..."
+						CancelButtonColor="{StaticResource Blue}"
+						PlaceholderColor="{StaticResource MediumGrayTextColor}"
+						TextColor="{StaticResource PrimaryTextColor}"
+						HorizontalTextAlignment="Center"
+						SearchCommand="{Binding PerformSearch}"
+						SearchCommandParameter="{Binding .}"
+						FontSize="Medium"
+						FontAttributes="Italic" />
+
+					<ListView
+						x:Name="LstCourses"
+						RowHeight="100"
+						HasUnevenRows="True"
+						IsRefreshing="{Binding IsBusy}"
+						ItemTapped="ListView_OnItemTapped"
+						SelectedItem="{Binding SelectedCourse}"
+						ItemsSource="{Binding Courses}">
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<ViewCell>
+									<StackLayout 
+										Margin="5,5,5,0"
+										Orientation="Horizontal">
+										<Label
+											WidthRequest="100"
+											FontSize="40"
+											Text="&#xf478;"
+											HorizontalOptions="FillAndExpand"
+											VerticalOptions="FillAndExpand"
+											VerticalTextAlignment="Center"
+											HorizontalTextAlignment="Center"
+											FontFamily="{StaticResource FontAwesomeSolid}"
+											FontAttributes="Bold"
+											TextColor="{StaticResource LightTextColor}"
+											BackgroundColor="{StaticResource Blue}"
+											Margin="5,5,0,5"/>
+										<StackLayout Orientation="Vertical" VerticalOptions="Center" Margin="2">
+											<Label Text="{Binding TransactionId}" VerticalTextAlignment="Center" Margin="2"></Label>
+											<Label Text="{Binding Title}" VerticalTextAlignment="Center" Margin="2"></Label>
+											<Label Text="{Binding Description}" VerticalTextAlignment="Center" Margin="2"></Label>
+										</StackLayout>
+										<StackLayout Orientation="Vertical" VerticalOptions="Center" Margin="2">
+											<Label Text="{Binding CourseDate,StringFormat='{0:dddd, MMMM dd, yyyy h:mm tt}'}" VerticalTextAlignment="Center" Margin="2"></Label>
+										</StackLayout>
 									</StackLayout>
-									<StackLayout Orientation="Vertical" VerticalOptions="Center" Margin="2">
-										<Label Text="{Binding CourseDate,StringFormat='{0:dddd, MMMM dd, yyyy h:mm tt}'}" VerticalTextAlignment="Center" Margin="2"></Label>
-									</StackLayout>
-								</StackLayout>
-							</ViewCell>
-						</DataTemplate>
-					</ListView.ItemTemplate>
-				</ListView>
+								</ViewCell>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+				</StackLayout>
+
 			</Frame>
 
 			<Grid 
