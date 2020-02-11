@@ -10,7 +10,8 @@
 	BindingContext="{Binding CourseDetailsViewModel,Source={StaticResource Locator}}"
 	x:Class="WristCare.View.CourseDetailsPage">
 	<ContentPage.Content>
-		<Grid
+		<ScrollView>
+			<Grid
 			Margin="20">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto"></RowDefinition>
@@ -35,8 +36,6 @@
 						<RowDefinition Height="120"></RowDefinition>
 					</Grid.RowDefinitions>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"></ColumnDefinition>
-						<ColumnDefinition Width="*"></ColumnDefinition>
 						<ColumnDefinition Width="*"></ColumnDefinition>
 					</Grid.ColumnDefinitions>
 
@@ -293,7 +292,7 @@
 							Text="&#xf46b;"
 							Command="{Binding ShowMedicineLogsCommand}"
 							Grid.ColumnSpan="2"
-							IsEnabled="{Binding IsEnabled1}"
+							IsEnabled="{Binding IsEnabled2}"
 							Grid.Row="0"
 							Grid.RowSpan="3"
 							FontFamily="{StaticResource FontAwesomeSolid}"
@@ -313,7 +312,7 @@
 							BackgroundColor="Transparent"/>
 					</Grid>
 
-					<Grid Grid.Row="3"
+					<!--<Grid Grid.Row="3"
 						Grid.Column="1"
 						HeightRequest="100"
 						MinimumWidthRequest="100">
@@ -387,13 +386,15 @@
 							HorizontalOptions="Fill"
 							HorizontalTextAlignment="Center"
 							BackgroundColor="Transparent"/>
-					</Grid>
+					</Grid>-->
 
 				</Grid>
 
 				<StackLayout Grid.Row="2" Orientation=" Vertical">
 					<Button Text="Select medication plan" Style="{StaticResource PrimaryActiveButtonStyle}" Command="{Binding ShowMedicalPlanCommand}"></Button>
+					<Button Text="Delete course" Style="{StaticResource PrimaryActiveButtonStyle}" BackgroundColor="{StaticResource Orange}" Command="{Binding ArchiveCourseCommand}"></Button>
 				</StackLayout>
 		</Grid>
+		</ScrollView>
 	</ContentPage.Content>
 </ContentPage>

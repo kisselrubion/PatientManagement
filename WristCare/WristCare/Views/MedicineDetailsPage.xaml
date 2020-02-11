@@ -17,7 +17,7 @@
 			</Grid.RowDefinitions>
 
 			<StackLayout Orientation="Vertical">
-				<Label Text="{Binding SelectedCourse.EditedDate,StringFormat='{0:dddd, MMMM dd, yyyy h:mm tt}'}"></Label>
+				<!--<Label Text="{Binding SelectedCourse.EditedDate,StringFormat='{0:dddd, MMMM dd, yyyy h:mm tt}'}"></Label>-->
 			</StackLayout>
 
 			<Grid Grid.Row="1">
@@ -62,7 +62,7 @@
 					</ListView>
 
 			</Grid>
-			<Button Grid.Row="2" Text="Add Medicine log" Style="{StaticResource PrimaryActiveButtonStyle}" Command="{Binding AddMedicineLogCommand}"></Button>
+			<Button Grid.Row="2" Text="Add Medicine log" Style="{StaticResource PrimaryActiveButtonStyle}" Command="{Binding AddMedicineLogCommand}" ></Button>
 			<Button Grid.Row="3" Text="Close" Style="{StaticResource SecondaryPassiveButtonStyle}" Command="{Binding ClosePageCommand}"></Button>
 		</Grid>
 	</ContentPage.Content>

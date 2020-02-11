@@ -84,7 +84,7 @@ namespace WristCare.ViewModel
 			BleDevices = new ObservableCollection<BleDevice>();
 			Devices = new ObservableCollection<IDevice>();
 			Indicator = Color.FromHex("4FDEA4");
-			TestRfid = "375cc33f2aa";
+			IsVisible = false;
 		}
 		public ICommand StartBleScanCommand => new RelayCommand(  async () => await  BleStartConnection());
 
@@ -177,16 +177,18 @@ namespace WristCare.ViewModel
 
 			#endregion
 		}
+
 		private async Task BleDeviceConnect(IDevice selectedDevice)
 		{
 			if (selectedDevice == null) return;
+			IsBusy = true;
 			try
 			{
 				var adapter = CrossBluetoothLE.Current.Adapter;
 				var param = new ConnectParameters(forceBleTransport: true);
 				await adapter.ConnectToDeviceAsync(selectedDevice, param, CancellationToken.None);
-
 				await PopupHelper.ActionResultMessage("Success", "Connected to scanner");
+				IsVisible = true;
 				IsDisabled = true;
 				await ReadDevice(selectedDevice, true);
 			}
@@ -195,9 +197,9 @@ namespace WristCare.ViewModel
 				Console.WriteLine(e);
 				throw;
 			}
-
-
+			IsBusy = false;
 		}
+
 		public async Task ReadDevice(IDevice selectedDevice, bool status)
 		{
 			if (status)

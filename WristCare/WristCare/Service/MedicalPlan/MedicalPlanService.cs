@@ -35,7 +35,7 @@ namespace WristCare.Service.MedicalPlan
 
 		public async Task<CourseHistory> UpdateCourseHistory(CourseHistory courseHistory )
 		{
-			var data = await _requestProvider.PutAsync("coursehistory/", courseHistory);
+			var data = await _requestProvider.PutAsync2("coursehistory/", courseHistory);
 			return data;
 		}
 

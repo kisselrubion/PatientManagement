@@ -10,6 +10,7 @@ using WristCare.Model;
 using WristCare.Service.Doctors;
 using WristCare.Service.Users;
 using WristCare.ViewModel.Base;
+using Xamarin.Forms;
 
 namespace WristCare.ViewModel
 {
@@ -38,15 +39,7 @@ namespace WristCare.ViewModel
 		{
 			Doctor = new User
 			{
-				FirstName = "Test",
-				LastName = "Doctor",
-				Address = "Somewhere down the road",
-				Age = "22",
-				BirthDate = new DateTime(1996, 12, 04),
-				ContactNumber = "090901010101",
-				Email = "testdoctor@mail.com",
-				IsArchived = false,
-				Sex = "male",
+				
 			};
 
 			Doctors = new ObservableCollection<User>();
@@ -55,12 +48,39 @@ namespace WristCare.ViewModel
 
 		public ICommand RegisterDoctorCommand => new RelayCommand(async () => await RegisterDoctor());
 		public ICommand AddDoctorsCommand => new RelayCommand(AddDoctors);
+		public ICommand RefreshCommand
+		{
+			get
+			{
+				return new Command(async () => await RefreshProc());
+			}
+		}
+		private async Task RefreshProc()
+		{
+			IsBusy = true;
+
+			try
+			{
+				await GetDoctors();
+			}
+			catch
+			{
+				await PopupHelper.ActionResultMessage("Error", "Something went wrong!");
+			}
+
+			IsBusy = false;
+		}
 
 		private void AddDoctors()
 		{
 			try
 			{
+				Doctor = new User
+				{
+
+				};
 				navigationService.NavigateTo(Locator.AddDoctorInformationPage);
+				IsEnabled1 = true;
 			}
 			catch (Exception e)
 			{

@@ -19,6 +19,12 @@ namespace WristCare.Service.Courses
 			return response;
 		}
 
+		public async Task<bool> ArchiveCourse(Course course)
+		{
+			var response = await _requestProvider.PutAsync("course", course);
+			return response;
+		}
+
 		public async Task<List<Course>> GetAllCoursesAsync()
 		{
 			var response = await _requestProvider.GetAsync<List<Course>>("course?all=true");

@@ -80,10 +80,7 @@ namespace WristCare.ViewModel
 			//Todo : remove this sample data
 			CreatedCourse = new Course
 			{
-				Title = "Title",
-				IsArchived = false,
-				CourseDate = DateTime.Now,
-				Description = "Sample description",
+				
 			};
 			InitializeData();
 		}
@@ -120,8 +117,29 @@ namespace WristCare.ViewModel
 		public ICommand AddCourseCommand => new RelayCommand(async () => await CoursePopup());
 		public ICommand CancelCourseCommand => new RelayCommand(async () => await CoursePopupCancel());
 		public ICommand CreateCourseCommand => new RelayCommand(async () => await CreateCourse());
-
 		public ICommand PerformSearch => new Command<string>(query => SearchCourses(query));
+		public ICommand RefreshCommand
+		{
+			get
+			{
+				return new Command(async () => await RefreshProc());
+			}
+		}
+		private async Task RefreshProc()
+		{
+			IsBusy = true;
+
+			try
+			{
+				await GetCoursesAsync();
+			}
+			catch
+			{
+				await PopupHelper.ActionResultMessage("Error", "Something went wrong!");
+			}
+
+			IsBusy = false;
+		}
 
 		private void SearchCourses(string query)
 		{

@@ -129,24 +129,57 @@ namespace WristCare.ViewModel
 		public ICommand ShowPatientsCommand => new RelayCommand(async () => await ShowAddPatientToCoursePage());
 		public ICommand ShowDoctorsCommand => new RelayCommand(async () => await ShowAddDoctorToCoursePage());
 		public ICommand AddSelectedPatientToCourseCommand => new RelayCommand(async () => await AddPatientToCourse());
+		public ICommand AddSelectedDoctorToCourseCommand => new RelayCommand(async () => await AddDoctorToCourse());
 		public ICommand DeleteSelectedPatientCommand => new RelayCommand<User>( async param => await DeleteSelectedPatient(param));
 		public ICommand DeleteSelectedDoctorCommand => new RelayCommand<User>( async param => await DeleteSelectedDoctor(param));
+		public ICommand ArchiveCourseCommand => new RelayCommand(async () => await ArchiveCourse());
 
+		private async Task ArchiveCourse()
+		{
+			var action = await PopupHelper.ProceedMessage("Warning", "Remove Course?");
+			if (action)
+			{
+				SelectedCourse.IsArchived = true;
+				var response = await _courseService.ArchiveCourse(SelectedCourse);
+				if (response)
+				{
+					await PopupHelper.ActionResultMessage("Success", "Course archived");
+					navigationService.GoBack();
+					await App.Locator.CourseViewModel.GetCoursesAsync();
+				}
+			}
+			
+		}
 		private async Task DeleteSelectedDoctor(User doctor)
 		{
 			var response = await PopupHelper.ProceedMessage("Warning", "Remove doctor?");
 			if (response)
 			{
+				var courseHist = await _medicalPlanService.GetCourseHistory(SelectedCourse);
+				courseHist.DoctorId = null;
+				var update = await _medicalPlanService.UpdateCourseHistory(courseHist);
+				if (update != null)
+				{
+					await PopupHelper.ActionResultMessage("Success", "Data Updated");
 
+				}
 			}
 		}
 
 		private async Task DeleteSelectedPatient(User patient)
 		{
-			var response = await PopupHelper.ProceedMessage("Warning", "Remove patient?");
+			var response = await PopupHelper.ProceedMessage("Warning", "Remove Patient?");
 			if (response)
 			{
-				
+				var courseHist = await _medicalPlanService.GetCourseHistory(SelectedCourse);
+				courseHist.PatientId = null;
+				courseHist.Patient = null;
+				var update = await _medicalPlanService.UpdateCourseHistory(courseHist);
+				if (update != null)
+				{
+					await PopupHelper.ActionResultMessage("Success", "Data Updated");
+
+				}
 			}
 		}
 
@@ -190,6 +223,8 @@ namespace WristCare.ViewModel
 		{
 			//_mockSelectedMedicine = _selectedMedicine;
 			navigationService.NavigateTo(Locator.AddMedicinePage);
+			IsEnabled1 = false;
+			//SelectedMedicine = new Medicine { Date = DateTime.Now };
 			//_mockSelectedMedicine = null;
 		}
 
@@ -199,6 +234,7 @@ namespace WristCare.ViewModel
 		{
 			SelectedMedicine = new Medicine{Date = DateTime.Now};
 			navigationService.NavigateTo(Locator.AddMedicinePage);
+			IsEnabled1 = true;
 		}
 
 		private void ShowMedicalPlanPage()
@@ -229,7 +265,12 @@ namespace WristCare.ViewModel
 			var courseHistory = await _medicalPlanService.GetCourseHistory(_selectedCourse);
 			if (courseHistory != null)
 			{
-				
+				courseHistory.UserAccountNumber = _selectedUser.UserAccountId;
+				var result = await _medicalPlanService.AddCourseHistory(courseHistory);
+				if (result.CourseHistoryId != 0)
+				{
+					await PopupHelper.ActionResultMessage("Success", "Doctor enrolled to course");
+				}
 			}
 			
 
@@ -244,11 +285,11 @@ namespace WristCare.ViewModel
 				{
 					Medicines.Add(medicine);
 				}
-				IsEnabled1 = true;
+				IsEnabled2 = true;
 			}
 			else
 			{
-				IsEnabled1 = false;
+				IsEnabled2 = false;
 			}
 
 		}
@@ -262,6 +303,7 @@ namespace WristCare.ViewModel
 				await PopupHelper.ActionResultMessage("Success", "medicine plan added to course");
 			}
 			IsBusy = true;
+			//to trigger refresh
 			//to trigger refresh
 			await GetCourseMedicines(_selectedCourse);
 			IsBusy = false;

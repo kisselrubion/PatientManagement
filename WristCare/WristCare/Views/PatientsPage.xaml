@@ -26,8 +26,12 @@
 
 			<ListView 
 				Grid.Row="1"
+				x:Name="LstPatients"
 				IsRefreshing="{Binding IsBusy}"
 				ItemsSource="{Binding Patients}"
+				ItemTapped="LstPatients_OnItemTapped"
+				SelectedItem="{Binding Patient}"
+				RefreshCommand="{Binding RefreshCommand}"
 				IsPullToRefreshEnabled="True">
 				<ListView.ItemTemplate>
 					<DataTemplate>

@@ -13,6 +13,7 @@ using WristCare.Service.PatientServ;
 using WristCare.Service.Scanners;
 using WristCare.Service.Users;
 using WristCare.ViewModel.Base;
+using Xamarin.Forms;
 
 namespace WristCare.ViewModel
 {
@@ -86,28 +87,40 @@ namespace WristCare.ViewModel
 		public void InitializeData()
 		{
 			//Todo : remove this sample data
-			PatientRfid = "prf2200022312"; //string is necessary because the rfid value contains characters
+			//PatientRfid = "prf2200022312"; //string is necessary because the rfid value contains characters
 			Patients = new ObservableCollection<User>();
 			PatientsList = new List<User>();
 			Devices = new ObservableCollection<IDevice>();
 			IsBusy = false;
-			Patient = new User
-			{
-				FirstName = "Test",
-				LastName = "Patient",
-				Address = "Some where down the road",
-				Age = "22",
-				BirthDate =new DateTime(1996,12,04),
-				ContactNumber = "090901010101",
-				Email = "testpatient@mail.com",
-				IsArchived = false,
-				Sex = "male",
-			};
+			IsEnabled1 = false;
+			
 		}
 
 		public ICommand RegisterPatientCommand => new RelayCommand(async () => await RegisterPatient());
-		public ICommand ScanRfidCommand => new RelayCommand(async() => await AddRfidToPatient());
+		public ICommand ScanRfidCommand => new RelayCommand(AddRfidToPatient);
 		public ICommand AddPatientsCommand => new RelayCommand(AddPatients);
+		public ICommand RefreshCommand
+		{
+			get
+			{
+				return new Command(async () => await RefreshProc());
+			}
+		}
+		private async Task RefreshProc()
+		{
+			IsBusy = true;
+
+			try
+			{
+				await GetPatientsAsync();
+			}
+			catch
+			{
+				await PopupHelper.ActionResultMessage("Error", "Something went wrong!");
+			}
+
+			IsBusy = false;
+		}
 
 		//public ICommand SearchPatientCommand => new RelayCommand();
 
@@ -115,7 +128,12 @@ namespace WristCare.ViewModel
 		{
 			try
 			{
+				Patient = new User
+				{
+					UserAccountId = Guid.NewGuid().ToString()
+				};
 				navigationService.NavigateTo(Locator.AddPatientInformationPage);
+				IsEnabled1 = true;
 			}
 			catch (Exception e)
 			{
@@ -124,9 +142,13 @@ namespace WristCare.ViewModel
 			}
 		}
 
-		private async Task AddRfidToPatient()
+		private void AddRfidToPatient()
 		{
-			//todo : add scanned rfid to patient's account
+			if (!string.IsNullOrEmpty(App.Locator.ScanViewModel.RfidData))
+			{
+				PatientRfid = App.Locator.ScanViewModel.RfidData;
+			}
+			
 		}
 
 
@@ -138,7 +160,7 @@ namespace WristCare.ViewModel
 				if (confirm)
 				{
 					var newUserPatient = Patient;
-					newUserPatient.UserAccountId = PatientRfid;
+					newUserPatient.UserAccountId = Patient.UserAccountId;
 
 					var addedUserPatient = await _userService.RegisterUser(newUserPatient);
 

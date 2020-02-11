@@ -24,7 +24,7 @@
 				<Entry Text="{Binding Doctor.Email}" Placeholder="Email"></Entry>
 			</StackLayout>
 
-			<Button Grid.Row="2" Text="Register Doctor" Command="{Binding RegisterDoctorCommand}"></Button>
+			<Button Grid.Row="2" Text="Register Doctor" Command="{Binding RegisterDoctorCommand}" IsEnabled="{Binding IsEnabled1}"></Button>
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>

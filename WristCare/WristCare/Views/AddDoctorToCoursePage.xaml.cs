@@ -16,5 +16,11 @@ namespace WristCare.Views
 		{
 			InitializeComponent();
 		}
+
+		private void LstDoctors_OnItemTapped(object sender, ItemTappedEventArgs e)
+		{
+			var vm = App.Locator.CourseDetailsViewModel;
+			vm.AddSelectedDoctorToCourseCommand.Execute(null);
+		}
 	}
 }

@@ -145,7 +145,21 @@ namespace WristCare.RequestProvider
 			}
 		}
 
-		public async Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "")
+		public async Task<bool> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "")
+		{
+			using (var httpClient = CreateHttpClientAsync(AccessToken))
+			{
+				var serializedData = JsonConvert.SerializeObject(data);
+				var content = new StringContent(serializedData, Encoding.UTF8, "application/json");
+				var response = await httpClient.PutAsync(uri, content);
+				var serialized = await response.Content.ReadAsStringAsync();
+				var result = await Task.Run(() =>
+					JsonConvert.DeserializeObject<bool>(serialized, _serializerSettings));
+				return result;
+			}
+		}
+
+		public async Task<TResult> PutAsync2<TResult>(string uri, TResult data, string token = "", string header = "")
 		{
 			using (var httpClient = CreateHttpClientAsync(AccessToken))
 			{

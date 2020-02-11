@@ -25,7 +25,9 @@
 				<StackLayout Orientation="Vertical" Grid.Row="1" Margin="10">
 					<SearchBar Placeholder="Doctor's name" BackgroundColor="{StaticResource LightTextColor}"></SearchBar>
 					<ListView
+						x:Name="LstDoctors"
 						ItemsSource="{Binding AllUserDoctors}" IsRefreshing="{Binding IsBusy}" 
+						ItemTapped="LstDoctors_OnItemTapped"
 						SelectedItem="{Binding SelectedUser}">
 						<ListView.ItemTemplate>
 							<DataTemplate>

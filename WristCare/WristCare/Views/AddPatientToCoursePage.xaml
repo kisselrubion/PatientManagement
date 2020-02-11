@@ -38,8 +38,8 @@
 											<ColumnDefinition Width="Auto"></ColumnDefinition>
 										</Grid.ColumnDefinitions>
 										<StackLayout Orientation="Horizontal">
-											<Label Text="{Binding UserAccountId}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Start"></Label>
 											<Label Text="{Binding LastName}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Start"></Label>
+											<Label Text="{Binding FirstName}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Start"></Label>
 										</StackLayout>
 										<Button 
 											Grid.Column="2"

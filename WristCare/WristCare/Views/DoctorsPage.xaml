@@ -14,6 +14,10 @@
 
 			<ListView 
 				Grid.Row="1"
+				x:Name="LstDoctors"
+				SelectedItem="{Binding Doctor}"
+				ItemTapped="LstDoctors_OnItemTapped"
+				RefreshCommand="{Binding RefreshCommand}"
 				IsRefreshing="{Binding IsBusy}"
 				ItemsSource="{Binding Doctors}"
 				IsPullToRefreshEnabled="True">

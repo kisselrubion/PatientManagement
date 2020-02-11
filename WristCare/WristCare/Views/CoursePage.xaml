@@ -33,6 +33,8 @@
 						x:Name="LstCourses"
 						RowHeight="100"
 						HasUnevenRows="True"
+						RefreshCommand="{Binding RefreshCommand}"
+						IsPullToRefreshEnabled="True"
 						IsRefreshing="{Binding IsBusy}"
 						ItemTapped="ListView_OnItemTapped"
 						SelectedItem="{Binding SelectedCourse}"

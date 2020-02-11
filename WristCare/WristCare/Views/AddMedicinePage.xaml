@@ -29,7 +29,7 @@
 				<Entry Text="{Binding SelectedMedicine.Interval}" Placeholder="Interval"></Entry>
 				<Entry Text="{Binding SelectedMedicine.Comments}" Placeholder="Comments"></Entry>
 			</StackLayout>
-			<Button Grid.Row="2" Command="{Binding AddMedicinePlanCommand}" Text="Save"></Button>
+			<Button Grid.Row="2" Command="{Binding AddMedicinePlanCommand}" Text="Save" IsVisible="{Binding IsEnabled1}"></Button>
 			<Button Grid.Row="3" Text="Cancel" Command="{Binding ClosePageCommand}"></Button>
 		</Grid>
 	</ContentPage.Content>

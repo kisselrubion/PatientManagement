@@ -9,16 +9,18 @@
 	androidSpecific:TabbedPage.ToolbarPlacement="Bottom"
 	x:Class="WristCare.View.HomePage">
 
-	<NavigationPage Title="Home">
-		<x:Arguments>
-			<view:Dashboard/>
-		</x:Arguments>
-	</NavigationPage>
-
 	<NavigationPage Title="Health">
 		<x:Arguments>
 			<views:HealthPage/>
 		</x:Arguments>
 	</NavigationPage>
+
+	<NavigationPage Title="Scanner">
+		<x:Arguments>
+			<view:Dashboard/>
+		</x:Arguments>
+	</NavigationPage>
+
+
 
 </TabbedPage>

@@ -22,7 +22,7 @@
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"></ColumnDefinition>
 					</Grid.ColumnDefinitions>
-					<StackLayout 
+					<!--<StackLayout 
 						Orientation="Horizontal"
 						BackgroundColor="{StaticResource DarkBackgroundColor}">
 						<Label
@@ -40,7 +40,7 @@
 							WidthRequest="50"
 							Style="{StaticResource PrimaryActiveButtonStyle}"
 							Margin="4"/>
-					</StackLayout>
+					</StackLayout>-->
 
 					<StackLayout 
 						Orientation="Horizontal"
@@ -64,7 +64,7 @@
 							Margin="4"/>
 					</StackLayout>
 
-					<StackLayout 
+					<!--<StackLayout 
 						Orientation="Horizontal"
 						Grid.Row="2"
 						BackgroundColor="{StaticResource DarkBackgroundColor}">
@@ -83,7 +83,7 @@
 							WidthRequest="50"
 							Style="{StaticResource PrimaryActiveButtonStyle}"
 							Margin="4"/>
-					</StackLayout>
+					</StackLayout>-->
 				</Grid>
 			</StackLayout>
 		</Grid>

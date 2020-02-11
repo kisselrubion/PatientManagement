@@ -28,19 +28,36 @@
 				VerticalOptions="CenterAndExpand" 
 				HorizontalOptions="CenterAndExpand" />
 
+			<Frame 
+				VerticalOptions="CenterAndExpand" 
+				IsVisible="{Binding IsVisible}"
+				HorizontalOptions="CenterAndExpand" 
+				BorderColor="{StaticResource Blue}"
+				BackgroundColor="{StaticResource Purple}">
+				<StackLayout Orientation="Vertical">
+					<Label
+						Text="Connected To RFID SCANNER"
+						HorizontalTextAlignment="Center"
+						VerticalTextAlignment="Center"
+						VerticalOptions="Center"
+						HorizontalOptions="Center"
+						FontSize="Medium"/>
+				</StackLayout>
+			</Frame>
+
 			<ListView
 				ItemsSource="{Binding Devices}"
 				HorizontalOptions="CenterAndExpand"
 				HasUnevenRows="True"
 				SelectedItem="{Binding SelectedDevice}"
 				VerticalOptions="CenterAndExpand">
-				<!--<ListView.ItemTemplate>
+				<ListView.ItemTemplate>
 					<DataTemplate>
 						<StackLayout Orientation="Vertical">
 							<Label Text="{Binding Path=Name}"></Label>
 						</StackLayout>
 					</DataTemplate>
-				</ListView.ItemTemplate>-->
+				</ListView.ItemTemplate>
 			</ListView>
 		</StackLayout>
 	</ContentPage.Content>
