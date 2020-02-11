@@ -21,6 +21,7 @@ namespace WristCare.View
 		{
 			App.NavigationService.NavigateTo(Locator.AddDoctorInformationPage);
 			App.Locator.DoctorsViewModel.IsEnabled1 = false;
+			LstDoctors.SelectedItem = 0;
 		}
 	}
 }

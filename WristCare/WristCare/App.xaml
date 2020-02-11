@@ -8,7 +8,9 @@
 			<helpers:Locator x:Key="Locator"></helpers:Locator>
 
 			<Color x:Key="Primary">#1ec8c8</Color>
-			<Color x:Key="Blue">#20A1f3</Color>
+			<Color x:Key="Blue">#28b6f6</Color>
+			<Color x:Key="Green">#afd582</Color>
+			<Color x:Key="Red">#e67273</Color>
 			<Color x:Key="Purple">#8A92FF</Color>
 			<Color x:Key="Orange">#F0A46D</Color>
 			<Color x:Key="PurpleSecondary">#6759ff</Color>
@@ -43,6 +45,22 @@
 				<Setter Property="BackgroundColor" Value="{StaticResource PassiveGreen}" />
 			</Style>
 
+			<Style x:Key="CircleButtonWithIconStyle" TargetType="Button">
+				<Setter Property="TextColor" Value="{StaticResource LightTextColor}" />
+				<Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+				<Setter Property="WidthRequest" Value="60" />
+				<Setter Property="HeightRequest" Value="60" />
+				<Setter Property="CornerRadius" Value="60" />
+			</Style>
+
+			<Style x:Key="InvertedCircleButtonWithIconStyle" TargetType="Button">
+				<Setter Property="TextColor" Value="{StaticResource Primary}" />
+				<Setter Property="BackgroundColor" Value="{StaticResource LightTextColor}" />
+				<Setter Property="WidthRequest" Value="60" />
+				<Setter Property="HeightRequest" Value="60" />
+				<Setter Property="CornerRadius" Value="60" />
+			</Style>
+
 			<Style x:Key="DeleteButton" TargetType="Button">
 				<Setter Property="TextColor" Value="OrangeRed" />
 				<Setter Property="BackgroundColor" Value="Transparent" />
@@ -68,10 +86,12 @@
 				<On Platform="Android" Value="Font Awesome 5 Free-Regular-400.otf#Font Awesome 5 Free-Regular-400" />
 				<On Platform="iOS" Value="Font Awesome 5 Free" />
 			</OnPlatform>
+
 			<OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeSolid">
 				<On Platform="Android" Value="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free-Solid-900" />
 				<On Platform="iOS" Value="Font Awesome 5 Free" />
 			</OnPlatform>
+
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

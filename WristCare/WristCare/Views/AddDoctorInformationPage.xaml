@@ -22,6 +22,7 @@
 				<Entry Text="{Binding Doctor.Address}" Placeholder="Address"></Entry>
 				<Entry Text="{Binding Doctor.ContactNumber}" Placeholder="Contact Number"></Entry>
 				<Entry Text="{Binding Doctor.Email}" Placeholder="Email"></Entry>
+				<Entry Text="{Binding Doctor.Profession}" Placeholder="Specialization (Optional)"></Entry>
 			</StackLayout>
 
 			<Button Grid.Row="2" Text="Register Doctor" Command="{Binding RegisterDoctorCommand}" IsEnabled="{Binding IsEnabled1}"></Button>

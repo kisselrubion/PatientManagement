@@ -27,7 +27,7 @@
 				<ListView 
 					x:Name="LstMeds"
 					ItemsSource="{Binding Medicines}"
-					SelectedItem="{Binding SelectedMedicine,Mode=OneWayToSource}"
+					SelectedItem="{Binding SelectedMedicine}"
 					ItemTapped="LstMeds_OnItemTapped"
 					HasUnevenRows="True">
 					<ListView.ItemTemplate>
@@ -50,6 +50,7 @@
 												<Label Text="{Binding MedicineNumber}"></Label>
 											</StackLayout>
 											<StackLayout Grid.Column="2" Orientation="Vertical">
+												<Label Text="{Binding Date}"></Label>
 												<Label Text="{Binding Dosage}"></Label>
 												<Label Text="{Binding Comments}"></Label>
 											</StackLayout>

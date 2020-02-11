@@ -13,6 +13,8 @@ namespace WristCare.Model
 		public string ContactNumber { get; set; }
 		public DateTime BirthDate { get; set; }
 		public string Sex { get; set; }
+		public string Profession { get; set; }
+
 		public string Email { get; set; }
 		public string Age { get; set; }
 		public string Address { get; set; }

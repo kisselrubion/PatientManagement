@@ -232,7 +232,10 @@ namespace WristCare.ViewModel
 
 		private void AddMedicineLog()
 		{
-			SelectedMedicine = new Medicine{Date = DateTime.Now};
+			SelectedMedicine = new Medicine
+			{
+				Date = DateTime.Now
+			};
 			navigationService.NavigateTo(Locator.AddMedicinePage);
 			IsEnabled1 = true;
 		}

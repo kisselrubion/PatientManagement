@@ -19,12 +19,22 @@ namespace WristCare.View
 
 		private void LstDoctors_OnItemTapped(object sender, ItemTappedEventArgs e)
 		{
-			LstDoctors.SelectedItem = null;
+			//LstDoctors.SelectedItem = null;
 		}
 
 		private void LstPatients_OnItemTapped(object sender, ItemTappedEventArgs e)
 		{
-			LstPatients.SelectedItem = null;
+		}
+
+		private void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
+		{
+			App.Locator.CourseDetailsViewModel.ShowDoctorsCommand.Execute(null);
+		}
+
+		private void TapGestureRecognizer2_OnTapped(object sender, EventArgs e)
+		{
+			App.Locator.CourseDetailsViewModel.ShowPatientsCommand.Execute(null);
+
 		}
 	}
 }

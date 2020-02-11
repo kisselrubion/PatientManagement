@@ -22,6 +22,7 @@ namespace WristCare.Views
 			var vm = App.Locator.CourseDetailsViewModel;
 			App.Locator.CourseDetailsViewModel.ShowMedicineDetailsPage();
 			App.Locator.CourseDetailsViewModel.IsEnabled1 = false;
+			LstMeds.SelectedItem = 0;
 		}
 	}
 }
