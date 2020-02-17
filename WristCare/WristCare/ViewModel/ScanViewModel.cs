@@ -11,10 +11,14 @@ using GalaSoft.MvvmLight.Command;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Rg.Plugins.Popup.Services;
 using WristCare.Helpers;
 using WristCare.Model;
 using WristCare.Service.Bluetooth;
+using WristCare.Service.MedicalPlan;
+using WristCare.View;
 using WristCare.ViewModel.Base;
+using WristCare.Views;
 using Xamarin.Forms;
 
 namespace WristCare.ViewModel
@@ -25,16 +29,26 @@ namespace WristCare.ViewModel
 		private IDevice _selectedDevice;
 		private bool _bleConnectionStatus;
 		private string _rfidData;
+		private readonly MedicalPlanService _medicalPlanService;
+
 
 		public ObservableCollection<IDevice> Devices { get; set; }
+		public ObservableCollection<CourseHistory> CourseHistories { get; set; }
 		public ObservableCollection<BleDevice> BleDevices { get; set; }
 		public Color Indicator { get; set; }
 
 		public string RfidData
 		{
 			get => _rfidData;
-			set => Set(ref _rfidData, value);
+			set
+			{
+				if (Set(ref _rfidData, value))
+				{
+				}
+			}
 		}
+
+
 
 		public bool BleConnectionStatus
 		{
@@ -79,14 +93,18 @@ namespace WristCare.ViewModel
 		
 
 		public string TestRfid { get; set; }
-		public ScanViewModel()
+		public ScanViewModel(MedicalPlanService medicalPlanService)
 		{
+			_medicalPlanService = medicalPlanService;
 			BleDevices = new ObservableCollection<BleDevice>();
+			CourseHistories = new ObservableCollection<CourseHistory>();
 			Devices = new ObservableCollection<IDevice>();
 			Indicator = Color.FromHex("4FDEA4");
 			IsVisible = false;
+			Task.Run(async () => await GetAllCourseHistories());
 		}
 		public ICommand StartBleScanCommand => new RelayCommand(  async () => await  BleStartConnection());
+		public ICommand ScanWristBandCommand => new RelayCommand(ScanWristband);
 
 
 		/// Starts the scan and connection for available bluetooth devices
@@ -178,6 +196,18 @@ namespace WristCare.ViewModel
 			#endregion
 		}
 
+		public async Task GetAllCourseHistories()
+		{
+			var courseHistories = await _medicalPlanService.GetAllCourseHistories();
+			if (courseHistories.Count != 0)
+			{
+				foreach (var courseHistory in courseHistories)
+				{
+					CourseHistories.Add(courseHistory);
+				}
+			}
+		}
+
 		private async Task BleDeviceConnect(IDevice selectedDevice)
 		{
 			if (selectedDevice == null) return;
@@ -221,11 +251,27 @@ namespace WristCare.ViewModel
 
 				var bytes = characteristic.Value;
 				string content = System.Text.Encoding.UTF8.GetString(bytes);
+
 				RfidData = content;
-				//if (RfidData != null)
-				//{
+
+				
 					
-				//}
+			}
+		}
+
+		private void ScanWristband()
+		{
+			if (!string.IsNullOrEmpty(RfidData))
+			{
+				var courseHistory = CourseHistories.FirstOrDefault(c => c.UserAccountNumber == RfidData);
+				var courses = App.Locator.CourseViewModel.Courses;
+				if (courses.Count != 0 && courseHistory != null)
+				{
+					var selectedCourse = courses.FirstOrDefault(c => courseHistory != null && c.CourseId == courseHistory.CourseId);
+
+					App.Locator.CourseDetailsViewModel.SelectedCourse = selectedCourse;
+					navigationService.NavigateTo(Locator.CourseDetailsPage);
+				}
 			}
 		}
 	}

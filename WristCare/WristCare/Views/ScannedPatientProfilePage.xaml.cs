@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace WristCare.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ScannedPatientProfilePage : ContentPage
+	public partial class ScannedPatientProfilePage 
 	{
 		public ScannedPatientProfilePage()
 		{

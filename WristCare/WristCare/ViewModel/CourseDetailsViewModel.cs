@@ -106,7 +106,10 @@ namespace WristCare.ViewModel
 				Date = DateTime.Now,
 			};
 
-			_selectedMedicine = new Medicine();
+			SelectedMedicine = new Medicine
+			{
+				Date = DateTime.Now
+			};
 
 			Medicines = new ObservableCollection<Medicine>();
 			AllPatients = new ObservableCollection<User>();
@@ -238,8 +241,17 @@ namespace WristCare.ViewModel
 		{
 			//_mockSelectedMedicine = _selectedMedicine;
 			navigationService.NavigateTo(Locator.AddMedicinePage);
-			IsEnabled1 = false;
 			//SelectedMedicine = new Medicine { Date = DateTime.Now };
+			IsEnabled1 = true;
+			//_mockSelectedMedicine = null;
+		}
+
+		public void ShowExistingMedicineDetailsPage()
+		{
+			//_mockSelectedMedicine = _selectedMedicine;
+			navigationService.NavigateTo(Locator.AddMedicinePage);
+			//SelectedMedicine = new Medicine { Date = DateTime.Now };
+			IsEnabled1 = false;
 			//_mockSelectedMedicine = null;
 		}
 
@@ -267,7 +279,8 @@ namespace WristCare.ViewModel
 			if (courseHistory != null)
 			{
 				courseHistory.UserAccountNumber = _selectedUser.UserAccountId;
-				var result = await _medicalPlanService.UpdateCourseHistory(courseHistory);
+
+				var result = await _medicalPlanService.UpdateCourseHistory2(courseHistory);
 				if (result.CourseHistoryId != 0)
 				{
 					await PopupHelper.ActionResultMessage("Success", "patient enrolled to course");
@@ -292,7 +305,7 @@ namespace WristCare.ViewModel
 					courseHistory.Doctor = doctor;
 					courseHistory.DoctorId = doctor.DoctorId;
 				}
-				var result = await _medicalPlanService.UpdateCourseHistory(courseHistory);
+				var result = await _medicalPlanService.UpdateCourseHistory2(courseHistory);
 				if (result.CourseHistoryId != 0)
 				{
 					await PopupHelper.ActionResultMessage("Success", "Doctor enrolled to course");
@@ -341,16 +354,23 @@ namespace WristCare.ViewModel
 		{
 			Patients.Clear();
 			var courseHistory = await _medicalPlanService.GetCourseHistory(selectedCourse);
-			var patient = AllPatients.FirstOrDefault(c => c.UserAccountId == courseHistory.Patient.PatientNumber);
-			Patients.Add(patient);
+			var patient = AllPatients.FirstOrDefault(c => c.UserAccountId == courseHistory.UserAccountNumber);
+			if (patient != null)
+			{
+				Patients.Add(patient);
+			}
 		}
 
 		private async Task GetDoctorsInCourse(Course selectedCourse)
 		{
+			//todo : need to check on this
 			UserDoctors.Clear();
 			var courseHistory = await _medicalPlanService.GetCourseHistory(selectedCourse);
 			var doctor = AllUserDoctors.FirstOrDefault(c => c.UserAccountId == courseHistory.Doctor.DoctorNumber);
-			UserDoctors.Add(doctor);
+			if (doctor != null)
+			{
+				UserDoctors.Add(doctor);
+			}
 		}
 
 		private async Task GetAllPatients()

@@ -1,15 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="WristCare.Views.ScannedPatientProfilePage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+			 mc:Ignorable="d"
+
+			 x:Class="WristCare.Views.ScannedPatientProfilePage">
+	<ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Frame
+				Grid.Row="1"
+				HorizontalOptions="FillAndExpand" 
+				VerticalOptions="FillAndExpand" Padding="0"
+				CornerRadius="10"
+				HasShadow="False"
+				BackgroundColor="{StaticResource DarkBackgroundColor}"
+				Margin="20">
+				<StackLayout Orientation="Vertical">
+					<StackLayout
+						Orientation="Horizontal"
+						VerticalOptions="StartAndExpand"
+						HorizontalOptions="FillAndExpand">
+						<Label
+							Text="Patient"
+							Margin="10,10,5,5"
+							FontSize="Medium"
+							VerticalOptions="CenterAndExpand" 
+							HorizontalOptions="StartAndExpand"/>
+					</StackLayout>
+					<Button
+						Text="Goto patient course"
+						Margin="10"
+						Command="{Binding ShowPatientsCommand}"
+						FontSize="Small"
+						BackgroundColor="{StaticResource Purple}"
+						TextColor="{StaticResource LightTextColor}"
+						VerticalOptions="CenterAndExpand" 
+						HorizontalOptions="FillAndExpand" />
+				</StackLayout>
+
+			</Frame>
+
+
+			<Button
+				Grid.Row="2"
+				Text="&#xf00d;"
+				HorizontalOptions="Center"
+				TextColor="White"
+				FontSize="30"
+				Command="{Binding ClosePopupCommand}"
+				CornerRadius="60"
+				FontFamily="{StaticResource FontAwesomeSolid}"
+				HeightRequest="60"
+				WidthRequest="60"
+				Style="{StaticResource CircleButtonWithIconStyle}"
+				BackgroundColor="DarkGray"></Button>
+		</Grid>
+	</ContentPage.Content>
+</pages:PopupPage>

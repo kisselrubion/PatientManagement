@@ -24,9 +24,9 @@
 					<Label Text="{Binding SelectedMedicine.Date,StringFormat='{0:dddd, MMMM dd, yyyy h:mm tt}'}" FontAttributes="Italic"></Label>
 				</StackLayout>
 				<Entry Text="{Binding SelectedMedicine.MedicineName}" Placeholder="Medicine Name"></Entry>
-				<Entry Text="{Binding SelectedMedicine.MedicineNumber}" Placeholder="Medicine Number (Optional)"></Entry>
+				<Entry Text="{Binding SelectedMedicine.MedicineNumber}" Placeholder="Medicine Number (optional)"></Entry>
 				<Entry Text="{Binding SelectedMedicine.Dosage}" Placeholder="Dosage"></Entry>
-				<Entry Text="{Binding SelectedMedicine.Interval}" Placeholder="Interval"></Entry>
+				<Entry Text="{Binding SelectedMedicine.Interval}" Placeholder="Interval Number (optional)"></Entry>
 				<Entry Text="{Binding SelectedMedicine.Comments}" Placeholder="Comments"></Entry>
 			</StackLayout>
 			<Button Grid.Row="2" Command="{Binding AddMedicinePlanCommand}" Text="Save" IsVisible="{Binding IsEnabled1}"></Button>

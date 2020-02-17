@@ -58,6 +58,13 @@ namespace PatientManagementApi.Services.CourseHistoryService
 			return course ?? new CourseHistory();
 		}
 
+		public List<CourseHistory> GetRange(bool all)
+		{
+			if (!all) return new List<CourseHistory>();
+			var courseHistories = _context.CourseHistories.ToList();
+			return courseHistories;
+		}
+
 		public async Task<CourseHistory> GetHistoryByCourse(int id)
 		{
 			try

@@ -82,5 +82,15 @@ namespace PatientManagementApi.Controllers
 				throw new NullReferenceException("courseHistory Update Failed");
 			}
 		}
+
+		// usage : api/courseHistory/GetAll/?all=true
+		[HttpGet("GetAll")] 
+		public ActionResult GetAll(bool all)
+		{
+			if (!all) throw new NullReferenceException("Courses not found");
+			if (!_context.CourseHistories.Any()) throw new NullReferenceException("Course no entries");
+			var courses = _couseHistoryService.GetRange(all);
+			return Ok(courses);
+		}
 	}
 }

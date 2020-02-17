@@ -5,7 +5,10 @@
 			 BindingContext="{Binding ScanViewModel,Source={StaticResource Locator}}"
 			 x:Class="WristCare.View.Dashboard">
 	<ContentPage.Content>
-		<StackLayout>
+		<StackLayout Orientation="Vertical"
+					 Margin="10"
+		             HorizontalOptions="FillAndExpand"
+		             VerticalOptions="CenterAndExpand">
 			<Image
 				Margin="20"
 				Source="nfc.png"
@@ -16,21 +19,11 @@
 				VerticalOptions="Start"
 				Aspect="AspectFit"/>
 
-			<StackLayout Orientation="Horizontal">
-				<Label Text="{Binding RfidData}"
-				       TextColor="{Binding Indicator}"></Label>
-				<Label Text="{Binding SelectedDevice.Name}"></Label>
-			</StackLayout>
-
-			<Button 
-				Text="Connect to Scanner"
-				Command="{Binding StartBleScanCommand}"
-				VerticalOptions="CenterAndExpand" 
-				HorizontalOptions="CenterAndExpand" />
-
 			<Frame 
 				VerticalOptions="CenterAndExpand" 
 				IsVisible="{Binding IsVisible}"
+				Padding="0"
+				Margin="10"
 				HorizontalOptions="CenterAndExpand" 
 				BorderColor="{StaticResource Blue}"
 				BackgroundColor="{StaticResource Purple}">
@@ -45,20 +38,27 @@
 				</StackLayout>
 			</Frame>
 
-			<ListView
-				ItemsSource="{Binding Devices}"
-				HorizontalOptions="CenterAndExpand"
-				HasUnevenRows="True"
-				SelectedItem="{Binding SelectedDevice}"
-				VerticalOptions="CenterAndExpand">
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<StackLayout Orientation="Vertical">
-							<Label Text="{Binding Path=Name}"></Label>
-						</StackLayout>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
+			<StackLayout Orientation="Horizontal">
+				<Label Text="{Binding RfidData}"
+				       TextColor="{Binding Indicator}"></Label>
+				<Label Text="{Binding SelectedDevice.Name}"></Label>
+			</StackLayout>
+
+			<Button 
+				Text="Connect to Scanner"
+				Command="{Binding StartBleScanCommand}"
+				VerticalOptions="CenterAndExpand" 
+				HorizontalOptions="CenterAndExpand" />
+			
+			<Button 
+				Text="Scan Wristband"
+				Command="{Binding ScanWristBandCommand}"
+				VerticalOptions="CenterAndExpand" 
+				HorizontalOptions="CenterAndExpand" />
+
+			
+
+			
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

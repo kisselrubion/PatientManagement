@@ -80,7 +80,7 @@ namespace WristCare.ViewModel
 			//Todo : remove this sample data
 			CreatedCourse = new Course
 			{
-				
+				CourseDate = DateTime.Now
 			};
 			InitializeData();
 		}

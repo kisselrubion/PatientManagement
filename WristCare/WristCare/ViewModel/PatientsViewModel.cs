@@ -194,21 +194,30 @@ namespace WristCare.ViewModel
 					{
 						var newUserPatient = Patient;
 						newUserPatient.UserAccountId = PatientRfid;
-						var addedUserPatient = await _userService.RegisterUser(newUserPatient);
-						var newPatientAccount = new Account
+
+						var usedRfidWristband = Patients.FirstOrDefault(c => c.UserAccountId == PatientRfid);
+						if (usedRfidWristband == null)
 						{
-							AccountNumber = newUserPatient.UserAccountId,
-							UserId = addedUserPatient.UserId,
-							AccountTypeId = 4,
-							AccountTypeName = "patient",
-							AdmissionDateTime = DateTime.Now,
-						};
-						var response = await _patientService.RegisterPatient(newPatientAccount);
-						if (response.AccountId != 0)
-						{
-							await PopupHelper.ActionResultMessage("Success", "Patient added");
+							var addedUserPatient = await _userService.RegisterUser(newUserPatient);
+							var newPatientAccount = new Account
+							{
+								AccountNumber = newUserPatient.UserAccountId,
+								UserId = addedUserPatient.UserId,
+								AccountTypeId = 4,
+								AccountTypeName = "patient",
+								AdmissionDateTime = DateTime.Now,
+							};
+							var response = await _patientService.RegisterPatient(newPatientAccount);
+							if (response.AccountId != 0)
+							{
+								await PopupHelper.ActionResultMessage("Success", "Patient added");
+							}
+							await GetPatientsAsync();
 						}
-						await GetPatientsAsync();
+						else
+						{
+							await PopupHelper.ActionResultMessage("Warning", "Try different wristband");
+						}
 					}
 				}
 				else

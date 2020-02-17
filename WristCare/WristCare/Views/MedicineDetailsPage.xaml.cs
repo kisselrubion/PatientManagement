@@ -20,7 +20,7 @@ namespace WristCare.Views
 		private void LstMeds_OnItemTapped(object sender, ItemTappedEventArgs e)
 		{
 			var vm = App.Locator.CourseDetailsViewModel;
-			App.Locator.CourseDetailsViewModel.ShowMedicineDetailsPage();
+			App.Locator.CourseDetailsViewModel.ShowExistingMedicineDetailsPage();
 			App.Locator.CourseDetailsViewModel.IsEnabled1 = false;
 			LstMeds.SelectedItem = 0;
 		}

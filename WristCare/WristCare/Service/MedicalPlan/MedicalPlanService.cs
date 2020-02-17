@@ -16,9 +16,16 @@ namespace WristCare.Service.MedicalPlan
 		}
 
 
+
 		public async Task<CourseHistory> GetCourseHistory(Course course)
 		{
 			var data = await _requestProvider.PostAsync<CourseHistory>("courseHistory/history/",course);
+		
+			return data;
+		}		
+		public async Task<List<CourseHistory>> GetAllCourseHistories()
+		{
+			var data = await _requestProvider.GetAsync<List<CourseHistory>>("coursehistory/getall?all=true");
 			return data;
 		}
 
@@ -33,7 +40,12 @@ namespace WristCare.Service.MedicalPlan
 			return data;
 		}
 
-		public async Task<CourseHistory> UpdateCourseHistory(CourseHistory courseHistory )
+		public async Task<bool> UpdateCourseHistory(CourseHistory courseHistory )
+		{
+			var data = await _requestProvider.PutAsync("coursehistory/", courseHistory);
+			return data;
+		}
+		public async Task<CourseHistory> UpdateCourseHistory2(CourseHistory courseHistory)
 		{
 			var data = await _requestProvider.PutAsync2("coursehistory/", courseHistory);
 			return data;
