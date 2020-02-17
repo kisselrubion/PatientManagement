@@ -58,14 +58,15 @@
 							<Button
 								HorizontalOptions="CenterAndExpand"
 								FontSize="30"
+								Clicked="TapGestureRecognizer2_OnTapped"
 								Margin="5"
 								Text="&#xf487;"
 								VerticalOptions="Center"
 								FontFamily="{StaticResource FontAwesomeSolid}"
-								WidthRequest="60"
 								BackgroundColor="{StaticResource Purple}"
 								CornerRadius="60"
 								HeightRequest="60"
+								WidthRequest="60"
 								Style="{StaticResource CircleButtonWithIconStyle}"></Button>
 							<StackLayout
 								Orientation="Horizontal"
@@ -101,6 +102,7 @@
 								FontSize="30"
 								Margin="5"
 								Text="&#xf0f0;"
+								Clicked="TapGestureRecognizer_OnTapped"
 								VerticalOptions="Center"
 								FontFamily="{StaticResource FontAwesomeSolid}"
 								WidthRequest="60"

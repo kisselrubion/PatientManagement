@@ -70,6 +70,7 @@ namespace WristCare.ViewModel
 				if (!Set(ref _selectedCourse, value)) return;
 				Task.Run(async () => await GetCourseMedicines(_selectedCourse));
 				Task.Run(async () => await GetPatientsInCourse(_selectedCourse));
+				Task.Run(async () => await GetDoctorsInCourse(_selectedCourse));
 			}
 
 		}
@@ -115,6 +116,7 @@ namespace WristCare.ViewModel
 			Doctors = new ObservableCollection<Doctor>();
 			Task.Run(async () => await GetAllPatients());
 			Task.Run(async () => await GetAllUserDoctors());
+			Task.Run(async () => await GetDoctors());
 		}
 
 		public ICommand ShowMedicalPlanCommand => new RelayCommand(ShowMedicalPlanPage);
@@ -133,6 +135,19 @@ namespace WristCare.ViewModel
 		public ICommand DeleteSelectedPatientCommand => new RelayCommand<User>( async param => await DeleteSelectedPatient(param));
 		public ICommand DeleteSelectedDoctorCommand => new RelayCommand<User>( async param => await DeleteSelectedDoctor(param));
 		public ICommand ArchiveCourseCommand => new RelayCommand(async () => await ArchiveCourse());
+		public ICommand ShowAddedPatientsPageCommand => new RelayCommand(async () => await ShowAddedPatientsPage());
+		public ICommand ShowAddedDoctorsPageCommand => new RelayCommand(async () => await ShowAddedDoctosPage());
+
+		private async Task ShowAddedPatientsPage()
+		{
+			await PopupNavigation.Instance.PushAsync(new AddedPatientsPage());
+
+		}
+		private async Task ShowAddedDoctosPage()
+		{
+			await PopupNavigation.Instance.PushAsync(new AddedDoctorsPage());
+		}
+
 
 		private async Task ArchiveCourse()
 		{
@@ -252,7 +267,7 @@ namespace WristCare.ViewModel
 			if (courseHistory != null)
 			{
 				courseHistory.UserAccountNumber = _selectedUser.UserAccountId;
-				var result = await _medicalPlanService.AddCourseHistory(courseHistory);
+				var result = await _medicalPlanService.UpdateCourseHistory(courseHistory);
 				if (result.CourseHistoryId != 0)
 				{
 					await PopupHelper.ActionResultMessage("Success", "patient enrolled to course");
@@ -265,17 +280,26 @@ namespace WristCare.ViewModel
 
 		private async Task AddDoctorToCourse()
 		{
+			//todo : enrollment of doctor to in its final stages
+			IsBusy = true;
+
 			var courseHistory = await _medicalPlanService.GetCourseHistory(_selectedCourse);
 			if (courseHistory != null)
 			{
-				courseHistory.UserAccountNumber = _selectedUser.UserAccountId;
-				var result = await _medicalPlanService.AddCourseHistory(courseHistory);
+				var doctor = Doctors.FirstOrDefault(c => c.DoctorNumber == _selectedUser.UserAccountId);
+				if (doctor != null)
+				{
+					courseHistory.Doctor = doctor;
+					courseHistory.DoctorId = doctor.DoctorId;
+				}
+				var result = await _medicalPlanService.UpdateCourseHistory(courseHistory);
 				if (result.CourseHistoryId != 0)
 				{
 					await PopupHelper.ActionResultMessage("Success", "Doctor enrolled to course");
 				}
 			}
-			
+			await GetDoctorsInCourse(_selectedCourse);
+			IsBusy = false;
 
 		}
 		private async Task GetCourseMedicines(Course course)

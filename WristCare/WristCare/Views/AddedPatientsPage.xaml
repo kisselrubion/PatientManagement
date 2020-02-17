@@ -1,15 +1,148 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="WristCare.Views.AddedPatientsPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+<pages:PopupPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+	mc:Ignorable="d"
+	BindingContext="{Binding CourseDetailsViewModel,Source={StaticResource Locator}}"
+	x:Class="WristCare.Views.AddedPatientsPage">
+	<ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Frame
+				Grid.Row="1"
+				HorizontalOptions="FillAndExpand" 
+				VerticalOptions="FillAndExpand" Padding="0"
+				CornerRadius="10"
+				HasShadow="False"
+				BackgroundColor="{StaticResource DarkBackgroundColor}"
+				Margin="20">
+				<StackLayout Orientation="Vertical">
+					<StackLayout
+						Orientation="Horizontal"
+						VerticalOptions="StartAndExpand"
+						HorizontalOptions="FillAndExpand">
+						<Label
+							Text="Patients"
+							Margin="10,10,5,5"
+							FontSize="Medium"
+							VerticalOptions="CenterAndExpand" 
+							HorizontalOptions="StartAndExpand"/>
+					</StackLayout>
+					<ListView 
+							x:Name="LstPatients"
+							Grid.Row="1"
+							VerticalOptions="FillAndExpand"
+							Margin="4"
+							RowHeight="60"
+							ItemsSource="{Binding Patients}"
+							HasUnevenRows="True"
+							IsRefreshing="{Binding IsBusy}"
+							RefreshControlColor="{StaticResource Primary}">
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<ViewCell>
+										<ContentView Padding="0">
+											<Frame
+												Margin="5"
+												BackgroundColor="{StaticResource LightTextColor}"
+												Padding="0"
+												HasShadow="True"
+												CornerRadius="5">
+												<Grid Margin="5,0,5,0">
+													<Grid.RowDefinitions>
+													<RowDefinition Height="Auto"></RowDefinition>
+												</Grid.RowDefinitions>
+													<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"></ColumnDefinition>
+													<ColumnDefinition Width="*"></ColumnDefinition>
+													<ColumnDefinition Width="Auto"></ColumnDefinition>
+												</Grid.ColumnDefinitions>
+													<StackLayout
+														Orientation="Horizontal" 
+														Grid.Column="1"
+														VerticalOptions="Center" 
+														HorizontalOptions="FillAndExpand">
+														<Button
+															Text="&#xf00c;"
+															HorizontalOptions="Start"
+															FontSize="12"
+															BorderWidth="0"
+															Margin="5"
+															VerticalOptions="Center"
+															FontFamily="{StaticResource FontAwesomeSolid}"
+															BackgroundColor="{StaticResource Primary}"
+															TextColor="White"
+															CornerRadius="20"
+															HeightRequest="40"
+															WidthRequest="40"
+															Style="{StaticResource InvertedCircleButtonWithIconStyle}"></Button>
+														<Label 
+															Text="{Binding LastName}"
+															FontSize="Small"
+															FontAttributes="Bold"
+															VerticalTextAlignment="Center"/>
+														<Label
+																Text="{Binding FirstName}"
+																FontSize="Small"
+																FontAttributes="Bold"
+																VerticalTextAlignment="Center"/>
+												</StackLayout>
+													<StackLayout
+														Grid.Column="2"
+														Orientation="Horizontal"
+														HorizontalOptions="Fill">
+													<Button
+															Text="&#xf00d;"
+															Command="{Binding CourseDetailsViewModel.DeleteSelectedPatientCommand,Source={StaticResource Locator}}"
+															FontSize="Large"
+															CommandParameter="{Binding .}"
+															Style="{StaticResource DeleteButton}"
+															Padding="0"
+															FontFamily="{StaticResource FontAwesomeSolid}"
+															HorizontalOptions="End"
+															VerticalOptions="Center"/>
+												</StackLayout>
+											</Grid>
+										</Frame>
+									</ContentView>
+								</ViewCell>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+					<Button
+						Text="ADD PATIENT"
+						Margin="10"
+						Command="{Binding ShowPatientsCommand}"
+						FontSize="Small"
+						BackgroundColor="{StaticResource Purple}"
+						TextColor="{StaticResource LightTextColor}"
+						VerticalOptions="CenterAndExpand" 
+						HorizontalOptions="FillAndExpand" />
+				</StackLayout>
+				
+			</Frame>
+
+
+			<Button
+				Grid.Row="2"
+				Text="&#xf00d;"
+				HorizontalOptions="Center"
+				TextColor="White"
+				FontSize="30"
+				Command="{Binding ClosePopupCommand}"
+				CornerRadius="60"
+				FontFamily="{StaticResource FontAwesomeSolid}"
+				HeightRequest="60"
+				WidthRequest="60"
+				Style="{StaticResource CircleButtonWithIconStyle}"
+				BackgroundColor="DarkGray"></Button>
+		</Grid>
+	</ContentPage.Content>
+</pages:PopupPage>

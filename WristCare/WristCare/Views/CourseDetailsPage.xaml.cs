@@ -28,12 +28,12 @@ namespace WristCare.View
 
 		private void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
 		{
-			App.Locator.CourseDetailsViewModel.ShowDoctorsCommand.Execute(null);
+			App.Locator.CourseDetailsViewModel.ShowAddedDoctorsPageCommand.Execute(null);
 		}
 
 		private void TapGestureRecognizer2_OnTapped(object sender, EventArgs e)
 		{
-			App.Locator.CourseDetailsViewModel.ShowPatientsCommand.Execute(null);
+			App.Locator.CourseDetailsViewModel.ShowAddedPatientsPageCommand.Execute(null);
 
 		}
 	}

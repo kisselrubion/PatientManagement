@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Plugin.BLE.Abstractions.Contracts;
+using Rg.Plugins.Popup.Services;
 using WristCare.Helpers;
 using WristCare.Model;
 using WristCare.Service.PatientServ;
 using WristCare.Service.Scanners;
 using WristCare.Service.Users;
 using WristCare.ViewModel.Base;
+using WristCare.Views;
 using Xamarin.Forms;
 
 namespace WristCare.ViewModel
@@ -28,6 +30,7 @@ namespace WristCare.ViewModel
 		private ObservableCollection<User> _patients;
 		private List<User> _patientsList;
 		private string _searchText;
+		private string _statusText;
 
 		public User Patient
 		{
@@ -45,6 +48,11 @@ namespace WristCare.ViewModel
 		{
 			get => _patientRfid;
 			set => Set(ref _patientRfid, value);
+		}
+		public string StatusText
+		{
+			get => _statusText;
+			set => Set(ref _statusText, value);
 		}
 
 		public string SearchText
@@ -91,20 +99,26 @@ namespace WristCare.ViewModel
 			Patients = new ObservableCollection<User>();
 			PatientsList = new List<User>();
 			Devices = new ObservableCollection<IDevice>();
-			IsBusy = false;
 			IsEnabled1 = false;
 			
 		}
 
 		public ICommand RegisterPatientCommand => new RelayCommand(async () => await RegisterPatient());
-		public ICommand ScanRfidCommand => new RelayCommand(AddRfidToPatient);
-		public ICommand AddPatientsCommand => new RelayCommand(AddPatients);
+		public ICommand ScanRfidCommand => new RelayCommand(async () => await AddRfidToPatient());
+		public ICommand AddPatientsCommand => new RelayCommand(async () => await AddPatients());
+		public ICommand SavePatientRfidCommand => new RelayCommand(async () => await SaveRfidToPatient());
 		public ICommand RefreshCommand
 		{
 			get
 			{
 				return new Command(async () => await RefreshProc());
 			}
+		}
+
+		public ICommand ClosePopupCommand => new RelayCommand(async () => await ClosePopUpPage());
+		private async Task ClosePopUpPage()
+		{
+			await PopupNavigation.Instance.PopAsync();
 		}
 		private async Task RefreshProc()
 		{
@@ -124,16 +138,18 @@ namespace WristCare.ViewModel
 
 		//public ICommand SearchPatientCommand => new RelayCommand();
 
-		private void AddPatients()
+		private async Task AddPatients()
 		{
 			try
 			{
+
 				Patient = new User
 				{
-					UserAccountId = Guid.NewGuid().ToString()
+					UserAccountId = PatientRfid
 				};
 				navigationService.NavigateTo(Locator.AddPatientInformationPage);
 				IsEnabled1 = true;
+
 			}
 			catch (Exception e)
 			{
@@ -142,13 +158,24 @@ namespace WristCare.ViewModel
 			}
 		}
 
-		private void AddRfidToPatient()
+		private async Task AddRfidToPatient()
 		{
+			await PopupNavigation.Instance.PushAsync(new AddRfidToPatientPage());
+			SavePatientRfidCommand.Execute(0);
+		}
+
+		private async Task SaveRfidToPatient()
+		{
+			StatusText = "Scanning...";
+			IsBusy = true;
+			await Task.Delay(3000);
 			if (!string.IsNullOrEmpty(App.Locator.ScanViewModel.RfidData))
 			{
 				PatientRfid = App.Locator.ScanViewModel.RfidData;
+				await PopupHelper.ActionResultMessage("Success", "Rfid registered!");
 			}
-			
+			StatusText = "Scan Complete";
+			IsBusy = false;
 		}
 
 
@@ -159,27 +186,30 @@ namespace WristCare.ViewModel
 				var confirm = await PopupHelper.ProceedMessage("Confirm", "Proceed to admitting patient");
 				if (confirm)
 				{
-					var newUserPatient = Patient;
-					newUserPatient.UserAccountId = Patient.UserAccountId;
-
-					var addedUserPatient = await _userService.RegisterUser(newUserPatient);
-
-					var newPatientAccount = new Account
+					if (string.IsNullOrEmpty(PatientRfid))
 					{
-						AccountNumber = newUserPatient.UserAccountId,
-						UserId = addedUserPatient.UserId,
-						AccountTypeId = 4,
-						AccountTypeName = "patient",
-						AdmissionDateTime = DateTime.Now,
-					};
-
-					var response = await _patientService.RegisterPatient(newPatientAccount);
-
-					if (response.AccountId != 0)
-					{
-						await PopupHelper.ActionResultMessage("Success", "Patient added");
+						await PopupHelper.ActionResultMessage("Try again", "Scan Wristband!");
 					}
-					await GetPatientsAsync();
+					else
+					{
+						var newUserPatient = Patient;
+						newUserPatient.UserAccountId = PatientRfid;
+						var addedUserPatient = await _userService.RegisterUser(newUserPatient);
+						var newPatientAccount = new Account
+						{
+							AccountNumber = newUserPatient.UserAccountId,
+							UserId = addedUserPatient.UserId,
+							AccountTypeId = 4,
+							AccountTypeName = "patient",
+							AdmissionDateTime = DateTime.Now,
+						};
+						var response = await _patientService.RegisterPatient(newPatientAccount);
+						if (response.AccountId != 0)
+						{
+							await PopupHelper.ActionResultMessage("Success", "Patient added");
+						}
+						await GetPatientsAsync();
+					}
 				}
 				else
 				{

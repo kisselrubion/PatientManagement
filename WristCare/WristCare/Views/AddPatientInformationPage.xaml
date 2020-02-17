@@ -25,22 +25,10 @@
 				<Entry Text="{Binding Patient.Email}" Placeholder="Email"></Entry>
 			</StackLayout>
 
-			<!--<Button Grid.Row="1" Text="Scan Wristband ID" Command="{Binding ScanRfidCommand}"></Button>-->
+			<Button Grid.Row="1" Text="Scan Wristband ID" Command="{Binding ScanRfidCommand}"></Button>
 			<Button Grid.Row="2" Text="Register Patient" IsVisible="{Binding IsEnabled1}" Command="{Binding RegisterPatientCommand}" IsEnabled="{Binding IsEnabled1}"></Button>
 
-			<!--<StackLayout 
-				Grid.Row="0"
-				Grid.RowSpan="2"
-				IsVisible="{Binding IsLoading}"
-				BackgroundColor="#E7F8F5F5"
-				HorizontalOptions="FillAndExpand"
-				VerticalOptions="FillAndExpand">
-			<ActivityIndicator 
-				IsEnabled="True"
-				IsVisible="{Binding IsLoading}"
-				x:Name="LoadingInidicator"
-				IsRunning="{Binding Path=IsLoading}"/>
-			</StackLayout>-->
+
 		</Grid>
 	</ContentPage.Content>
 </ContentPage>

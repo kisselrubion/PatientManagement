@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+			 mc:Ignorable="d"
+			 BindingContext="{Binding PatientsViewModel,Source={StaticResource Locator}}"
+			 x:Class="WristCare.Views.AddRfidToPatientPage">
+	<ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="Auto"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Frame
+				Grid.Row="1"
+				HorizontalOptions="FillAndExpand" 
+				VerticalOptions="FillAndExpand" Padding="0"
+				CornerRadius="10"
+				HasShadow="False"
+				BackgroundColor="{StaticResource DarkBackgroundColor}"
+				Margin="20">
+				<StackLayout Orientation="Vertical">
+					<StackLayout
+						Orientation="Horizontal"
+						VerticalOptions="CenterAndExpand"
+						HorizontalOptions="FillAndExpand">
+						<Label
+							Text="{Binding StatusText}"
+							Margin="10,10,5,5"
+							FontSize="Medium"
+							VerticalOptions="CenterAndExpand" 
+							HorizontalOptions="CenterAndExpand"/>
+					</StackLayout>
+
+					<ActivityIndicator 
+						IsEnabled="True"
+						IsVisible="{Binding Path=IsBusy}"
+						VerticalOptions="CenterAndExpand" 
+						HorizontalOptions="CenterAndExpand"
+						x:Name="LoadingInidicator"
+						IsRunning="{Binding Path=IsBusy}"/>
+
+					<!--<StackLayout
+						Orientation="Vertical"
+						IsVisible="{Binding IsVisible}">
+
+						<Label
+							Text="Scan complete"
+							Margin="10,10,5,5"
+							FontSize="Medium"
+							VerticalOptions="CenterAndExpand" 
+							HorizontalOptions="CenterAndExpand"/>
+
+						<Button
+							Text="&#xf058;"
+							CornerRadius="60"
+							HeightRequest="60"
+							BackgroundColor="{StaticResource Primary}"
+							WidthRequest="60"
+							FontFamily="{StaticResource FontAwesomeSolid}"
+							Style="{StaticResource CircleButtonWithIconStyle}"
+							IsEnabled="False"
+							Margin="10"
+							FontSize="Small"
+							VerticalOptions="CenterAndExpand" 
+							HorizontalOptions="FillAndExpand" />
+					</StackLayout>-->
+
+
+
+					<!--<Button
+						Text="Save ID"
+						Margin="10"
+						Command="{Binding SavePatientRfidCommand}"
+						FontSize="Small"
+						BackgroundColor="{StaticResource Purple}"
+						TextColor="{StaticResource LightTextColor}"
+						VerticalOptions="CenterAndExpand" 
+						HorizontalOptions="FillAndExpand" />-->
+				</StackLayout>
+
+			</Frame>
+
+
+			<Button
+				Grid.Row="2"
+				Text="&#xf00d;"
+				HorizontalOptions="Center"
+				TextColor="White"
+				FontSize="30"
+				Command="{Binding ClosePopupCommand}"
+				CornerRadius="60"
+				FontFamily="{StaticResource FontAwesomeSolid}"
+				HeightRequest="60"
+				WidthRequest="60"
+				Style="{StaticResource CircleButtonWithIconStyle}"
+				BackgroundColor="DarkGray"></Button>
+		</Grid>
+	</ContentPage.Content>
+</pages:PopupPage>
